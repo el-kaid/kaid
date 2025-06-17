@@ -14,7 +14,7 @@ function App() {
     <div className="bg-darkBackground min-h-screen text-white">
       <Router>
         <Navbar />
-        <main className="pt-8 pb-10 px-4">
+        <main className="px-0">
           {/* Padding at top to avoid overlap with Navbar, adjust as needed */}
           <Routes>
             <Route path="/" element={<Home />} />

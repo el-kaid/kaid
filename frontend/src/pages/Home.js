@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { Star } from 'lucide-react';
 import SplineScene from '../components/SplineScene';
 
+
 // Custom CSS for radial gradients
 const customStyles = `
   .bg-gradient-radial {
@@ -17,7 +18,7 @@ if (typeof document !== 'undefined') {
   document.head.appendChild(styleSheet);
 }
 
-
+  
 
 const Home = () => {
   const features = [
@@ -82,7 +83,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-slate-900">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center px-4 pt-32 overflow-hidden">
    {/* Bottom gradient glow effect */}
     <div className="absolute inset-0">
   <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-[800px] h-[600px] bg-gradient-radial from-pink-500/30 via-purple-600/20 to-transparent rounded-full blur-3xl"></div>
@@ -122,7 +123,7 @@ const Home = () => {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 pb-12">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.number}</div>

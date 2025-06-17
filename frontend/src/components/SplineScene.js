@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, useGLTF } from '@react-three/drei';
+
+function Model() {
+  const gltf = useGLTF('/models/scene.glb'); // make sure this matches your export path
+  return <primitive object={gltf.scene} scale={1} />;
+}
 
 const SplineScene = () => {
   return (
     <div className="w-full h-[500px]">
-      <iframe
-        src="https://my.spline.design/shinycoinsloop-HCxgD5SAaVrcXcQmF1HDTYq8/"
-        frameBorder="0"
-        width="100%"
-        height="100%"
-        title="Shiny Coins Loop"
-        allowFullScreen
-      ></iframe>
+      <Canvas>
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} />
+        <Suspense fallback={null}>
+          <Model />
+        </Suspense>
+        <OrbitControls />
+      </Canvas>
     </div>
   );
 };
