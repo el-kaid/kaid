@@ -61,21 +61,24 @@ const Updates = () => {
       downloadUrl: "#"
     },
     {
-      id: 2,
-      version: "v3.1.5",
-      title: "Enhanced Security & Compliance",
-      date: "2024-01-10",
-      category: "Security",
-      description: "Major security updates including end-to-end encryption and SOX compliance features.",
-      details: [
-        "End-to-end encryption for all data transmission",
-        "SOX compliance reporting tools",
-        "Advanced user permission management",
-        "Audit trail enhancements",
-        "Two-factor authentication improvements"
-      ],
-      featured: true
-    },
+  id: 2,
+  version: "v3.1.5",
+  title: "Enhanced Security & Compliance",
+  date: "2024-01-10",
+  category: "Security",
+  description: "Major security updates including end-to-end encryption and SOX compliance features.",
+  details: [
+    "End-to-end encryption for all data transmission",
+    "SOX compliance reporting tools",
+    "Advanced user permission management",
+    "Audit trail enhancements",
+    "Two-factor authentication improvements"
+  ],
+  image: "https://eastvantage.com/wp-content/uploads/2023/11/OUTSOURCING-IT-SUPPORT-WEB_2.webp",
+  featured: true,
+  downloadUrl: "#"
+},
+
     {
       id: 3,
       version: "v3.1.4",

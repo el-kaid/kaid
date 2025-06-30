@@ -65,6 +65,10 @@ process.on('SIGINT', async () => {
 const contactRoutes = require('./routes/contact');
 app.use('/api/contact', contactRoutes);
 
+const authRoutes = require('./routes/auth');
+app.use('/api/auth', authRoutes);
+
+
 // Health check route
 app.get('/health', (req, res) => {
   res.status(200).json({

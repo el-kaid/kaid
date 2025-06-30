@@ -1,23 +1,14 @@
-import React, { Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useGLTF } from '@react-three/drei';
-
-function Model() {
-  const gltf = useGLTF('/models/scene.glb'); // make sure this matches your export path
-  return <primitive object={gltf.scene} scale={1} />;
-}
+import React from 'react';
+import Spline from '@splinetool/react-spline';
 
 const SplineScene = () => {
   return (
-    <div className="w-full h-[500px]">
-      <Canvas>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} />
-        <Suspense fallback={null}>
-          <Model />
-        </Suspense>
-        <OrbitControls />
-      </Canvas>
+    <div className="w-full h-[500px] rounded-xl overflow-hidden">
+      <Spline 
+        scene="https://prod.spline.design/K9NzpExHvXrLYYj7/scene.splinecode"
+        onLoad={() => console.log('Spline scene loaded!')}
+        onError={(error) => console.error('Spline error:', error)}
+      />
     </div>
   );
 };
