@@ -163,12 +163,12 @@ const Home = () => {
             </div>
 
     <div className="flex flex-col sm:flex-row gap-4">
-      <button className="bg-white text-slate-900 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl">
+      <button className="liquid-glass-btn liquid-glass-btn-white px-8 py-4 rounded-full text-lg font-semibold">
         Get Started Free
       </button>
       <button
         onClick={() => navigate('/login')}
-        className="border-2 border-purple-400/50 text-purple-400 px-8 py-4 rounded-full text-lg font-semibold hover:bg-purple-400/10 transition-all duration-300"
+        className="liquid-glass-btn liquid-glass-btn-primary px-8 py-4 rounded-full text-lg font-semibold"
       >
         Login
       </button>
@@ -398,10 +398,10 @@ const Home = () => {
                       <div className="glass-effect rounded-lg p-2 md:p-4">
                         <h4 className="text-white font-medium mb-2 md:mb-3 text-xs md:text-base">Actions</h4>
                         <div className="space-y-1 md:space-y-2">
-                          <button className="w-full py-1 md:py-2 bg-purple-500 hover:bg-purple-600 text-white text-xs md:text-sm rounded-lg transition-colors">
+                          <button className="liquid-glass-btn liquid-glass-btn-primary w-full py-1 md:py-2 text-white text-xs md:text-sm rounded-lg">
                             Export
                           </button>
-                          <button className="w-full py-1 md:py-2 bg-gray-700 hover:bg-gray-600 text-white text-xs md:text-sm rounded-lg transition-colors">
+                          <button className="liquid-glass-btn w-full py-1 md:py-2 text-white text-xs md:text-sm rounded-lg">
                             Settings
                           </button>
                         </div>

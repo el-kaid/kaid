@@ -81,11 +81,7 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             <Link
               to="/contact"
-              className="
-                px-6 py-2.5 bg-white text-black font-medium text-sm rounded-full
-                hover:bg-gray-100 hover:scale-105 transition-all duration-300 ease-out
-                shadow-lg hover:shadow-xl
-              "
+              className="liquid-glass-btn liquid-glass-btn-white px-6 py-2.5 font-medium text-sm rounded-full"
             >
               Contact us
             </Link>

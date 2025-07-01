@@ -236,11 +236,11 @@ const Updates = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="bg-white text-slate-900 px-10 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 flex items-center group shadow-2xl">
+            <button className="liquid-glass-btn liquid-glass-btn-white px-10 py-4 rounded-full text-lg font-semibold flex items-center group">
               <Bell className="mr-2 w-5 h-5" />
               Subscribe to Updates
             </button>
-            <button className="border-2 border-white/30 text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-white/10 transition-all duration-300">
+            <button className="liquid-glass-btn text-white px-10 py-4 rounded-full text-lg font-semibold">
               View Changelog
             </button>
           </div>
@@ -323,10 +323,10 @@ const Updates = () => {
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center space-x-2 border ${
+                  className={`px-6 py-3 rounded-full font-medium flex items-center space-x-2 ${
                     selectedCategory === category
-                      ? 'bg-purple-500 border-purple-500 text-white shadow-lg shadow-purple-500/25'
-                      : 'bg-slate-800/50 border-slate-700 text-gray-300 hover:border-purple-500 hover:text-white hover:bg-slate-800/70'
+                      ? 'liquid-glass-btn liquid-glass-btn-primary'
+                      : 'liquid-glass-btn'
                   }`}
                 >
                   {category !== 'All' && getCategoryIcon(category)}

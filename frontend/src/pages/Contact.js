@@ -291,7 +291,7 @@ const Contact = () => {
                     <div className="text-white font-medium">{method.contact}</div>
                     <div className="text-gray-400 text-sm">{method.availability}</div>
                   </div>
-                  <button className="w-full bg-purple-600 text-white py-2 rounded-full text-sm font-medium hover:bg-purple-700 transition-colors flex items-center justify-center space-x-2">
+                  <button className="liquid-glass-btn liquid-glass-btn-primary w-full py-2 rounded-full text-sm font-medium flex items-center justify-center space-x-2">
                     <span>{method.action}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
@@ -449,7 +449,7 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-white text-slate-900 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="liquid-glass-btn liquid-glass-btn-white w-full py-4 rounded-full text-lg font-semibold flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
@@ -497,11 +497,11 @@ const Contact = () => {
               <div className="mt-8 space-y-4">
                 <h3 className="text-xl font-semibold text-white">Quick Actions</h3>
                 <div className="grid grid-cols-2 gap-4">
-                  <button className="flex items-center justify-center space-x-2 bg-purple-600 text-white py-3 rounded-xl font-medium hover:bg-purple-700 transition-colors">
+                  <button className="liquid-glass-btn liquid-glass-btn-primary flex items-center justify-center space-x-2 py-3 rounded-xl font-medium">
                     <Calendar className="w-4 h-4" />
                     <span>Schedule Demo</span>
                   </button>
-                  <button className="flex items-center justify-center space-x-2 border border-slate-700 text-white py-3 rounded-xl font-medium hover:bg-slate-800/70 transition-colors">
+                  <button className="liquid-glass-btn flex items-center justify-center space-x-2 py-3 rounded-xl font-medium">
                     <FileText className="w-4 h-4" />
                     <span>View Docs</span>
                   </button>
