@@ -274,20 +274,20 @@ const BuySoftware = () => {
               <div className="flex items-center space-x-4">
                 <button
                   onClick={() => setBillingCycle('monthly')}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+                  className={`px-6 py-3 rounded-full font-medium ${
                     billingCycle === 'monthly'
-                      ? 'bg-white text-slate-900 shadow-xl'
-                      : 'text-gray-300 hover:text-white'
+                      ? 'liquid-glass-btn liquid-glass-btn-white'
+                      : 'liquid-glass-btn text-gray-300'
                   }`}
                 >
                   Monthly
                 </button>
                 <button
                   onClick={() => setBillingCycle('yearly')}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center space-x-2 ${
+                  className={`px-6 py-3 rounded-full font-medium flex items-center space-x-2 ${
                     billingCycle === 'yearly'
-                      ? 'bg-white text-slate-900 shadow-xl'
-                      : 'text-gray-300 hover:text-white'
+                      ? 'liquid-glass-btn liquid-glass-btn-white'
+                      : 'liquid-glass-btn text-gray-300'
                   }`}
                 >
                   <span>Yearly</span>
@@ -341,10 +341,10 @@ const BuySoftware = () => {
                     </div>
 
                     <button 
-                      className={`w-full py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
+                      className={`w-full py-4 rounded-full font-semibold ${
                         plan.popular
-                          ? 'bg-white text-slate-900 hover:bg-gray-100 shadow-2xl'
-                          : 'bg-purple-600 text-white hover:bg-purple-700'
+                          ? 'liquid-glass-btn liquid-glass-btn-white'
+                          : 'liquid-glass-btn liquid-glass-btn-primary'
                       }`}
                       onClick={() => setSelectedPlan(plan.id)}
                     >

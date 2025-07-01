@@ -232,10 +232,10 @@ return (
                 <button
                   key={category.id}
                   onClick={() => setActiveFilter(category.id)}
-                  className={`flex items-center space-x-2 px-6 py-3 rounded-full border transition-all duration-300 ${
+                  className={`flex items-center space-x-2 px-6 py-3 rounded-full ${
                     activeFilter === category.id
-                      ? 'bg-purple-500 border-purple-500 text-white shadow-lg shadow-purple-500/25'
-                      : 'bg-slate-800/50 border-slate-700 text-gray-300 hover:border-purple-500 hover:text-white hover:bg-slate-800/70'
+                      ? 'liquid-glass-btn liquid-glass-btn-primary'
+                      : 'liquid-glass-btn'
                   }`}
                 >
                   <IconComponent className="w-4 h-4" />
@@ -312,11 +312,11 @@ return (
 
                   {/* Action Buttons */}
                   <div className="flex space-x-3">
-                    <button className="flex-1 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 hover:shadow-lg hover:shadow-purple-500/25">
+                    <button className="liquid-glass-btn liquid-glass-btn-primary flex-1 px-4 py-2 rounded-lg flex items-center justify-center space-x-2">
                       <Code className="w-4 h-4" />
                       <span>View Details</span>
                     </button>
-                    <button className="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded-lg transition-colors duration-300">
+                    <button className="liquid-glass-btn text-white p-2 rounded-lg">
                       <Github className="w-4 h-4" />
                     </button>
                   </div>

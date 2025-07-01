@@ -17,7 +17,7 @@ const Dashboard = () => {
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <button
           onClick={handleLogout}
-          className="liquid-glass-btn liquid-glass-btn-danger px-4 py-2 rounded"
+          className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
         >
           Logout
         </button>

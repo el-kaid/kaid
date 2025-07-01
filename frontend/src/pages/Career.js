@@ -490,10 +490,10 @@ const Career = () => {
                 <button
                   key={dept}
                   onClick={() => setSelectedDepartment(dept)}
-                  className={`flex items-center space-x-2 px-6 py-3 rounded-full border transition-all duration-300 ${
+                  className={`flex items-center space-x-2 px-6 py-3 rounded-full ${
                     selectedDepartment === dept
-                      ? 'bg-purple-500 border-purple-500 text-white shadow-lg shadow-purple-500/25'
-                      : 'bg-slate-800/50 border-slate-700 text-gray-300 hover:border-purple-500 hover:text-white hover:bg-slate-800/70'
+                      ? 'liquid-glass-btn liquid-glass-btn-primary'
+                      : 'liquid-glass-btn'
                   }`}
                 >
                   {dept !== 'All' && getDepartmentIcon(dept)}
@@ -549,7 +549,7 @@ const Career = () => {
                     </div>
                     <div className="mt-4 lg:mt-0 lg:ml-6">
                       <button 
-                        className="bg-purple-600 text-white px-6 py-3 rounded-full font-medium hover:bg-purple-700 transition-colors"
+                        className="liquid-glass-btn liquid-glass-btn-primary px-6 py-3 rounded-full font-medium"
                         onClick={(e) => {
                           e.stopPropagation();
                           setSelectedJob(job);

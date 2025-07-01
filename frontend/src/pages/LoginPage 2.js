@@ -225,7 +225,7 @@ const handleLogin = async (e) => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="liquid-glass-btn liquid-glass-btn-primary w-full font-semibold py-3 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold py-3 rounded-lg hover:from-purple-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center space-x-2">
@@ -242,7 +242,7 @@ const handleLogin = async (e) => {
                 <button
                   type="button"
                   onClick={() => navigate('/register')}
-                  className="liquid-glass-btn liquid-glass-btn-primary text-purple-400 font-medium px-4 py-2 rounded-lg"
+                  className="text-purple-400 hover:text-purple-300 transition-colors font-medium"
                 >
                   Create Account
                 </button>
