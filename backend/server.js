@@ -11,6 +11,8 @@ const app = express();
 // Security middleware
 app.use(helmet());
 
+app.use('/uploads', express.static('uploads')); // Add this line
+
 // Logging middleware
 app.use(morgan('combined'));
 
