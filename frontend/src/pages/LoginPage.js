@@ -95,34 +95,34 @@ const handleLogin = async (e) => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 flex relative overflow-hidden">
+    <div className="min-h-screen bg-slate-900 flex flex-col lg:flex-row relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-[600px] h-[400px] bg-gradient-radial from-purple-500/30 via-pink-500/15 to-transparent rounded-full blur-3xl floating-animation"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[300px] bg-gradient-radial from-cyan-500/25 via-purple-500/15 to-transparent rounded-full blur-2xl floating-animation-delayed"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[200px] bg-gradient-radial from-pink-500/20 via-transparent to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 left-1/4 w-[300px] sm:w-[600px] h-[200px] sm:h-[400px] bg-gradient-radial from-purple-500/30 via-pink-500/15 to-transparent rounded-full blur-3xl floating-animation"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-[250px] sm:w-[500px] h-[150px] sm:h-[300px] bg-gradient-radial from-cyan-500/25 via-purple-500/15 to-transparent rounded-full blur-2xl floating-animation-delayed"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[800px] h-[100px] sm:h-[200px] bg-gradient-radial from-pink-500/20 via-transparent to-transparent rounded-full blur-3xl"></div>
       </div>
 
       {/* Left Section - Brand */}
-      <div className="w-1/2 flex flex-col justify-center items-center p-12 relative z-10">
-        <div className="text-center mb-12">
+      <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 sm:p-12 relative z-10 min-h-[40vh] lg:min-h-screen">
+        <div className="text-center mb-8 lg:mb-12">
           {/* Logo */}
-          <div className="mb-8">
-            <div className="w-24 h-24 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-purple-500/25">
-              <span className="text-4xl font-bold text-white">K</span>
+          <div className="mb-6 lg:mb-8">
+            <div className="w-16 h-16 sm:w-24 sm:h-24 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-2xl shadow-purple-500/25">
+              <span className="text-2xl sm:text-4xl font-bold text-white">K</span>
             </div>
-            <h1 className="text-6xl font-bold mb-4">
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-2 sm:mb-4">
               <span className="bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent">
                 KAID-B1
               </span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-md">
+            <p className="text-sm sm:text-lg lg:text-xl text-gray-300 max-w-md px-4">
               Next-generation billing and accounting software powered by AI
             </p>
           </div>
 
           {/* Features */}
-          <div className="space-y-6">
+          <div className="hidden lg:block space-y-6">
             {features.map((feature, index) => {
               const IconComponent = feature.icon;
               return (
@@ -135,26 +135,41 @@ const handleLogin = async (e) => {
               );
             })}
           </div>
+          
+          {/* Mobile Features */}
+          <div className="lg:hidden flex justify-center space-x-8 mt-6">
+            {features.map((feature, index) => {
+              const IconComponent = feature.icon;
+              return (
+                <div key={index} className="flex flex-col items-center space-y-2">
+                  <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center border border-purple-500/30">
+                    <IconComponent className="w-4 h-4 text-purple-400" />
+                  </div>
+                  <span className="text-gray-300 text-xs text-center">{feature.text}</span>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Decorative Elements */}
-        <div className="absolute bottom-10 left-10 w-32 h-32 border border-purple-500/20 rounded-full"></div>
-        <div className="absolute top-20 right-20 w-16 h-16 border border-cyan-500/20 rounded-lg rotate-45"></div>
+        <div className="hidden lg:block absolute bottom-10 left-10 w-32 h-32 border border-purple-500/20 rounded-full"></div>
+        <div className="hidden lg:block absolute top-20 right-20 w-16 h-16 border border-cyan-500/20 rounded-lg rotate-45"></div>
       </div>
 
       {/* Right Section - Login Form */}
-      <div className="w-1/2 flex items-center justify-center p-12 pt-24 relative z-10">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-6 lg:p-12 lg:pt-24 relative z-10">
         <div className="w-full max-w-md">
           {/* Form Container */}
-          <div className="glass-effect bg-slate-800/30 backdrop-blur-xl rounded-2xl p-8 border border-slate-700/50 shadow-2xl">
+          <div className="glass-effect bg-slate-800/30 backdrop-blur-xl rounded-2xl p-4 sm:p-6 lg:p-8 border border-slate-700/50 shadow-2xl">
             {/* Header */}
             <div className="text-center mb-8">
               <div className="inline-flex items-center px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full mb-4">
                 <User className="w-4 h-4 text-purple-400 mr-2" />
                 <span className="text-purple-400 text-sm font-medium">Welcome Back</span>
               </div>
-              <h2 className="text-3xl font-bold text-white mb-2">Sign In</h2>
-              <p className="text-gray-400">Access your KAID-B1 dashboard</p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Sign In</h2>
+              <p className="text-gray-400 text-sm sm:text-base">Access your KAID-B1 dashboard</p>
             </div>
 
             {/* Form */}
@@ -171,7 +186,7 @@ const handleLogin = async (e) => {
                     type="email"
                     name="email"
                     placeholder="Enter your email"
-                    className="w-full pl-10 pr-4 py-3 bg-slate-800/50 border border-slate-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                    className="w-full pl-10 pr-4 py-3 bg-slate-800/50 border border-slate-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-base"
                     value={formData.email}
                     onChange={handleChange}
                     required
@@ -192,7 +207,7 @@ const handleLogin = async (e) => {
                     type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder="Enter your password"
-                    className="w-full pl-10 pr-12 py-3 bg-slate-800/50 border border-slate-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
+                    className="w-full pl-10 pr-12 py-3 bg-slate-800/50 border border-slate-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-base"
                     value={formData.password}
                     onChange={handleChange}
                     required
@@ -238,18 +253,18 @@ const handleLogin = async (e) => {
               </button>
 
               {/* Links */}
-              <div className="flex justify-between text-sm">
+              <div className="flex flex-col sm:flex-row justify-between text-sm gap-4 sm:gap-0">
                 <button
                   type="button"
                   onClick={() => navigate('/register')}
-                  className="liquid-glass-btn liquid-glass-btn-primary text-purple-400 font-medium px-4 py-2 rounded-lg"
+                  className="liquid-glass-btn liquid-glass-btn-primary text-purple-400 font-medium px-4 py-2 rounded-lg text-center"
                 >
                   Create Account
                 </button>
                 <button
                   type="button"
                   onClick={() => navigate('/forgot-password')}
-                  className="text-cyan-400 hover:text-cyan-300 transition-colors font-medium"
+                  className="text-cyan-400 hover:text-cyan-300 transition-colors font-medium text-center sm:text-right"
                 >
                   Forgot Password?
                 </button>

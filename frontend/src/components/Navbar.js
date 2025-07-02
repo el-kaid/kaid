@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeItem, setActiveItem] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -17,6 +18,7 @@ const Navbar = () => {
 
   useEffect(() => {
     setActiveItem(location.pathname);
+    setIsMobileMenuOpen(false); // Close mobile menu on route change
   }, [location]);
 
   const navItems = [
@@ -28,10 +30,10 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-4 left-4 right-4 z-50 transition-all duration-700 ease-out">
+    <nav className="fixed top-2 left-2 right-2 sm:top-4 sm:left-4 sm:right-4 z-50 transition-all duration-700 ease-out">
       <div 
         className={`
-          navbar-enhanced relative w-full px-8 py-5 rounded-2xl transition-all duration-700 ease-out
+          navbar-enhanced relative w-full px-4 py-3 sm:px-8 sm:py-5 rounded-2xl transition-all duration-700 ease-out
           ${isScrolled 
             ? 'bg-slate-900/80 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-purple-500/25' 
             : 'bg-slate-900/70 backdrop-blur-xl border border-white/15 shadow-xl shadow-cyan-500/20'
@@ -48,7 +50,7 @@ const Navbar = () => {
               </div>
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-purple-500/20 to-pink-500/20 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
-            <div className="text-white font-bold text-2xl tracking-tight bg-gradient-to-r from-white via-cyan-200 to-purple-200 bg-clip-text text-transparent group-hover:from-cyan-400 group-hover:to-purple-400 transition-all duration-300">
+            <div className="text-white font-bold text-xl sm:text-2xl tracking-tight bg-gradient-to-r from-white via-cyan-200 to-purple-200 bg-clip-text text-transparent group-hover:from-cyan-400 group-hover:to-purple-400 transition-all duration-300">
               KAID
             </div>
           </div>
@@ -89,37 +91,37 @@ const Navbar = () => {
           </div>
 
           {/* Contact Button - Right */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <Link
               to="/contact"
-              className="relative px-6 py-3 bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-semibold text-sm rounded-xl shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300 hover:scale-105 group overflow-hidden"
+              className="relative px-3 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300 hover:scale-105 group overflow-hidden"
             >
-              <span className="relative z-10">Contact us</span>
+              <span className="relative z-10">Contact</span>
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-500 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
             </Link>
             
             {/* Mobile menu button */}
             <button 
-              className="lg:hidden p-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 group"
-              onClick={() => {/* Add mobile menu toggle logic */}}
+              className="lg:hidden p-2 sm:p-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 group"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              <svg className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg className={`w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 ${isMobileMenuOpen ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
               </svg>
             </button>
           </div>
         </div>
 
         {/* Enhanced Mobile Navigation Menu */}
-        <div className="lg:hidden mt-6 pt-6 border-t border-white/20 hidden">
-          <div className="grid grid-cols-2 gap-3">
+        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${isMobileMenuOpen ? 'max-h-96 mt-4 pt-4 border-t border-white/20' : 'max-h-0'}`}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 className={`
-                  relative px-4 py-3 text-sm font-semibold transition-all duration-300 rounded-xl group overflow-hidden
+                  relative px-4 py-3 text-sm font-semibold transition-all duration-300 rounded-xl group overflow-hidden text-center
                   ${activeItem === item.path
                     ? 'text-white bg-gradient-to-r from-cyan-500/20 to-purple-500/20 shadow-lg shadow-purple-500/20'
                     : 'text-gray-300 hover:text-white hover:bg-white/10'

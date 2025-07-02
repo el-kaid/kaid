@@ -50,12 +50,18 @@ const customStyles = `
   }
   .input-group input {
     width: 100%;
-    padding: 12px 16px 12px 44px;
+    padding: 12px 16px 12px 40px;
     background: rgba(30, 41, 59, 0.5);
     border: 1px solid rgba(71, 85, 105, 0.5);
     border-radius: 8px;
     color: white;
     transition: all 0.3s ease;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  @media (max-width: 640px) {
+    .input-group input {
+      padding: 14px 16px 14px 40px;
+    }
   }
   .input-group input:focus {
     outline: none;
@@ -226,11 +232,17 @@ const RegistrationPage = () => {
   }, []);
 
   const nextStep = useCallback(() => {
-    if (step < 3) setStep(prev => prev + 1);
+    if (step < 3) {
+      setStep(prev => prev + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }, [step]);
 
   const prevStep = useCallback(() => {
-    if (step > 1) setStep(prev => prev - 1);
+    if (step > 1) {
+      setStep(prev => prev - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }, [step]);
 
   const handleSuccessPopupClose = useCallback(() => {
@@ -302,21 +314,21 @@ const RegistrationPage = () => {
       </div>
 
       {/* Form Section */}
-      <div className="flex-1 flex items-start justify-center px-8 pb-8 relative z-10">
+      <div className="flex-1 flex items-start justify-center px-4 sm:px-8 pb-8 relative z-10">
         <div className="w-full max-w-4xl">
-          <div className="glass-effect bg-slate-800/30 backdrop-blur-xl rounded-2xl p-8 border border-slate-700/50 shadow-2xl">
+          <div className="glass-effect bg-slate-800/30 backdrop-blur-xl rounded-2xl p-4 sm:p-8 border border-slate-700/50 shadow-2xl">
             <div className="text-center mb-6">
               <div className="inline-flex items-center px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full mb-4">
                 <UserPlus className="w-4 h-4 text-purple-400 mr-2" />
                 <span className="text-purple-400 text-sm font-medium">Create Account</span>
               </div>
-              <h2 className="text-2xl font-bold text-white mb-2">Get Started Today</h2>
-              <p className="text-gray-400">Complete your registration to transform your business</p>
+              <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Get Started Today</h2>
+              <p className="text-gray-400 text-sm sm:text-base">Complete your registration to transform your business</p>
             </div>
 
             {/* Step Indicator */}
-            <div className="flex justify-center mb-8">
-              <div className="flex items-center space-x-4">
+            <div className="flex justify-center mb-6 sm:mb-8">
+              <div className="flex items-center space-x-2 sm:space-x-4">
                 {steps.map((stepItem, index) => {
                   const StepIcon = stepItem.icon;
                   const isActive = step === stepItem.number;
@@ -325,7 +337,7 @@ const RegistrationPage = () => {
                   return (
                     <div key={stepItem.number} className="flex items-center">
                       <div className={`
-                        w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300
+                        w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300
                         ${isActive ? 'step-active border-transparent text-white' : 
                           isCompleted ? 'step-completed border-transparent text-white' : 
                           'border-slate-600 text-slate-400'}
@@ -337,7 +349,7 @@ const RegistrationPage = () => {
                         )}
                       </div>
                       {index < steps.length - 1 && (
-                        <div className={`w-8 h-0.5 mx-2 transition-all duration-300 ${
+                        <div className={`w-4 sm:w-8 h-0.5 mx-1 sm:mx-2 transition-all duration-300 ${
                           isCompleted ? 'bg-green-500' : 'bg-slate-600'
                         }`}></div>
                       )}
@@ -352,8 +364,8 @@ const RegistrationPage = () => {
               {/* Step 1: Personal Information */}
               {step === 1 && (
                 <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-white mb-4">Personal & Business Information</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-4">Personal & Business Information</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <InputField
                       key="name"
                       icon={User}
@@ -498,7 +510,7 @@ const RegistrationPage = () => {
               {/* Step 2: Security */}
               {step === 2 && (
                 <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-white mb-4">Create Your Password</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-4">Create Your Password</h3>
                   <div className="max-w-md mx-auto space-y-4">
                     <div className="input-group">
                       <Lock className="icon w-5 h-5" />
@@ -554,7 +566,7 @@ const RegistrationPage = () => {
               {/* Step 3: Consultation */}
               {step === 3 && (
                 <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-white mb-4">Choose Your Experience</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-4">Choose Your Experience</h3>
                   <div className="max-w-lg mx-auto space-y-4">
                     <div className="flex items-center space-x-3 p-4 bg-slate-800/50 rounded-lg border border-slate-600 hover:border-purple-500/50 transition-all cursor-pointer">
                       <input
@@ -598,14 +610,14 @@ const RegistrationPage = () => {
               )}
 
               {/* Navigation Buttons */}
-              <div className="flex justify-between items-center pt-6">
+              <div className="flex flex-col sm:flex-row justify-between items-center pt-6 gap-4 sm:gap-0">
                 <button
                   type="button"
                   onClick={prevStep}
-                  className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all ${
+                  className={`liquid-glass-btn flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 rounded-lg font-medium w-full sm:w-auto ${
                     step === 1 
-                      ? 'text-gray-500 cursor-not-allowed' 
-                      : 'text-gray-300 hover:text-white bg-slate-700/50 hover:bg-slate-600/50'
+                      ? 'opacity-50 cursor-not-allowed' 
+                      : 'liquid-glass-btn-secondary'
                   }`}
                   disabled={step === 1}
                 >
@@ -617,7 +629,7 @@ const RegistrationPage = () => {
                   <button
                     type="button"
                     onClick={nextStep}
-                    className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-cyan-600 transition-all transform hover:scale-105 shadow-lg shadow-purple-500/25"
+                    className="liquid-glass-btn liquid-glass-btn-primary flex items-center justify-center space-x-2 px-6 py-3 font-semibold rounded-lg w-full sm:w-auto"
                   >
                     <span>Next</span>
                     <ChevronRight className="w-4 h-4" />
@@ -626,7 +638,7 @@ const RegistrationPage = () => {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="flex items-center space-x-2 px-8 py-3 bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-cyan-600 transition-all transform hover:scale-105 shadow-lg shadow-purple-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    className="liquid-glass-btn liquid-glass-btn-primary flex items-center justify-center space-x-2 px-6 sm:px-8 py-3 font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
                   >
                     {isLoading ? (
                       <>
@@ -650,7 +662,7 @@ const RegistrationPage = () => {
                   <button
                     type="button"
                     onClick={() => navigate('/login')}
-                    className="text-purple-400 hover:text-purple-300 transition-colors font-medium"
+                    className="liquid-glass-btn liquid-glass-btn-white text-purple-400 hover:text-purple-300 transition-colors font-medium px-3 py-1 rounded"
                   >
                     Sign In
                   </button>

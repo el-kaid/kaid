@@ -135,9 +135,9 @@ const Home = () => {
       <section className="relative min-h-screen flex items-center justify-center px-4 pt-32 overflow-hidden">
         {/* Bottom gradient glow effect */}
         <div className="absolute inset-0">
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-[800px] h-[600px] bg-gradient-radial from-pink-500/30 via-purple-600/20 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-[600px] h-[400px] bg-gradient-radial from-purple-500/40 via-pink-500/20 to-transparent rounded-full blur-2xl"></div>
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-[400px] h-[300px] bg-gradient-radial from-pink-400/50 via-purple-400/30 to-transparent rounded-full blur-xl"></div>
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-[400px] sm:w-[600px] lg:w-[800px] h-[300px] sm:h-[450px] lg:h-[600px] bg-gradient-radial from-pink-500/30 via-purple-600/20 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-[300px] sm:w-[450px] lg:w-[600px] h-[200px] sm:h-[300px] lg:h-[400px] bg-gradient-radial from-purple-500/40 via-pink-500/20 to-transparent rounded-full blur-2xl"></div>
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-[200px] sm:w-[300px] lg:w-[400px] h-[150px] sm:h-[225px] lg:h-[300px] bg-gradient-radial from-pink-400/50 via-purple-400/30 to-transparent rounded-full blur-xl"></div>
         </div>
 
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10">
@@ -205,23 +205,23 @@ const Home = () => {
       {/* Features Section */}
       <section className="py-20 px-4 relative overflow-hidden">
         {/* Background gradient glow */}
-        <div className="absolute top-20 right-1/4 w-[500px] h-[300px] bg-gradient-radial from-purple-500/20 via-pink-500/10 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-1/4 w-[400px] h-[250px] bg-gradient-radial from-cyan-500/20 via-purple-500/10 to-transparent rounded-full blur-2xl"></div>
+        <div className="absolute top-20 right-1/4 w-[250px] sm:w-[375px] lg:w-[500px] h-[150px] sm:h-[225px] lg:h-[300px] bg-gradient-radial from-purple-500/20 via-pink-500/10 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-1/4 w-[200px] sm:w-[300px] lg:w-[400px] h-[125px] sm:h-[187px] lg:h-[250px] bg-gradient-radial from-cyan-500/20 via-purple-500/10 to-transparent rounded-full blur-2xl"></div>
 
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
             <div className="inline-flex items-center px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full mb-6">
               <span className="text-purple-400 text-sm font-medium">⚡ Powerful Features</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
               Why Choose KAID?
             </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
               Built for businesses that need powerful technology solutions without the complexity.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {features.map((feature, index) => (
               <div key={index} className="text-center p-6 rounded-2xl bg-slate-800/30 backdrop-blur-sm border border-purple-500/10 hover:bg-slate-800/50 transition-all duration-300 group hover:scale-105">
                 <div className="text-purple-400 mb-4 flex justify-center group-hover:scale-110 transition-transform text-4xl">
@@ -240,10 +240,10 @@ const Home = () => {
             <div className="inline-flex items-center px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-6">
               <span className="text-cyan-400 text-sm font-medium">💻 Platform Preview</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
               See KAID in Action
             </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
               Experience our intuitive dashboard and powerful analytics tools in real-time.
             </p>
           </div>
@@ -436,7 +436,7 @@ const Home = () => {
       {/* Benefits Section */}
       <section className="py-20 px-4 relative overflow-hidden">
         {/* Background gradient glow */}
-        <div className="absolute top-1/3 left-1/3 w-[600px] h-[400px] bg-gradient-radial from-pink-500/25 via-purple-500/15 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute top-1/3 left-1/3 w-[300px] sm:w-[450px] lg:w-[600px] h-[200px] sm:h-[300px] lg:h-[400px] bg-gradient-radial from-pink-500/25 via-purple-500/15 to-transparent rounded-full blur-3xl"></div>
 
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -444,7 +444,7 @@ const Home = () => {
               <div className="inline-flex items-center px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-6">
                 <span className="text-cyan-400 text-sm font-medium">💎 Premium Experience</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
                 Transform Your Business Today
               </h2>
               <p className="text-xl text-gray-300 mb-8 leading-relaxed">
@@ -513,10 +513,10 @@ const Home = () => {
             <div className="inline-flex items-center px-4 py-2 bg-green-500/10 border border-green-500/20 rounded-full mb-6">
               <span className="text-green-400 text-sm font-medium">🌟 Client Success</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
               What Our Clients Say
             </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
               Don't just take our word for it. Here's what industry leaders have to say about KAID.
             </p>
           </div> 
@@ -557,8 +557,8 @@ const Home = () => {
       <section className="py-20 px-4 relative overflow-hidden">
       
         <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-gradient-radial from-pink-500/40 via-purple-600/25 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-radial from-purple-500/50 via-pink-500/30 to-transparent rounded-full blur-2xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[750px] lg:w-[1000px] h-[300px] sm:h-[450px] lg:h-[600px] bg-gradient-radial from-pink-500/40 via-purple-600/25 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[525px] lg:w-[700px] h-[200px] sm:h-[300px] lg:h-[400px] bg-gradient-radial from-purple-500/50 via-pink-500/30 to-transparent rounded-full blur-2xl"></div>
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -598,71 +598,6 @@ const Home = () => {
         <div className="absolute bottom-10 left-10 w-32 h-32 bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 px-4 border-t border-slate-800">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <div className="text-2xl font-bold text-white mb-4">KAID</div>
-              <p className="text-gray-400 mb-4">
-                Transforming businesses through cutting-edge software solutions.
-              </p>
-              <div className="flex space-x-4">
-                <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center hover:bg-purple-500/30 transition-colors cursor-pointer">
-                  <span className="text-purple-400 text-sm">T</span>
-                </div>
-                <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center hover:bg-purple-500/30 transition-colors cursor-pointer">
-                  <span className="text-purple-400 text-sm">L</span>
-                </div>
-                <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center hover:bg-purple-500/30 transition-colors cursor-pointer">
-                  <span className="text-purple-400 text-sm">G</span>
-                </div>
-              </div>
-            </div>
-            
-            <div>
-              <h4 className="text-white font-semibold mb-4">Product</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Security</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Integrations</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-white font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-white font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">API Reference</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Status</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0">
-              © 2025 KAID. All rights reserved.
-            </div>
-            <div className="flex space-x-6 text-gray-400 text-sm">
-              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

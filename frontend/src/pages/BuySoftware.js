@@ -252,7 +252,7 @@ const BuySoftware = () => {
               <span className="text-purple-400 text-sm font-medium">💎 Pricing Plans</span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6">
               <span className="bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
                 Choose Your
               </span>
@@ -262,7 +262,7 @@ const BuySoftware = () => {
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-4">
               Start your free trial today and discover why thousands of businesses trust Kaid 
               for their financial management needs.
             </p>
@@ -274,7 +274,7 @@ const BuySoftware = () => {
               <div className="flex items-center space-x-4">
                 <button
                   onClick={() => setBillingCycle('monthly')}
-                  className={`px-6 py-3 rounded-full font-medium ${
+                  className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium text-sm sm:text-base ${
                     billingCycle === 'monthly'
                       ? 'liquid-glass-btn liquid-glass-btn-white'
                       : 'liquid-glass-btn text-gray-300'
@@ -284,7 +284,7 @@ const BuySoftware = () => {
                 </button>
                 <button
                   onClick={() => setBillingCycle('yearly')}
-                  className={`px-6 py-3 rounded-full font-medium flex items-center space-x-2 ${
+                  className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium flex items-center space-x-2 text-sm sm:text-base ${
                     billingCycle === 'yearly'
                       ? 'liquid-glass-btn liquid-glass-btn-white'
                       : 'liquid-glass-btn text-gray-300'
@@ -302,7 +302,7 @@ const BuySoftware = () => {
       {/* Pricing Plans */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {plans.map((plan) => (
               <div key={plan.id} className={`relative group ${plan.popular ? 'lg:-mt-8' : ''}`}>
                 {plan.popular && (
@@ -341,7 +341,7 @@ const BuySoftware = () => {
                     </div>
 
                     <button 
-                      className={`w-full py-4 rounded-full font-semibold ${
+                      className={`w-full py-3 sm:py-4 rounded-full font-semibold text-sm sm:text-base ${
                         plan.popular
                           ? 'liquid-glass-btn liquid-glass-btn-white'
                           : 'liquid-glass-btn liquid-glass-btn-primary'
@@ -353,7 +353,7 @@ const BuySoftware = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="grid grid-cols-3 gap-4 text-center py-4 border-t border-b border-purple-500/10">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center py-4 border-t border-b border-purple-500/10">
                       <div>
                         <div className="text-white font-semibold">{plan.maxUsers}</div>
                         <div className="text-gray-400 text-xs">Users</div>
@@ -402,9 +402,10 @@ const BuySoftware = () => {
             </p>
           </div>
 
-          <div className="bg-slate-800/50 border border-slate-700 rounded-3xl overflow-hidden">
+          {/* Desktop Table */}
+          <div className="hidden md:block bg-slate-800/50 border border-slate-700 rounded-3xl overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full min-w-[600px]">
                 <thead>
                   <tr className="border-b border-slate-700">
                     <th className="text-left p-6 text-white font-semibold">Features</th>
@@ -440,6 +441,66 @@ const BuySoftware = () => {
               </table>
             </div>
           </div>
+          
+          {/* Mobile Feature Comparison */}
+          <div className="md:hidden space-y-4">
+            <div className="text-center mb-6">
+              <p className="text-gray-400">Compare features across all plans</p>
+            </div>
+            
+            {features.map((category) => (
+              <div key={category.category} className="bg-slate-800/50 border border-slate-700 rounded-2xl p-4">
+                <h3 className="text-lg font-semibold text-purple-400 mb-4">{category.category}</h3>
+                
+                {category.items.map((item, index) => (
+                  <div key={index} className="mb-4 pb-4 border-b border-slate-700/50 last:border-b-0">
+                    <h4 className="text-white font-medium mb-3">{item.name}</h4>
+                    
+                    <div className="grid grid-cols-3 gap-2 text-center">
+                      <div>
+                        <div className="text-xs text-gray-400 mb-1">Starter</div>
+                        <div className="flex justify-center">
+                          {item.starter === true ? (
+                            <Check className="w-4 h-4 text-green-400" />
+                          ) : item.starter === false ? (
+                            <X className="w-4 h-4 text-gray-500" />
+                          ) : (
+                            <span className="text-gray-300 text-xs">{item.starter}</span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="text-xs text-gray-400 mb-1">Pro</div>
+                        <div className="flex justify-center">
+                          {item.professional === true ? (
+                            <Check className="w-4 h-4 text-green-400" />
+                          ) : item.professional === false ? (
+                            <X className="w-4 h-4 text-gray-500" />
+                          ) : (
+                            <span className="text-gray-300 text-xs">{item.professional}</span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="text-xs text-gray-400 mb-1">Enterprise</div>
+                        <div className="flex justify-center">
+                          {item.enterprise === true ? (
+                            <Check className="w-4 h-4 text-green-400" />
+                          ) : item.enterprise === false ? (
+                            <X className="w-4 h-4 text-gray-500" />
+                          ) : (
+                            <span className="text-gray-300 text-xs">{item.enterprise}</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -460,7 +521,7 @@ const BuySoftware = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {testimonials.map((testimonial, index) => (
               <div key={index} className="bg-slate-800/50 border border-slate-700 rounded-2xl p-8">
                 <div className="flex items-center mb-4">
@@ -535,7 +596,7 @@ const BuySoftware = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
             <div className="text-center p-6 rounded-2xl bg-slate-800/50 border border-slate-700">
               <Shield className="w-12 h-12 text-purple-400 mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-white mb-2">SSL Encryption</h3>

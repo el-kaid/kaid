@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -12,6 +12,17 @@ import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard'; 
 import ProtectedRoute from './components/ProtectedRoute'; 
 import RegisterPage from './pages/RegisterPage';
+
+// Component to scroll to top on route change
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 // Component to conditionally render navbar and footer
 const Layout = ({ children }) => {
@@ -32,6 +43,7 @@ const Layout = ({ children }) => {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />

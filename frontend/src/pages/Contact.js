@@ -278,7 +278,7 @@ const Contact = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
             {contactMethods.map((method, index) => (
               <div key={index} className="group cursor-pointer project-card-hover">
                 <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6 h-full hover:bg-slate-800/70 transition-all duration-300 group-hover:border-purple-500/30">
@@ -305,7 +305,7 @@ const Contact = () => {
       {/* Contact Form & Support Categories */}
       <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Contact Form */}
             <div>
               <h2 className="text-3xl font-bold text-white mb-6">Send Us a Message</h2>
@@ -322,7 +322,7 @@ const Contact = () => {
               )}
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                       Full Name *
@@ -357,7 +357,7 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                   <div>
                     <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-2">
                       Company Name
@@ -522,7 +522,7 @@ const Contact = () => {
             We're committed to providing exceptional support that helps your business succeed.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Zap className="w-8 h-8 text-white" />
