@@ -4,7 +4,7 @@ import axios from 'axios';
 import { 
   User, Lock, Phone, Mail, MapPin, Briefcase, UploadCloud, Building2, 
   Eye, EyeOff, ChevronRight, ChevronLeft,
-  UserPlus, ArrowRight, CheckCircle, Star
+  UserPlus, ArrowRight, CheckCircle, Star, X
 } from 'lucide-react';
 
 const customStyles = `
@@ -96,6 +96,32 @@ const customStyles = `
     border-color: #8b5cf6;
     background: rgba(139, 92, 246, 0.1);
   }
+  .success-popup {
+    animation: slideInUp 0.5s ease-out;
+  }
+  @keyframes slideInUp {
+    from {
+      transform: translateY(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  .success-popup.fade-out {
+    animation: slideOutDown 0.3s ease-in forwards;
+  }
+  @keyframes slideOutDown {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(100px);
+      opacity: 0;
+    }
+  }
 `;
 
 const InputField = memo(({ icon: Icon, name, type = "text", placeholder, required = false, value, onChange }) => (
@@ -130,6 +156,38 @@ const FileUpload = memo(({ name, label, onChange, accept = "image/*" }) => (
   </div>
 ));
 
+// Success Popup Component
+const SuccessPopup = memo(({ isVisible, onClose }) => {
+  if (!isVisible) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center p-4 pointer-events-none">
+      <div className="success-popup glass-effect bg-green-500/20 backdrop-blur-xl rounded-2xl p-6 border border-green-500/30 shadow-2xl pointer-events-auto max-w-md w-full">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center">
+              <CheckCircle className="w-6 h-6 text-green-400" />
+            </div>
+            <div>
+              <h3 className="text-white font-semibold text-lg">Account Created Successfully!</h3>
+              <p className="text-green-300 text-sm">Redirecting to login page...</p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="text-green-300 hover:text-white transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+        <div className="mt-4 bg-green-500/10 rounded-lg p-3">
+          <p className="text-green-200 text-sm">You can now sign in with your credentials to access your dashboard.</p>
+        </div>
+      </div>
+    </div>
+  );
+});
+
 const RegistrationPage = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
@@ -137,6 +195,7 @@ const RegistrationPage = () => {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   
   const [formData, setFormData] = useState({
     name: '', panOrCitizenship: '', phone: '', email: '', homeAddress: '', state: '',
@@ -174,6 +233,10 @@ const RegistrationPage = () => {
     if (step > 1) setStep(prev => prev - 1);
   }, [step]);
 
+  const handleSuccessPopupClose = useCallback(() => {
+    setShowSuccessPopup(false);
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -196,8 +259,13 @@ const RegistrationPage = () => {
       });
 
       if (response.data.success) {
-        alert('Registration successful! You can now login.');
-        navigate('/login');
+        // Show success popup
+        setShowSuccessPopup(true);
+        
+        // Redirect to login after 3 seconds
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);
       } else {
         setError(response.data.message || 'Registration failed.');
       }
@@ -601,6 +669,12 @@ const RegistrationPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Success Popup */}
+      <SuccessPopup 
+        isVisible={showSuccessPopup} 
+        onClose={handleSuccessPopupClose}
+      />
 
       {/* Decorative Grid */}
       <div className="absolute inset-0 opacity-5">

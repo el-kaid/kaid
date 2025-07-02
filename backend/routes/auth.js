@@ -155,9 +155,19 @@ router.post('/register',
       const saltRounds = 12;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-      // Get file paths
-      const personPhotoPath = req.files?.personPhoto?.[0]?.path || null;
-      const placePhotoPath = req.files?.placePhoto?.[0]?.path || null;
+      // Generate full URLs for uploaded files instead of just file paths
+      let personPhotoUrl = null;
+      let placePhotoUrl = null;
+
+      if (req.files?.personPhoto?.[0]) {
+        const filename = req.files.personPhoto[0].filename;
+        personPhotoUrl = `${req.protocol}://${req.get('host')}/uploads/${filename}`;
+      }
+
+      if (req.files?.placePhoto?.[0]) {
+        const filename = req.files.placePhoto[0].filename;
+        placePhotoUrl = `${req.protocol}://${req.get('host')}/uploads/${filename}`;
+      }
 
       // Create new user
       const user = new User({
@@ -175,8 +185,8 @@ router.post('/register',
         businessName: businessName?.trim() || '',
         businessPlace: businessPlace?.trim() || '',
         businessPincode: businessPincode?.trim() || '',
-        personPhoto: personPhotoPath,
-        placePhoto: placePhotoPath,
+        personPhoto: personPhotoUrl, // Store full URL instead of file path
+        placePhoto: placePhotoUrl,   // Store full URL instead of file path
         password: hashedPassword,
         consultancy
       });
@@ -185,16 +195,19 @@ router.post('/register',
 
       console.log(`New user registered: ${user.email}`);
 
-      res.status(201).json({
-        success: true,
-        message: 'Registration successful! You can now login.',
-        user: {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-          consultancy: user.consultancy
-        }
-      });
+res.status(201).json({
+  success: true,
+  message: 'Registration successful! You can now login.',
+  user: {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    consultancy: user.consultancy,
+    personPhoto: user.personPhoto,
+    placePhoto: user.placePhoto
+  }
+});
+
 
     } catch (error) {
       console.error('Registration error:', error);
@@ -334,5 +347,5 @@ router.get('/profile', async (req, res) => {
     });
   }
 });
-
+ 
 module.exports = router;
