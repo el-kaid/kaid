@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, User, Sparkles, Shield, Zap } from 'lucide-react';
+import { API_ENDPOINTS } from '../config/api';
 
 const customStyles = `
   .bg-gradient-radial {
@@ -71,7 +72,7 @@ const handleLogin = async (e) => {
   setIsLoading(true);
 
   try {
-    const res = await axios.post('http://localhost:5000/api/auth/login', {
+    const res = await axios.post(API_ENDPOINTS.AUTH.LOGIN, {
       email: formData.email,
       password: formData.password
     });
@@ -82,7 +83,14 @@ const handleLogin = async (e) => {
       navigate('/dashboard'); // Redirect to dashboard
     }
   } catch (err) {
-    // ... error handling
+    console.error('Login error:', err);
+    if (err.response?.data?.message) {
+      setError(err.response.data.message);
+    } else if (err.message) {
+      setError(err.message);
+    } else {
+      setError('Login failed. Please try again.');
+    }
   } finally {
     setIsLoading(false);
   }

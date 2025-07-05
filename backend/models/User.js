@@ -12,20 +12,23 @@ const userSchema = new mongoose.Schema({
     required: [true, 'PAN/Citizenship is required'],
     unique: true,
     trim: true,
-    uppercase: true
+    uppercase: true,
+    index: true
   },
   phone: { 
     type: String, 
     required: [true, 'Phone is required'],
     unique: true,
-    trim: true
+    trim: true,
+    index: true
   },
   email: { 
     type: String, 
     required: [true, 'Email is required'], 
     unique: true,
     lowercase: true,
-    trim: true
+    trim: true,
+    index: true
   },
   homeAddress: { 
     type: String,
@@ -125,10 +128,9 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-// Indexes for better query performance
-userSchema.index({ email: 1 });
-userSchema.index({ panOrCitizenship: 1 });
-userSchema.index({ phone: 1 });
+// Additional compound indexes for better query performance
+userSchema.index({ email: 1, isActive: 1 });
+userSchema.index({ createdAt: -1 });
 
 // Update the updatedAt field before saving
 userSchema.pre('save', function(next) {

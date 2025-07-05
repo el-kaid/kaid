@@ -6,6 +6,7 @@ import {
   Eye, EyeOff, ChevronRight, ChevronLeft,
   UserPlus, ArrowRight, CheckCircle, Star, X
 } from 'lucide-react';
+import { API_ENDPOINTS } from '../config/api';
 
 const customStyles = `
   .bg-gradient-radial {
@@ -264,7 +265,7 @@ const RegistrationPage = () => {
         }
       });
 
-      const response = await axios.post('http://localhost:5000/api/auth/register', data, {
+      const response = await axios.post(API_ENDPOINTS.AUTH.REGISTER, data, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

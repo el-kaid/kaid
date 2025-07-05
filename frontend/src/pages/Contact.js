@@ -6,6 +6,7 @@ import {
   Zap, Shield, Rocket, Code, Smartphone, Database, Brain,
   AlertCircle, X
 } from 'lucide-react';
+import { API_ENDPOINTS } from '../config/api';
 
 // Custom CSS for radial gradients
 const customStyles = `
@@ -41,9 +42,6 @@ const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState(null);
   const [estimatedResponseTime, setEstimatedResponseTime] = useState('');
-
-  // Updated API URL - make sure this matches your backend URL
-  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   const offices = [
     {
@@ -161,7 +159,7 @@ const Contact = () => {
     setSubmitError(null);
     
     try {
-      const response = await fetch(`${API_BASE_URL}/api/contact`, {
+      const response = await fetch(API_ENDPOINTS.CONTACT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
