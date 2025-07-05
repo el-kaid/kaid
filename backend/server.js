@@ -18,14 +18,21 @@ app.use(morgan('combined'));
 
 // CORS configuration
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
+  origin: process.env.NODE_ENV === 'development' ? true : [
+    'http://localhost:3000',      // Frontend web app
+    'http://127.0.0.1:3000',      // Frontend web app (alternative)
+    'http://localhost:8080',      // Mobile app dev server
+    'http://127.0.0.1:8080',      // Mobile app dev server (alternative)
+    'http://localhost:19000',     // Expo dev server default
+    'http://localhost:19001',     // Expo dev server alternative
+    'http://127.0.0.1:19000',     // Expo dev server (IPv4)
+    'exp://localhost:19000',      // Expo protocol
+    'exp://127.0.0.1:19000',      // Expo protocol (IPv4)
     process.env.FRONTEND_URL
   ].filter(Boolean),
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With', 'Origin']
 }));
 
 // Body parsing middleware

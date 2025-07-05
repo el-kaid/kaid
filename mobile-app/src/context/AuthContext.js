@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
+import { API_BASE_URL } from '../config/api';
 
 const AuthContext = createContext();
 
@@ -17,8 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(null);
 
-  // API base URL - update this to match your backend
-  const API_BASE_URL = 'http://localhost:5000'; // Change this to your actual backend URL
+  // API base URL is now imported from config/api.js
 
   useEffect(() => {
     loadStoredAuth();
