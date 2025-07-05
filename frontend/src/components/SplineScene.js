@@ -1,16 +1,14 @@
 import React from 'react';
+import Spline from '@splinetool/react-spline';
 
 const SplineScene = () => {
   return (
-    <div className="w-full h-[500px]">
-      <iframe
-        src="https://my.spline.design/shinycoinsloop-HCxgD5SAaVrcXcQmF1HDTYq8/"
-        frameBorder="0"
-        width="100%"
-        height="100%"
-        title="Shiny Coins Loop"
-        allowFullScreen
-      ></iframe>
+    <div className="w-full h-[500px] rounded-xl overflow-hidden">
+      <Spline 
+        scene="https://prod.spline.design/K9NzpExHvXrLYYj7/scene.splinecode"
+        onLoad={() => console.log('Spline scene loaded!')}
+        onError={(error) => console.error('Spline error:', error)}
+      />
     </div>
   );
 };
