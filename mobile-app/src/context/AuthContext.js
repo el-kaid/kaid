@@ -45,10 +45,15 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
+      console.log(`🚀 Attempting login to: ${API_BASE_URL}/api/auth/login`);
+      console.log(`📧 Email: ${email}`);
+      
       const response = await axios.post(`${API_BASE_URL}/api/auth/login`, {
         email,
         password,
       });
+
+      console.log('✅ Login response received:', response.data);
 
       if (response.data.success) {
         const { token: authToken, user: userData } = response.data;
@@ -64,15 +69,23 @@ export const AuthProvider = ({ children }) => {
         // Set default authorization header
         axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
         
+        console.log('🎉 Login successful for user:', userData.name);
         return { success: true };
       } else {
+        console.log('❌ Login failed:', response.data.message);
         return { success: false, error: response.data.message };
       }
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('🔥 Login error:', error);
+      console.error('🔍 Error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        url: `${API_BASE_URL}/api/auth/login`
+      });
       return { 
         success: false, 
-        error: error.response?.data?.message || 'Login failed. Please try again.' 
+        error: error.response?.data?.message || 'Network error. Please check your connection and try again.' 
       };
     }
   };

@@ -2,7 +2,7 @@ import { Platform } from 'react-native';
 
 // Get your computer's IP address for mobile testing
 // To find your IP: run `ipconfig getifaddr en0` (macOS) or `ipconfig` (Windows)
-const COMPUTER_IP = '192.168.1.100'; // Replace with your actual IP address
+const COMPUTER_IP = '192.168.1.13'; // Your actual IP address
 
 // API Configuration for different environments
 const getApiBaseUrl = () => {
@@ -12,10 +12,9 @@ const getApiBaseUrl = () => {
       // iOS Simulator can use localhost
       return 'http://localhost:8080';
     } else if (Platform.OS === 'android') {
-      // Android emulator needs 10.0.2.2 for localhost
-      // Physical Android device needs your computer's IP
-      return 'http://10.0.2.2:8080'; // Use this for Android emulator
-      // return `http://${COMPUTER_IP}:8080`; // Use this for physical device
+      // Android emulator and physical device both use computer's IP
+      // 10.0.2.2 often doesn't work reliably, so we use the actual IP
+      return `http://${COMPUTER_IP}:8080`; // Works for both emulator and physical device
     } else {
       return 'http://localhost:8080';
     }
