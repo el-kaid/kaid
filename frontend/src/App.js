@@ -12,6 +12,7 @@ import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard'; 
 import ProtectedRoute from './components/ProtectedRoute'; 
 import RegisterPage from './pages/RegisterPage';
+import ForgotPasswordPage from './pages/ForgotPassword';
 
 // Component to scroll to top on route change
 const ScrollToTop = () => {
@@ -54,6 +55,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>

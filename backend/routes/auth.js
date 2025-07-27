@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const { sendOtpToUser } = require('../utils/sendMail');
 
 // Ensure uploads directory exists
 const uploadsDir = './uploads';
@@ -312,6 +313,77 @@ router.post('/login', async (req, res) => {
   }
 });
 
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+
+router.post('/forgot-password', async (req, res) => {
+  const { phone } = req.body;
+
+  if (!phone) {
+    return res.status(400).json({ success: false, message: 'Phone number is required' });
+  }
+
+  try {
+    const user = await User.findOne({ phone: phone.trim() });
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'No user with that phone number found' });
+    }
+
+    const token = crypto.randomBytes(32).toString('hex');
+    user.resetPasswordToken = token;
+    user.resetPasswordExpires = Date.now() + 60 * 60 * 1000; // 1 hour
+    await user.save();
+
+    const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${token}`;
+    console.log('📲 Password reset link (for SMS or testing):', resetUrl);
+
+    // TODO: Use SMS API like Twilio to send the link to user's phone
+
+    return res.json({ success: true, message: 'Password reset link sent to your phone number' });
+  } catch (err) {
+    console.error('Forgot Password error:', err);
+    return res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
+router.post('/reset-password/:token', async (req, res) => {
+  const { token } = req.params;
+  const { password, confirmPassword } = req.body;
+
+  if (!password || password.length < 6) {
+    return res.status(400).json({ success: false, message: 'Password must be at least 6 characters' });
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({ success: false, message: 'Passwords do not match' });
+  }
+
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.status(400).json({ success: false, message: 'Invalid or expired token' });
+    }
+
+    const hashed = await bcrypt.hash(password, 12);
+    user.password = hashed;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    await user.save();
+
+    res.json({ success: true, message: 'Password has been reset successfully' });
+  } catch (err) {
+    console.error('Reset Password error:', err);
+    res.status(500).json({ success: false, message: 'Something went wrong. Please try again.' });
+  }
+});
+
+
 // Get user profile (protected route)
 router.get('/profile', async (req, res) => {
   try {
@@ -347,5 +419,220 @@ router.get('/profile', async (req, res) => {
     });
   }
 });
- 
+
+// Add this to your existing auth.js file, after your existing routes
+
+// Verify user details and generate OTP
+router.post('/verify-user-details', async (req, res) => {
+  try {
+    const { email, documentType, documentNumber } = req.body;
+
+    console.log('🔍 Received:', { email, documentType, documentNumber });
+
+    if (!email || !documentNumber) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "All fields are required" 
+      });
+    }
+
+    const cleanEmail = email.toLowerCase().trim();
+    const cleanPanOrCitizenship = documentNumber.toUpperCase().trim();
+
+    console.log('🔍 Looking for user with:', { 
+      email: cleanEmail, 
+      panOrCitizenship: cleanPanOrCitizenship 
+    });
+
+    const user = await User.findOne({
+      email: cleanEmail,
+      panOrCitizenship: cleanPanOrCitizenship,
+      isActive: true
+    });
+
+    console.log('🔍 User found:', user ? 'YES' : 'NO');
+
+    if (!user) {
+      return res.status(404).json({ 
+        success: false, 
+        message: "User not found. Please check your details and try again." 
+      });
+    }
+
+    // Generate 6-digit OTP
+    const otp = (Math.floor(100000 + Math.random() * 900000)).toString();
+    user.otp = otp;
+    user.otpExpires = new Date(Date.now() + 10 * 60 * 1000);
+    await user.save();
+
+    console.log('✅ OTP generated for user:', user.email, 'OTP:', otp);
+
+    // Use the utility function instead of inline nodemailer code
+    const emailResult = await sendOtpToUser(user.email, otp);
+    
+    if (!emailResult.success) {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to send OTP email. Please try again."
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Details verified successfully! OTP sent to your registered email.",
+      debugInfo: process.env.NODE_ENV === 'development' ? { otp } : undefined
+    });
+
+  } catch (error) {
+    console.error('❌ Verify user details error:', error);
+    res.status(500).json({
+      success: false,
+      message: "Verification failed. Please try again."
+    });
+  }
+});
+
+
+
+// Reset password with OTP verification
+router.post('/reset-password-with-otp', async (req, res) => {
+  try {
+    const { email, documentNumber, otp, newPassword, confirmPassword } = req.body;
+
+    if (!email || !documentNumber || !otp || !newPassword || !confirmPassword) {
+      return res.status(400).json({
+        success: false,
+        message: 'All fields are required'
+      });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: 'Password must be at least 6 characters long'
+      });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({
+        success: false,
+        message: 'Passwords do not match'
+      });
+    }
+
+    const cleanEmail = email.toLowerCase().trim();
+    const cleanDocument = documentNumber.toUpperCase().trim();
+    const cleanOtp = otp.toString().trim();
+
+    const user = await User.findOne({
+      email: cleanEmail,
+      panOrCitizenship: cleanDocument,
+      isActive: true
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+
+    if (!user.otp || !user.otpExpires || user.otpExpires < new Date()) {
+      return res.status(400).json({
+        success: false,
+        message: 'OTP has expired. Please request a new one.'
+      });
+    }
+
+    if (user.otp !== cleanOtp) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid OTP. Please check and try again.'
+      });
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
+
+    user.password = hashedPassword;
+    user.otp = undefined;
+    user.otpExpires = undefined;
+    user.otpVerified = true;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Password has been reset successfully! You can now login with your new password.'
+    });
+
+  } catch (error) {
+    console.error('❌ Reset password with OTP error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Password reset failed. Please try again.'
+    });
+  }
+});
+
+
+// Optional: Resend OTP endpoint
+router.post('/resend-otp', async (req, res) => {
+  try {
+    const { phoneNumber, documentNumber } = req.body;
+
+    if (!phoneNumber || !documentNumber) {
+      return res.status(400).json({
+        success: false,
+        message: 'Phone number and document number are required'
+      });
+    }
+
+    const cleanPhone = phoneNumber.trim();
+    const cleanDocument = documentNumber.toUpperCase().trim();
+
+    const user = await User.findOne({
+      phone: cleanPhone,
+      panOrCitizenship: cleanDocument,
+      isActive: true
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+
+    // Generate new OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpiry = new Date(Date.now() + 10 * 60 * 1000);
+
+    user.otp = otp;
+    user.otpExpires = otpExpiry;
+    user.otpVerified = false;
+    await user.save();
+
+    console.log(`📱 OTP resent for user ${user.email}: ${otp}`);
+
+    // TODO: Send SMS with new OTP
+    console.log(`📲 SMS to ${cleanPhone}: Your new KAID-B1 password reset OTP is: ${otp}`);
+
+    res.status(200).json({
+      success: true,
+      message: 'New OTP has been sent to your phone number.',
+      debugInfo: process.env.NODE_ENV === 'development' ? { otp: otp } : undefined
+    });
+
+  } catch (error) {
+    console.error('❌ Resend OTP error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to resend OTP. Please try again.'
+    });
+  }
+});
+
 module.exports = router;
