@@ -7,10 +7,23 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Name is required'],
     trim: true 
   },
+  // ADD THESE NEW FIELDS
+  dateOfBirth: {
+    type: Date,
+    required: [true, 'Date of birth is required']
+  },
+  country: {
+    type: String,
+    required: [true, 'Country is required'],
+    enum: ['India', 'UAE'],
+    trim: true
+  },
+  // MAKE THESE FIELDS OPTIONAL FOR SIMPLIFIED REGISTRATION
   panOrCitizenship: { 
     type: String, 
-    required: [true, 'PAN/Citizenship is required'],
+    // removed required, made optional
     unique: true,
+    sparse: true, // allows multiple null values
     trim: true,
     uppercase: true,
     index: true
@@ -30,6 +43,7 @@ const userSchema = new mongoose.Schema({
     trim: true,
     index: true
   },
+  // MAKE ALL BUSINESS FIELDS OPTIONAL
   homeAddress: { 
     type: String,
     trim: true
@@ -49,7 +63,7 @@ const userSchema = new mongoose.Schema({
     }
   },
 
-  // Business Information
+  // Business Information - ALL OPTIONAL NOW
   businessType: { type: String, trim: true },
   goodsOrService: { type: String, trim: true },
   exactBusiness: { type: String, trim: true },
@@ -67,7 +81,7 @@ const userSchema = new mongoose.Schema({
     }
   },
 
-  // File uploads (store file paths)
+  // File uploads (store file paths) - OPTIONAL
   personPhoto: { type: String },
   placePhoto: { type: String },
 
@@ -78,11 +92,11 @@ const userSchema = new mongoose.Schema({
     minlength: [6, 'Password must be at least 6 characters']
   },
 
-  // Consultation preference
+  // Consultation preference - CAN BE SET LATER
   consultancy: { 
     type: String, 
     enum: ['with', 'without'],
-    required: [true, 'Consultancy preference is required']
+    // removed required, can be set later
   },
 
   // Status flags

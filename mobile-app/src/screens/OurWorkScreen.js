@@ -81,7 +81,7 @@ const OurWorkScreen = ({ navigation }) => {
             <View style={styles.sectionBadge}>
               <Text style={styles.sectionBadgeText}>💼 Our Portfolio</Text>
             </View>
-            <Text style={styles.title}>Our Work</Text>
+            <Text style={styles.title}>Innovation</Text>
             <Text style={styles.subtitle}>
               Explore our portfolio of successful projects and innovative solutions
             </Text>

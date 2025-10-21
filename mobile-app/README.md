@@ -18,11 +18,11 @@ A React Native mobile application for KAID's business automation platform, built
 - **Home Screen**: App overview and navigation
 - **Login/Register**: User authentication
 - **Dashboard**: Business metrics and quick actions
-- **Our Work**: Portfolio and case studies
+- **Innovation**: Portfolio and case studies
 - **Pricing**: Subscription plans and features
 - **Contact**: Contact form and information
-- **Careers**: Job listings and company info
-- **Updates**: News and feature announcements
+- **Work With Us**: Job listings and company info
+- **Support Hub**: News and feature announcements
 
 ## 🛠 Tech Stack
 

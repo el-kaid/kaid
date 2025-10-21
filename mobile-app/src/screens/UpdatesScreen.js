@@ -80,7 +80,7 @@ const UpdatesScreen = () => {
         >
           {/* Header */}
           <View style={styles.header}>
-            <Text style={styles.title}>Updates & News</Text>
+            <Text style={styles.title}>Support Hub</Text>
             <Text style={styles.subtitle}>
               Stay updated with the latest features, improvements, and company news
             </Text>
@@ -150,7 +150,7 @@ const UpdatesScreen = () => {
 
           {/* Recent Updates */}
           <View style={styles.updatesSection}>
-            <Text style={styles.sectionTitle}>Recent Updates</Text>
+            <Text style={styles.sectionTitle}>Recent Support Updates</Text>
             
             {updates.slice(1).map((update) => (
               <TouchableOpacity

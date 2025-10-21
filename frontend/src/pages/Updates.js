@@ -1,31 +1,117 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  ArrowLeft, 
-  Calendar, 
-  Tag, 
-  Zap, 
-  Shield, 
-  TrendingUp, 
-  Users,
-  CheckCircle,
-  Star,
-  Bell,
-  Download,
-  ExternalLink,
-  Clock,
-  Sparkles,
-  Bug,
-  Plus,
-  Settings,
-  Database,
-  Smartphone
+  Mail, Phone, MapPin, Clock, Send, MessageSquare, 
+  Headphones, Users, Building2, Globe, CheckCircle,
+  ArrowRight, Calendar, FileText, HelpCircle,
+  Zap, Shield, Rocket, Code, Smartphone, Database, Brain,
+  AlertCircle, X
 } from 'lucide-react';
 
-// Custom CSS for radial gradients - same as OurWork
+// Custom CSS for radial gradients and animations
 const customStyles = `
   .bg-gradient-radial {
     background: radial-gradient(circle, var(--tw-gradient-stops));
   }
+  
+  .project-card-hover {
+    transition: all 0.3s ease;
+  }
+  .project-card-hover:hover {
+    transform: translateY(-8px);
+  }
+  
+  /* Scroll Animation Styles */
+  .scroll-animate {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .scroll-animate:not(.animate-in) {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  
+  .scroll-animate.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .scroll-animate-delay-1 {
+    transition-delay: 0.1s;
+  }
+  
+  .scroll-animate-delay-2 {
+    transition-delay: 0.2s;
+  }
+  
+  .scroll-animate-delay-3 {
+    transition-delay: 0.3s;
+  }
+  
+  /* ================= GLOW BUTTON ================= */
+  .glow-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 2.5rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 1.125rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .glow-button:hover {
+    background: rgba(168, 85, 247, 0.1);
+    border-color: rgba(168, 85, 247, 0.5);
+  }
+
+  .button_inner {
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.35), transparent 70%);
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    z-index: 1;
+  }
+
+  .glow-button:hover .glow {
+    opacity: 1;
+    transform: scale(1.05);
+    animation: glowMove 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes glowMove {
+    0% { background-position: 50% 50%; }
+    50% { background-position: 60% 40%; }
+    100% { background-position: 50% 50%; }
+  }
+
+  @keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.success-popup {
+  animation: fadeInOut 4s ease-in-out forwards;
+}
+
 `;
 
 // Add styles to head
@@ -36,343 +122,331 @@ if (typeof document !== 'undefined') {
 }
 
 const Updates = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedUpdate, setSelectedUpdate] = useState(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    phone: '',
+    subject: '',
+    message: '',
+    inquiryType: 'general'
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+  const [estimatedResponseTime, setEstimatedResponseTime] = useState('');
+  const [isVisible, setIsVisible] = useState({});
 
-  const categories = ['All', 'Feature', 'Bug Fix', 'Security', 'Performance', 'Integration'];
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const updates = [
-    {
-      id: 1,
-      version: "v3.2.0",
-      title: "Advanced AI-Powered Invoice Processing",
-      date: "2024-01-15",
-      category: "Feature",
-      description: "Introducing intelligent invoice processing with 99.9% accuracy using advanced machine learning algorithms.",
-      details: [
-        "Automatic data extraction from invoices and receipts",
-        "Smart categorization of expenses",
-        "Multi-language support for international documents",
-        "Batch processing capabilities for high-volume operations",
-        "Integration with popular cloud storage services"
-      ],
-      image: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800",
-      featured: true,
-      downloadUrl: "#"
-    },
-    {
-  id: 2,
-  version: "v3.1.5",
-  title: "Enhanced Security & Compliance",
-  date: "2024-01-10",
-  category: "Security",
-  description: "Major security updates including end-to-end encryption and SOX compliance features.",
-  details: [
-    "End-to-end encryption for all data transmission",
-    "SOX compliance reporting tools",
-    "Advanced user permission management",
-    "Audit trail enhancements",
-    "Two-factor authentication improvements"
-  ],
-  image: "https://eastvantage.com/wp-content/uploads/2023/11/OUTSOURCING-IT-SUPPORT-WEB_2.webp",
-  featured: true,
-  downloadUrl: "#"
-},
+useEffect(() => {
+  if (successMessage) {
+    const timer = setTimeout(() => setSuccessMessage(''), 4000);
+    return () => clearTimeout(timer);
+  }
+}, [successMessage]);
 
+
+  // Scroll animation effect
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(prev => ({ ...prev, [entry.target.id]: true }));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const sections = document.querySelectorAll('.scroll-animate');
+    sections.forEach(section => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Additional reveal effect
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+          } else {
+            entry.target.classList.remove('animate-in');
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    const els = document.querySelectorAll('.scroll-animate');
+    els.forEach(el => io.observe(el));
+
+    return () => io.disconnect();
+  }, []);
+
+  const offices = [
     {
-      id: 3,
-      version: "v3.1.4",
-      title: "Mobile App Performance Boost",
-      date: "2024-01-05",
-      category: "Performance",
-      description: "Significant performance improvements for mobile applications with 60% faster load times.",
-      details: [
-        "60% faster app startup time",
-        "Improved offline functionality",
-        "Optimized data synchronization",
-        "Reduced battery consumption",
-        "Enhanced user interface responsiveness"
-      ],
-      featured: false
+      id: 'new-york',
+      city: 'New York',
+      country: 'United States',
+      address: '123 Business Ave, Suite 500, New York, NY 10001',
+      phone: '+1 (555) 123-4567',
+      email: 'ny@elkaid.com',
+      timezone: 'EST (UTC-5)',
+      hours: 'Mon-Fri: 9:00 AM - 6:00 PM',
+      image: 'https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
-      id: 4,
-      version: "v3.1.3",
-      title: "QuickBooks Integration",
-      date: "2023-12-28",
-      category: "Integration",
-      description: "Seamless integration with QuickBooks for automated data synchronization.",
-      details: [
-        "Real-time data synchronization with QuickBooks",
-        "Automatic chart of accounts mapping",
-        "Bi-directional transaction sync",
-        "Error handling and conflict resolution",
-        "Setup wizard for easy configuration"
-      ],
-      featured: false
+      id: 'london',
+      city: 'London',
+      country: 'United Kingdom',
+      address: '45 Financial District, London EC2V 8RF, UK',
+      phone: '+44 20 7123 4567',
+      email: 'london@elkaid.com',
+      timezone: 'GMT (UTC+0)',
+      hours: 'Mon-Fri: 9:00 AM - 5:30 PM',
+      image: 'https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
-      id: 5,
-      version: "v3.1.2",
-      title: "Critical Bug Fixes",
-      date: "2023-12-20",
-      category: "Bug Fix",
-      description: "Important bug fixes for report generation and data export functionality.",
-      details: [
-        "Fixed report generation timeout issues",
-        "Resolved data export formatting problems",
-        "Corrected calculation errors in tax reports",
-        "Fixed user interface display issues on Safari",
-        "Improved error messaging and user feedback"
-      ],
-      featured: false
-    },
-    {
-      id: 6,
-      version: "v3.1.1",
-      title: "Advanced Reporting Dashboard",
-      date: "2023-12-15",
-      category: "Feature",
-      description: "New interactive dashboard with real-time analytics and customizable reports.",
-      details: [
-        "Interactive charts and graphs",
-        "Customizable dashboard widgets",
-        "Real-time financial metrics",
-        "Automated report scheduling",
-        "Export options for all major formats"
-      ],
-      featured: true
+      id: 'singapore',
+      city: 'Singapore',
+      country: 'Singapore',
+      address: '88 Business Hub, #12-34, Singapore 018956',
+      phone: '+65 6123 4567',
+      email: 'singapore@elkaid.com',
+      timezone: 'SGT (UTC+8)',
+      hours: 'Mon-Fri: 9:00 AM - 6:00 PM',
+      image: 'https://images.pexels.com/photos/1486222/pexels-photo-1486222.jpeg?auto=compress&cs=tinysrgb&w=800'
     }
   ];
 
-  const newsItems = [
+  const contactMethods = [
     {
-      id: 1,
-      title: "Kaid-B1 Wins 'Best Accounting Software 2024' Award",
-      date: "2024-01-20",
-      category: "Awards",
-      excerpt: "We're thrilled to announce that Kaid has been recognized as the Best Accounting Software of 2024 by TechReview Magazine.",
-      image: "https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=800",
-      readTime: "3 min read"
+      icon: <Phone className="w-6 h-6" />,
+      title: 'Phone Support',
+      description: 'Speak directly with our support team',
+      contact: '+1 (555) 123-4567',
+      availability: '24/7 for Enterprise customers',
+      action: 'Call Now'
     },
     {
-      id: 2,
-      title: "New Partnership with Microsoft Azure",
-      date: "2024-01-18",
-      category: "Partnership",
-      excerpt: "Strategic partnership announcement to enhance cloud infrastructure and provide better scalability for our enterprise clients.",
-      image: "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800",
-      readTime: "5 min read"
+      icon: <Mail className="w-6 h-6" />,
+      title: 'Email Support',
+      description: 'Get detailed help via email',
+      contact: 'support@elkaid.com',
+      availability: 'Response within 2 hours',
+      action: 'Send Email'
     },
     {
-      id: 3,
-      title: "Expanding to European Markets",
-      date: "2024-01-12",
-      category: "Expansion",
-      excerpt: "Kaid is expanding operations to serve businesses across Europe with localized features and multi-currency support.",
-      image: "https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=800",
-      readTime: "4 min read"
+      icon: <MessageSquare className="w-6 h-6" />,
+      title: 'Live Chat',
+      description: 'Chat with our team in real-time',
+      contact: 'Available on website',
+      availability: 'Mon-Fri: 9 AM - 6 PM EST',
+      action: 'Start Chat'
     }
   ];
 
-  const filteredUpdates = selectedCategory === 'All' 
-    ? updates 
-    : updates.filter(update => update.category === selectedCategory);
+  const supportCategories = [
+    {
+      icon: <HelpCircle className="w-8 h-8" />,
+      title: 'General Support',
+      description: 'Questions about features, billing, or account management',
+      responseTime: '< 2 hours'
+    },
+    {
+      icon: <Zap className="w-8 h-8" />,
+      title: 'Technical Issues',
+      description: 'Bug reports, integration problems, or technical difficulties',
+      responseTime: '< 1 hour'
+    },
+    {
+      icon: <Users className="w-8 h-8" />,
+      title: 'Sales Inquiry',
+      description: 'Pricing questions, plan comparisons, or custom solutions',
+      responseTime: '< 30 minutes'
+    },
+    {
+      icon: <Building2 className="w-8 h-8" />,
+      title: 'Enterprise Solutions',
+      description: 'Custom implementations, integrations, or enterprise features',
+      responseTime: 'Same day'
+    }
+  ];
 
-  const featuredUpdates = updates.filter(update => update.featured);
-
-  const getCategoryIcon = (category) => {
-    switch (category) {
-      case 'Feature': return <Plus className="w-4 h-4" />;
-      case 'Bug Fix': return <Bug className="w-4 h-4" />;
-      case 'Security': return <Shield className="w-4 h-4" />;
-      case 'Performance': return <Zap className="w-4 h-4" />;
-      case 'Integration': return <Settings className="w-4 h-4" />;
-      default: return <Sparkles className="w-4 h-4" />;
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    if (submitError) {
+      setSubmitError(null);
     }
   };
 
-  const getCategoryColor = (category) => {
-    switch (category) {
-      case 'Feature': return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
-      case 'Bug Fix': return 'bg-red-500/20 text-red-300 border-red-500/30';
-      case 'Security': return 'bg-green-500/20 text-green-300 border-green-500/30';
-      case 'Performance': return 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30';
-      case 'Integration': return 'bg-purple-500/20 text-purple-300 border-purple-500/30';
-      default: return 'bg-gray-500/20 text-gray-300 border-gray-500/30';
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
+    
+    try {
+      const response = await fetch('http://localhost:8080/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+  
+      
+      const data = await response.json();
+  
+      if (response.ok && data.success) {
+        setSuccessMessage('✅ Message sent successfully! We’ll get back to you soon.');
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          phone: '',
+          subject: '',
+          message: '',
+          inquiryType: 'general'
+        });
+      } else {
+        setSubmitError(data.message || 'Failed to submit your inquiry. Please try again.');
+        if (data.errors && data.errors.length > 0) {
+          setSubmitError(data.errors.join(', '));
+        }
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitError('Network error. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
+  
 
-  return (
-    <div className="min-h-screen bg-slate-900">
-      {/* Header Section - Matching OurWork hero background */}
-      <section className="pt-16 pb-16 px-4 bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900 relative overflow-hidden">
-        {/* Background gradient glow - Same as OurWork */}
+  if (isSubmitted) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center px-4 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 right-1/4 w-[600px] h-[400px] bg-gradient-radial from-purple-500/30 via-pink-500/15 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[300px] bg-gradient-radial from-cyan-500/25 via-purple-500/15 to-transparent rounded-full blur-2xl"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:200px_200px] opacity-20" />
         </div>
         
-        <div className="max-w-6xl mx-auto text-center relative z-10 pt-12">
-          <div className="mb-8">
-            <div className="inline-flex items-center px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full mb-6">
-              <span className="text-purple-400 text-sm font-medium">📋 Latest Updates</span>
+        <div className="max-w-2xl mx-auto text-center relative z-10">
+          <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-8">
+            <CheckCircle className="w-10 h-10 text-white" />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <span className="bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
+              Thank You!
+            </span>
+          </h1>
+          <p className="text-xl text-gray-300 mb-4 leading-relaxed">
+            We've received your message and will get back to you within {estimatedResponseTime}. 
+            Our team is already reviewing your inquiry.
+          </p>
+          <p className="text-gray-400 mb-8">
+            You'll receive a confirmation email shortly with your inquiry details.
+          </p>
+          <button 
+            onClick={() => setIsSubmitted(false)}
+            className="glow-button"
+          >
+            <div className="button_inner flex items-center space-x-2">
+              <Send className="w-5 h-5" />
+              <span>Send Another Message</span>
             </div>
-            
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
-                Product
-              </span>
+            <div className="glow"></div>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-black">
+      {/* Header Section */}
+      <section className="pt-40 pb-20 px-4 bg-black relative overflow-hidden scroll-animate">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:200px_200px] opacity-20" />
+        </div>
+        
+        <div className="max-w-6xl mx-auto text-center relative z-10 pt-6">
+          
+          
+          {/* Subtle glow effect behind text (match Home/Career) */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div
+              className="text-5xl md:text-7xl font-semibold uppercase tracking-wide opacity-25 blur-md"
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 600,
+                background: "linear-gradient(to bottom, #60a5fa, #3b82f6)",
+                WebkitBackgroundClip: "text",
+                color: "transparent",
+                letterSpacing: '0.05em'
+              }}
+            >
+              GET IN
               <br />
-              <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Updates
-              </span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Stay up-to-date with the latest features, improvements, and news from Kaid. 
-              We're constantly evolving to serve you better.
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="liquid-glass-btn liquid-glass-btn-white px-10 py-4 rounded-full text-lg font-semibold flex items-center group">
-              <Bell className="mr-2 w-5 h-5" />
-              Subscribe to Updates
-            </button>
-            <button className="liquid-glass-btn text-white px-10 py-4 rounded-full text-lg font-semibold">
-              View Changelog
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Updates */}
-      <section className="py-12 px-4 bg-slate-800/30">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">Latest Features</h2>
-            <p className="text-gray-300 max-w-3xl mx-auto">
-              Discover the newest additions and improvements that make Kaid-B1 even more powerful.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8">
-            {featuredUpdates.slice(0, 2).map((update) => (
-              <div key={update.id} className="group cursor-pointer" onClick={() => setSelectedUpdate(update)}>
-                <div className="bg-slate-800/50 rounded-xl overflow-hidden border border-slate-700 hover:bg-slate-800/70 transition-all duration-300">
-                  {update.image && (
-                    <div className="aspect-video overflow-hidden">
-                      <img 
-                        src={update.image} 
-                        alt={update.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                  )}
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className={`flex items-center space-x-2 px-3 py-1 rounded-full text-sm font-medium border ${getCategoryColor(update.category)}`}>
-                        {getCategoryIcon(update.category)}
-                        <span>{update.category}</span>
-                      </div>
-                      <div className="flex items-center space-x-2 text-gray-400">
-                        <Calendar className="w-4 h-4" />
-                        <span className="text-sm">{new Date(update.date).toLocaleDateString()}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-3 mb-3">
-                      <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm font-medium">
-                        {update.version}
-                      </span>
-                      <Star className="w-5 h-5 text-yellow-400" />
-                    </div>
-                    <h3 className="text-xl font-bold text-white mb-3">{update.title}</h3>
-                    <p className="text-gray-400 mb-4 leading-relaxed">{update.description}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="text-purple-400 group-hover:text-purple-300 transition-colors">
-                        <span className="text-sm font-medium">View Details</span>
-                      </div>
-                      {update.downloadUrl && (
-                        <button className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
-                          <Download className="w-4 h-4" />
-                          <span className="text-sm">Download</span>
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Filter Section */}
-      <section className="py-12 px-4 border-b border-slate-800">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-4">Release History</h2>
-            <p className="text-gray-300 max-w-2xl mx-auto mb-8">
-              Complete changelog of all updates, improvements, and fixes.
-            </p>
-
-            {/* Category Filter */}
-            <div className="flex flex-wrap justify-center gap-4">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-6 py-3 rounded-full font-medium flex items-center space-x-2 ${
-                    selectedCategory === category
-                      ? 'liquid-glass-btn liquid-glass-btn-primary'
-                      : 'liquid-glass-btn'
-                  }`}
-                >
-                  {category !== 'All' && getCategoryIcon(category)}
-                  <span>{category}</span>
-                </button>
-              ))}
+              TOUCH
             </div>
           </div>
+
+          <h1
+            className="text-5xl md:text-7xl font-semibold text-white mb-6 leading-tight relative"
+            style={{
+              fontFamily: "Montserrat, sans-serif",
+              fontWeight: 600,
+              letterSpacing: '0.05em',
+              textShadow: "0 0 15px rgba(96, 165, 250, 0.35)",
+            }}
+          >
+            Get In
+            <br />
+            Touch
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
+             Need help getting started? Our expert team is here to help you succeed.
+          </p>
         </div>
       </section>
 
-      {/* All Updates */}
-      <section className="py-16 px-4">
+      {/* Contact Methods */}
+      <section className="py-20 px-4 bg-black scroll-animate">
         <div className="max-w-6xl mx-auto">
-          <div className="space-y-6">
-            {filteredUpdates.map((update) => (
-              <div key={update.id} className="group cursor-pointer" onClick={() => setSelectedUpdate(update)}>
-                <div className="bg-slate-800/50 rounded-xl border border-slate-700 p-6 hover:bg-slate-800/70 transition-all duration-300 hover:border-purple-500/30">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                    <div className="flex items-center space-x-4 mb-4 md:mb-0">
-                      <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm font-medium">
-                        {update.version}
-                      </span>
-                      <div className={`flex items-center space-x-2 px-3 py-1 rounded-full text-sm font-medium border ${getCategoryColor(update.category)}`}>
-                        {getCategoryIcon(update.category)}
-                        <span>{update.category}</span>
-                      </div>
-                      {update.featured && (
-                        <Star className="w-5 h-5 text-yellow-400" />
-                      )}
-                    </div>
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center space-x-2 text-gray-400">
-                        <Calendar className="w-4 h-4" />
-                        <span className="text-sm">{new Date(update.date).toLocaleDateString()}</span>
-                      </div>
-                      {update.downloadUrl && (
-                        <button className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors">
-                          <Download className="w-4 h-4" />
-                          <span className="text-sm">Download</span>
-                        </button>
-                      )}
-                    </div>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              How Can We Help?
+            </h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Choose the best way to reach us. We're committed to providing fast, helpful support.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+            {contactMethods.map((method, index) => (
+              <div key={index} className="group cursor-pointer project-card-hover w-full max-w-sm">
+                <div className="bg-slate-800/30 backdrop-blur-sm border border-purple-500/10 rounded-2xl p-6 h-full hover:bg-slate-800/50 transition-all duration-300 group-hover:border-purple-500/30">
+                  <div className="text-purple-400 mb-4 group-hover:scale-110 transition-transform">
+                    {method.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">{update.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{update.description}</p>
+                  <h3 className="text-xl font-semibold text-white mb-2">{method.title}</h3>
+                  <p className="text-gray-300 text-sm mb-4">{method.description}</p>
+                  <div className="space-y-2 mb-4">
+                    <div className="text-white font-medium">{method.contact}</div>
+                    <div className="text-gray-400 text-sm">{method.availability}</div>
+                  </div>
+                  <button className="w-full py-2 rounded-full text-sm font-medium flex items-center justify-center space-x-2 bg-purple-500/10 border border-purple-500/20 text-purple-300 hover:bg-purple-500/20 transition-colors">
+                    <span>{method.action}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
             ))}
@@ -380,176 +454,296 @@ const Updates = () => {
         </div>
       </section>
 
-      {/* Company News */}
-      <section className="py-16 px-4 bg-slate-800/30">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">Company News</h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Stay informed about our latest achievements, partnerships, and company milestones.
-            </p>
-          </div>
+      {/* Contact Form & Support Categories */}
+      <section className="py-20 px-4 bg-black scroll-animate">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+            {/* Contact Form */}
+            <div>
+              <h2 className="text-3xl font-bold text-white mb-6">Send Us a Message</h2>
+              <p className="text-gray-300 mb-8">
+                Fill out the form below and we'll get back to you as soon as possible.
+              </p>
+               {/* ✅ Success Popup */}
+              {successMessage && (
+                <div className="success-popup mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-xl flex items-start space-x-3">
+                <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+    <div className="text-green-300 text-sm">{successMessage}</div>
+  </div>
+)}
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {newsItems.map((news) => (
-              <div key={news.id} className="group cursor-pointer">
-                <div className="bg-slate-800/50 rounded-xl overflow-hidden border border-slate-700 hover:bg-slate-800/70 transition-all duration-300 hover:border-purple-500/30">
-                  <div className="aspect-video overflow-hidden">
-                    <img 
-                      src={news.image} 
-                      alt={news.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              {submitError && (
+                <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-start space-x-3">
+                  <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                  <div className="text-red-300 text-sm">{submitError}</div>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 transition-colors"
+                      placeholder="John Doe"
+                      disabled={isSubmitting}
                     />
                   </div>
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm font-medium">
-                        {news.category}
-                      </span>
-                      <div className="flex items-center space-x-2 text-gray-400">
-                        <Clock className="w-4 h-4" />
-                        <span className="text-sm">{news.readTime}</span>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 transition-colors"
+                      placeholder="john@company.com"
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
+                  <div>
+                    <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-2">
+                      Company Name
+                    </label>
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 transition-colors"
+                      placeholder="Your Company"
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 transition-colors"
+                      placeholder="+1 (555) 123-4567"
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="inquiryType" className="block text-sm font-medium text-gray-300 mb-2">
+                    Inquiry Type *
+                  </label>
+                  <select
+                    id="inquiryType"
+                    name="inquiryType"
+                    required
+                    value={formData.inquiryType}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-purple-500/50 transition-colors"
+                    disabled={isSubmitting}
+                  >
+                    <option value="general">General Support</option>
+                    <option value="technical">Technical Issues</option>
+                    <option value="sales">Sales Inquiry</option>
+                    <option value="enterprise">Enterprise Solutions</option>
+                    <option value="billing">Billing Questions</option>
+                    <option value="partnership">Partnership Opportunities</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
+                    Subject *
+                  </label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    required
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 transition-colors"
+                    placeholder="How can we help you?"
+                    disabled={isSubmitting}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                    Message *
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={6}
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 transition-colors resize-none"
+                    placeholder="Please provide details about your inquiry..."
+                    disabled={isSubmitting}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="glow-button w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <div className="button_inner flex items-center justify-center space-x-2">
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <span>Sending...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5" />
+                        <span>Send Message</span>
+                      </>
+                    )}
+                  </div>
+                  <div className="glow"></div>
+                </button>
+              </form>
+            </div>
+
+            {/* Support Categories */}
+            <div>
+              <h2 className="text-3xl font-bold text-white mb-6">Support Categories</h2>
+              <p className="text-gray-300 mb-8">
+                Choose the right category for faster, more targeted support.
+              </p>
+
+              <div className="space-y-6">
+                {supportCategories.map((category, index) => (
+                  <div key={index} className="bg-slate-800/30 backdrop-blur-sm border border-purple-500/10 rounded-2xl p-6 hover:bg-slate-800/50 transition-all duration-300 project-card-hover">
+                    <div className="flex items-start space-x-4">
+                      <div className="text-purple-400 flex-shrink-0">
+                        {category.icon}
                       </div>
-                    </div>
-                    <h3 className="text-lg font-bold text-white mb-2">{news.title}</h3>
-                    <p className="text-gray-400 text-sm mb-4 leading-relaxed">{news.excerpt}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2 text-gray-400">
-                        <Calendar className="w-4 h-4" />
-                        <span className="text-sm">{new Date(news.date).toLocaleDateString()}</span>
-                      </div>
-                      <div className="flex items-center space-x-2 text-purple-400 group-hover:text-purple-300 transition-colors">
-                        <span className="text-sm font-medium">Read More</span>
-                        <ExternalLink className="w-4 h-4" />
+                      <div className="flex-1">
+                        <h3 className="text-xl font-semibold text-white mb-2">{category.title}</h3>
+                        <p className="text-gray-300 mb-3">{category.description}</p>
+                        <div className="flex items-center space-x-2">
+                          <Clock className="w-4 h-4 text-purple-400" />
+                          <span className="text-sm text-purple-300">Response time: {category.responseTime}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
+                ))}
+              </div>
+
+              {/* Quick Actions */}
+              <div className="mt-8 space-y-4">
+                <h3 className="text-xl font-semibold text-white">Quick Actions</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <button className="flex items-center justify-center space-x-2 py-3 rounded-xl font-medium bg-purple-500/10 border border-purple-500/20 text-purple-300 hover:bg-purple-500/20 transition-colors">
+                    <Calendar className="w-4 h-4" />
+                    <span>Schedule Demo</span>
+                  </button>
+                  <button className="flex items-center justify-center space-x-2 py-3 rounded-xl font-medium bg-purple-500/10 border border-purple-500/20 text-purple-300 hover:bg-purple-500/20 transition-colors">
+                    <FileText className="w-4 h-4" />
+                    <span>View Docs</span>
+                  </button>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Newsletter Signup - Matching OurWork CTA styling */}
-      <section className="py-20 px-4 bg-gradient-to-r from-purple-900/30 via-slate-900 to-purple-900/30 relative overflow-hidden">
-        {/* Background gradient glow - Same as OurWork */}
+      {/* Support Promise */}
+      <section className="py-20 px-4 bg-black scroll-animate">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+            Our Support Promise
+          </h2>
+          <p className="text-xl mb-12 text-gray-300">
+            We're committed to providing exceptional support that helps your business succeed.
+          </p>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Zap className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-2">Fast Response</h3>
+              <p className="text-gray-300">Average response time under 2 hours for all inquiries</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-2">Expert Team</h3>
+              <p className="text-gray-300">Certified accounting and technical experts ready to help</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-2">Always Available</h3>
+              <p className="text-gray-300">24/7 support for Enterprise customers, extended hours for all</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 relative overflow-hidden bg-black scroll-animate">
         <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-gradient-radial from-pink-500/40 via-purple-600/25 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[750px] lg:w-[1000px] h-[300px] sm:h-[450px] lg:h-[600px] bg-gradient-radial from-blue-500/40 via-sky-600/25 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[525px] lg:w-[700px] h-[200px] sm:h-[300px] lg:h-[400px] bg-gradient-radial from-sky-500/50 via-blue-500/30 to-transparent rounded-full blur-2xl"></div>
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
             <span className="bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
-              Never Miss
+              Ready to
             </span>
             <br />
             <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              an Update
+              Transform Your Business?
             </span>
           </h2>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Subscribe to our newsletter and be the first to know about new features, updates, and company news.
+            Get in touch with our team to learn how EL KAID can streamline your accounting workflow.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-            <input 
-              type="email" 
-              placeholder="Enter your email"
-              className="flex-1 px-6 py-4 rounded-full bg-slate-800/50 border border-purple-500/20 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
-            />
-            <button className="bg-white text-slate-900 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl">
-              Subscribe
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="bg-white text-slate-900 px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow-2xl flex items-center justify-center space-x-2">
+              <Rocket className="w-5 h-5" />
+              <span>Request Demo</span>
+            </button>
+            <button className="border-2 border-purple-400/50 text-purple-400 hover:bg-purple-400/10 px-8 py-4 rounded-full font-semibold transition-all duration-300">
+              Contact Sales
             </button>
           </div>
         </div>
+
+        {/* Floating elements */}
+        <div className="absolute top-10 right-10 w-24 h-24 bg-gradient-to-br from-blue-500/20 to-sky-500/20 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-10 left-10 w-32 h-32 bg-gradient-to-br from-sky-500/20 to-cyan-500/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
       </section>
-
-      {/* Update Detail Modal */}
-      {selectedUpdate && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-800 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-8">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center space-x-4">
-                  <h2 className="text-3xl font-bold text-white">{selectedUpdate.title}</h2>
-                  <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm font-medium">
-                    {selectedUpdate.version}
-                  </span>
-                </div>
-                <button 
-                  onClick={() => setSelectedUpdate(null)}
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  <ArrowLeft className="w-6 h-6" />
-                </button>
-              </div>
-              
-              {selectedUpdate.image && (
-                <div className="aspect-video mb-8 rounded-2xl overflow-hidden">
-                  <img 
-                    src={selectedUpdate.image} 
-                    alt={selectedUpdate.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="md:col-span-2">
-                  <h3 className="text-xl font-bold text-white mb-4">What's New</h3>
-                  <p className="text-gray-300 mb-6 leading-relaxed">{selectedUpdate.description}</p>
-                  
-                  <h3 className="text-xl font-bold text-white mb-4">Detailed Changes</h3>
-                  <div className="space-y-3">
-                    {selectedUpdate.details.map((detail, index) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <CheckCircle className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-300">{detail}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <div className="bg-slate-700/30 rounded-2xl p-6">
-                    <h3 className="text-lg font-bold text-white mb-4">Release Info</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-center space-x-3">
-                        <Tag className="w-5 h-5 text-purple-400" />
-                        <div>
-                          <div className="text-sm text-gray-400">Version</div>
-                          <div className="text-white font-medium">{selectedUpdate.version}</div>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        <Calendar className="w-5 h-5 text-purple-400" />
-                        <div>
-                          <div className="text-sm text-gray-400">Release Date</div>
-                          <div className="text-white font-medium">{new Date(selectedUpdate.date).toLocaleDateString()}</div>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        {getCategoryIcon(selectedUpdate.category)}
-                        <div>
-                          <div className="text-sm text-gray-400">Category</div>
-                          <div className="text-white font-medium">{selectedUpdate.category}</div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {selectedUpdate.downloadUrl && (
-                      <button className="w-full mt-6 bg-white text-slate-900 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center space-x-2">
-                        <Download className="w-5 h-5" />
-                        <span>Download Update</span>
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

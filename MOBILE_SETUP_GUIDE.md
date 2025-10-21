@@ -1,13 +1,13 @@
-# 📱 KAID Mobile App Setup Guide
+# 📱 EL KAID Mobile App Setup Guide
 
 ## 🎉 **Mobile App Successfully Created!**
 
-Your KAID mobile application has been successfully created in the `/mobile-app` directory. This is a complete React Native app built with Expo that mirrors your web application's functionality.
+Your EL KAID mobile application has been successfully created in the `/mobile-app` directory. This is a complete React Native app built with Expo that mirrors your web application's functionality.
 
 ## 📁 **Project Structure**
 
 ```
-kaid/
+el-kaid/
 ├── frontend/          # Your existing web app (untouched)
 ├── backend/           # Your existing backend (untouched)
 └── mobile-app/        # 🆕 NEW: Mobile application
@@ -189,7 +189,7 @@ If you need help:
 
 ## 🎉 **Success!**
 
-Your KAID mobile app is ready to go! The app provides a native mobile experience while maintaining all the functionality of your web application.
+Your EL KAID mobile app is ready to go! The app provides a native mobile experience while maintaining all the functionality of your web application.
 
 **Key Benefits:**
 - 📱 Native iOS & Android apps
@@ -200,6 +200,6 @@ Your KAID mobile app is ready to go! The app provides a native mobile experience
 
 ---
 
-**Your mobile app directory**: `/Users/muhammedidris/Documents/kaid/mobile-app/`
+**Your mobile app directory**: `/Users/muhammedidris/Documents/el-kaid/mobile-app/`
 
 **Start developing**: `cd mobile-app && npm start`

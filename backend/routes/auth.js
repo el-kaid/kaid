@@ -51,11 +51,12 @@ const upload = multer({
 const JWT_SECRET = process.env.JWT_SECRET || 'your_fallback_secret_key';
 
 // Validation middleware
+// Updated validation middleware for simplified registration
 const validateRegistrationInput = (req, res, next) => {
-  const { name, email, password, confirmPassword, panOrCitizenship, phone, consultancy } = req.body;
+  const { name, email, password, confirmPassword, phone, dateOfBirth, country } = req.body;
   
-  // Required fields validation
-  if (!name || !email || !password || !panOrCitizenship || !phone || !consultancy) {
+  // Required fields validation for simplified registration
+  if (!name || !email || !password || !phone || !dateOfBirth || !country) {
     return res.status(400).json({ 
       success: false,
       message: 'All required fields must be filled' 
@@ -96,42 +97,48 @@ const validateRegistrationInput = (req, res, next) => {
     });
   }
 
+  // Country validation
+  if (!['India', 'UAE'].includes(country)) {
+    return res.status(400).json({
+      success: false,
+      message: 'Please select a valid country'
+    });
+  }
+
+  // Date of birth validation
+  const birthDate = new Date(dateOfBirth);
+  const today = new Date();
+  const age = today.getFullYear() - birthDate.getFullYear();
+  if (age < 18 || age > 100) {
+    return res.status(400).json({
+      success: false,
+      message: 'Please enter a valid date of birth'
+    });
+  }
+
   next();
 };
 
+
 // Register New User
 router.post('/register', 
-  upload.fields([
-    { name: 'personPhoto', maxCount: 1 },
-    { name: 'placePhoto', maxCount: 1 }
-  ]),
+  // Remove file upload middleware for simplified registration
   validateRegistrationInput,
   async (req, res) => {
     try {
       const {
         name,
-        panOrCitizenship,
-        phone,
         email,
-        homeAddress,
-        state,
-        pincode,
-        businessType,
-        goodsOrService,
-        exactBusiness,
-        customBusiness,
-        businessName,
-        businessPlace,
-        businessPincode,
-        password,
-        consultancy
+        phone,
+        dateOfBirth,
+        country,
+        password
       } = req.body;
 
       // Check if user already exists
       const existingUser = await User.findOne({
         $or: [
           { email: email.toLowerCase() },
-          { panOrCitizenship: panOrCitizenship.toUpperCase() },
           { phone: phone }
         ]
       });
@@ -140,8 +147,6 @@ router.post('/register',
         let message = 'User already exists';
         if (existingUser.email === email.toLowerCase()) {
           message = 'Email is already registered';
-        } else if (existingUser.panOrCitizenship === panOrCitizenship.toUpperCase()) {
-          message = 'PAN/Citizenship number is already registered';
         } else if (existingUser.phone === phone) {
           message = 'Phone number is already registered';
         }
@@ -156,59 +161,33 @@ router.post('/register',
       const saltRounds = 12;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-      // Generate full URLs for uploaded files instead of just file paths
-      let personPhotoUrl = null;
-      let placePhotoUrl = null;
-
-      if (req.files?.personPhoto?.[0]) {
-        const filename = req.files.personPhoto[0].filename;
-        personPhotoUrl = `${req.protocol}://${req.get('host')}/uploads/${filename}`;
-      }
-
-      if (req.files?.placePhoto?.[0]) {
-        const filename = req.files.placePhoto[0].filename;
-        placePhotoUrl = `${req.protocol}://${req.get('host')}/uploads/${filename}`;
-      }
-
-      // Create new user
+      // Create new user with simplified fields
       const user = new User({
         name: name.trim(),
-        panOrCitizenship: panOrCitizenship.toUpperCase().trim(),
-        phone: phone.trim(),
         email: email.toLowerCase().trim(),
-        homeAddress: homeAddress?.trim() || '',
-        state: state?.trim() || '',
-        pincode: pincode?.trim() || '',
-        businessType: businessType?.trim() || '',
-        goodsOrService: goodsOrService?.trim() || '',
-        exactBusiness: exactBusiness?.trim() || '',
-        customBusiness: customBusiness?.trim() || '',
-        businessName: businessName?.trim() || '',
-        businessPlace: businessPlace?.trim() || '',
-        businessPincode: businessPincode?.trim() || '',
-        personPhoto: personPhotoUrl, // Store full URL instead of file path
-        placePhoto: placePhotoUrl,   // Store full URL instead of file path
+        phone: phone.trim(),
+        dateOfBirth: new Date(dateOfBirth),
+        country: country.trim(),
         password: hashedPassword,
-        consultancy
+        // consultancy will be set later in step 2
       });
 
       await user.save();
 
       console.log(`New user registered: ${user.email}`);
 
-res.status(201).json({
-  success: true,
-  message: 'Registration successful! You can now login.',
-  user: {
-    id: user._id,
-    name: user.name,
-    email: user.email,
-    consultancy: user.consultancy,
-    personPhoto: user.personPhoto,
-    placePhoto: user.placePhoto
-  }
-});
-
+      res.status(201).json({
+        success: true,
+        message: 'Registration successful! Please choose your experience.',
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          dateOfBirth: user.dateOfBirth,
+          country: user.country
+        }
+      });
 
     } catch (error) {
       console.error('Registration error:', error);
@@ -239,6 +218,55 @@ res.status(201).json({
     }
   }
 );
+
+// Update consultancy preference (Step 2 of registration)
+router.put('/update-consultancy/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { consultancy } = req.body;
+
+    if (!consultancy || !['with', 'without'].includes(consultancy)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Valid consultancy preference is required'
+      });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { consultancy },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Consultancy preference updated successfully',
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        consultancy: user.consultancy
+      }
+    });
+
+  } catch (error) {
+    console.error('Update consultancy error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update consultancy preference'
+    });
+  }
+});
+
+
+
 
 // Login User
 router.post('/login', async (req, res) => {

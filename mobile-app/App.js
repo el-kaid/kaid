@@ -12,7 +12,6 @@ import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import DashboardScreen from './src/screens/DashboardScreen';
 import OurWorkScreen from './src/screens/OurWorkScreen';
-import ContactScreen from './src/screens/ContactScreen';
 import BuySoftwareScreen from './src/screens/BuySoftwareScreen';
 import CareerScreen from './src/screens/CareerScreen';
 import UpdatesScreen from './src/screens/UpdatesScreen';
@@ -74,12 +73,7 @@ export default function App() {
             <Stack.Screen 
               name="OurWork" 
               component={OurWorkScreen} 
-              options={{ title: 'Our Work' }}
-            />
-            <Stack.Screen 
-              name="Contact" 
-              component={ContactScreen} 
-              options={{ title: 'Contact Us' }}
+              options={{ title: 'Innovation' }}
             />
             <Stack.Screen 
               name="BuySoftware" 
@@ -89,12 +83,12 @@ export default function App() {
             <Stack.Screen 
               name="Career" 
               component={CareerScreen} 
-              options={{ title: 'Careers' }}
+              options={{ title: 'Work With Us' }}
             />
             <Stack.Screen 
               name="Updates" 
               component={UpdatesScreen} 
-              options={{ title: 'Updates' }}
+              options={{ title: 'Support Hub' }}
             />
           </Stack.Navigator>
         </NavigationContainer>

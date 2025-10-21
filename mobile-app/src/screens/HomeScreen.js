@@ -42,11 +42,10 @@ const HomeScreen = ({ navigation }) => {
   ];
 
   const menuItems = [
-    { title: 'Our Work', icon: 'briefcase', screen: 'OurWork', color: '#06b6d4' },
+    { title: 'Innovation', icon: 'briefcase', screen: 'OurWork', color: '#06b6d4' },
     { title: 'Pricing Plans', icon: 'card', screen: 'BuySoftware', color: '#8b5cf6' },
-    { title: 'Careers', icon: 'people', screen: 'Career', color: '#10b981' },
-    { title: 'Latest Updates', icon: 'newspaper', screen: 'Updates', color: '#f59e0b' },
-    { title: 'Contact Support', icon: 'mail', screen: 'Contact', color: '#ef4444' },
+    { title: 'Work With Us', icon: 'people', screen: 'Career', color: '#10b981' },
+    { title: 'Support Hub', icon: 'newspaper', screen: 'Updates', color: '#f59e0b' },
   ];
 
   return (
@@ -62,7 +61,7 @@ const HomeScreen = ({ navigation }) => {
               >
                 <Text style={styles.logoText}>K</Text>
               </LinearGradient>
-              <Text style={styles.logoTitle}>KAID</Text>
+              <Text style={styles.logoTitle}>EL KAID</Text>
             </View>
             
             <TouchableOpacity 
@@ -128,7 +127,7 @@ const HomeScreen = ({ navigation }) => {
             <View style={styles.sectionBadge}>
               <Text style={styles.sectionBadgeText}>⚡ Powerful Features</Text>
             </View>
-            <Text style={styles.sectionTitle}>Why Choose KAID?</Text>
+            <Text style={styles.sectionTitle}>Why Choose EL KAID?</Text>
             <Text style={styles.sectionSubtitle}>
               Built for businesses that need powerful technology solutions without the complexity.
             </Text>
@@ -160,7 +159,7 @@ const HomeScreen = ({ navigation }) => {
             </View>
             <Text style={styles.sectionTitle}>Get Started Today</Text>
             <Text style={styles.sectionSubtitle}>
-              Discover all the powerful tools and features KAID has to offer
+              Discover all the powerful tools and features EL KAID has to offer
             </Text>
           </View>
           
@@ -182,10 +181,10 @@ const HomeScreen = ({ navigation }) => {
                 <View style={styles.menuContent}>
                   <Text style={styles.menuTitle}>{item.title}</Text>
                   <Text style={styles.menuDescription}>
-                    {item.title === 'Our Work' ? 'See our latest projects' :
+                    {item.title === 'Innovation' ? 'See our latest projects' :
                      item.title === 'Pricing Plans' ? 'Choose your plan' :
-                     item.title === 'Careers' ? 'Join our team' :
-                     item.title === 'Latest Updates' ? 'Stay informed' :
+                     item.title === 'Work With Us' ? 'Join our team' :
+                     item.title === 'Support Hub' ? 'Get help & contact us' :
                      'Get help anytime'}
                   </Text>
                 </View>
@@ -204,7 +203,7 @@ const HomeScreen = ({ navigation }) => {
           <GlassCard style={styles.ctaCard}>
             <Text style={styles.ctaTitle}>Ready to Transform Your Business?</Text>
             <Text style={styles.ctaSubtitle}>
-              Join thousands of companies already using KAID to streamline their operations
+              Join thousands of companies already using EL KAID to streamline their operations
             </Text>
             <View style={styles.ctaButtons}>
               <GlassyButton
@@ -267,11 +266,17 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#ffffff',
+    fontFamily: 'Montserrat-Bold',
+    letterSpacing: 0.05,
+    textTransform: 'uppercase',
   },
   logoTitle: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#ffffff',
+    fontFamily: 'Montserrat-Bold',
+    letterSpacing: 0.05,
+    textTransform: 'uppercase',
   },
   signInButton: {
     paddingHorizontal: 20,
@@ -285,6 +290,8 @@ const styles = StyleSheet.create({
     color: '#8b5cf6',
     fontWeight: '600',
     fontSize: 14,
+    fontFamily: 'Montserrat-SemiBold',
+    letterSpacing: 0.02,
   },
   heroSection: {
     alignItems: 'center',
@@ -300,6 +307,9 @@ const styles = StyleSheet.create({
     lineHeight: 44,
     marginBottom: 20,
     maxWidth: '90%',
+    fontFamily: 'Montserrat-Bold',
+    letterSpacing: 0.05,
+    textTransform: 'uppercase',
   },
   heroTitleAccent: {
     color: '#06b6d4',

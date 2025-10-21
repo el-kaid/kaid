@@ -7,7 +7,6 @@ import OurWork from './pages/OurWork';
 import Updates from './pages/Updates';
 import BuySoftware from './pages/BuySoftware';
 import Career from './pages/Career';
-import Contact from './pages/Contact';
 import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard'; 
 import ProtectedRoute from './components/ProtectedRoute'; 
@@ -52,7 +51,6 @@ function App() {
           <Route path="/updates" element={<Updates />} />
           <Route path="/buy-software" element={<BuySoftware />} />
           <Route path="/career" element={<Career />} />
-          <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />

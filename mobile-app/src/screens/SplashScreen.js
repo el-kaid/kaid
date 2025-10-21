@@ -70,7 +70,7 @@ const SplashScreen = ({ navigation }) => {
           delay={500}
           style={styles.appName}
         >
-          KAID-B1
+          EL KAID-B1
         </Animatable.Text>
 
         {/* Tagline */}

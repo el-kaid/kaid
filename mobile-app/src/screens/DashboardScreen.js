@@ -178,7 +178,7 @@ const DashboardScreen = ({ navigation }) => {
               >
                 <GlassCard style={styles.navCard}>
                   <Ionicons name="briefcase" size={24} color="#8b5cf6" />
-                  <Text style={styles.navTitle}>Our Work</Text>
+                  <Text style={styles.navTitle}>Innovation</Text>
                   <Ionicons name="chevron-forward" size={16} color="#94a3b8" />
                 </GlassCard>
               </TouchableOpacity>
@@ -196,11 +196,11 @@ const DashboardScreen = ({ navigation }) => {
               
               <TouchableOpacity
                 style={styles.navItem}
-                onPress={() => navigation.navigate('Contact')}
+                onPress={() => navigation.navigate('Updates')}
               >
                 <GlassCard style={styles.navCard}>
                   <Ionicons name="mail" size={24} color="#10b981" />
-                  <Text style={styles.navTitle}>Contact</Text>
+                  <Text style={styles.navTitle}>Support Hub</Text>
                   <Ionicons name="chevron-forward" size={16} color="#94a3b8" />
                 </GlassCard>
               </TouchableOpacity>
