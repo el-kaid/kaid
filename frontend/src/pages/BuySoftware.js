@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Check, 
   X, 
@@ -108,25 +108,49 @@ const BuySoftware = () => {
   const [billingCycle, setBillingCycle] = useState('monthly');
   const [expandedFAQ, setExpandedFAQ] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
+  const [detectedOS, setDetectedOS] = useState('');
 
-  const handleDownload = () => {
-    // Create a download link for the B-1 software
+  useEffect(() => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    if (userAgent.includes('mac os') || userAgent.includes('macintosh')) {
+      setDetectedOS('macOS');
+    } else if (userAgent.includes('windows')) {
+      setDetectedOS('Windows');
+    } else {
+      setDetectedOS('Unknown');
+    }
+  }, []);
+  
+
+  const handleDownload = (os) => {
+    let fileUrl = '';
+    let fileName = '';
+  
+    if (os === 'macOS') {
+      fileUrl = '/downloads/B-1-Software-mac.dmg';
+      fileName = 'B-1-Software-mac.dmg';
+    } else if (os === 'Windows') {
+      fileUrl = '/downloads/B-1-Software-windows.exe';
+      fileName = 'B-1-Software-windows.exe';
+    } else {
+      fileUrl = '/downloads/B-1-Software-windows.exe';
+      fileName = 'B-1-Software-windows.exe';
+    }
+  
     const link = document.createElement('a');
-    link.href = '/downloads/B-1-Software.zip'; // Path to the file in public folder
-    link.download = 'B-1-Software.zip'; // Name for the downloaded file
-    link.target = '_blank'; // Open in new tab as fallback
-    
-    // Append to body, click, and remove
+    link.href = fileUrl;
+    link.download = fileName;
+    link.target = '_blank';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
-    // Show elegant notification
+  
     setShowNotification(true);
-    setTimeout(() => {
-      setShowNotification(false);
-    }, 4000);
+    setTimeout(() => setShowNotification(false), 4000);
   };
+  
+  
+  
 
   const softwareProduct = {
     name: 'B-1 Software',
@@ -365,12 +389,30 @@ const BuySoftware = () => {
                     <span className="text-5xl font-bold text-white">Free</span>
                   </div>
 
-                  <button className="glow-button download-btn w-full max-w-md mx-auto" onClick={handleDownload}>
-                    <div className="button_inner">
-                      <p>Download Now</p>
-                    </div>
-                    <div className="glow"></div>
-                  </button>
+
+
+<div className="flex flex-col sm:flex-row gap-4 justify-center">
+  <button
+    onClick={() => handleDownload('Windows')}
+    className={`glow-button download-btn w-full sm:w-auto ${
+      detectedOS === 'Windows' ? 'ring-2 ring-green-400' : ''
+    }`}
+  >
+    <div className="button_inner"><p>Download for Windows (.exe)</p></div>
+    <div className="glow"></div>
+  </button>
+
+  <button
+    onClick={() => handleDownload('macOS')}
+    className={`glow-button download-btn w-full sm:w-auto ${
+      detectedOS === 'macOS' ? 'ring-2 ring-green-400' : ''
+    }`}
+  >
+    <div className="button_inner"><p>Download for macOS (.dmg)</p></div>
+    <div className="glow"></div>
+  </button>
+</div>
+
                 </div>
 
                 <div className="space-y-4">
@@ -524,11 +566,8 @@ const BuySoftware = () => {
                   <tr className="border-b border-purple-500/10">
                     <th className="text-left p-6 text-white font-semibold">Features</th>
                     <th className="text-center p-6 text-white font-semibold">Starter</th>
-                    <th className="text-center p-6 text-white font-semibold relative">
+                    <th className="text-center p-6 text-white font-semibold">
                       Professional
-                      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
-                        <Star className="w-4 h-4 text-yellow-400" />
-                      </div>
                     </th>
                     <th className="text-center p-6 text-white font-semibold">Enterprise</th>
                   </tr>

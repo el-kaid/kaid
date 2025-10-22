@@ -40,6 +40,10 @@ const customStyles = `
     background: linear-gradient(180deg, #8b5cf6, #a855f7);
   }
   
+  .feature-box-glow {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3), 0 0 30px rgba(255, 255, 255, 0.1);
+  }
+  
   .floating-elements {
     animation: float 6s ease-in-out infinite;
   }
@@ -404,6 +408,99 @@ const Home = () => {
 
       </section>
 
+      {/* ================= WHAT MAKES EL KAID UNIQUE SECTION ================= */}
+      <section className="relative py-32 px-4 overflow-hidden bg-black scroll-animate">
+
+        <div className="max-w-6xl mx-auto relative z-10">
+          {/* Section Header */}
+          <div className="text-center mb-20">
+            <p className="text-[#9B8AFB] tracking-widest uppercase text-sm mb-4">Why Choose Us</p>
+            <h2
+              className="text-4xl md:text-6xl font-bold mb-8"
+              style={{
+                background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+                letterSpacing: '0.05em',
+              }}
+            >
+              What Makes EL&nbsp;KAID Unique?
+            </h2>
+          </div>
+
+          {/* Unique Features Grid */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Feature 1 */}
+            <div className="group relative scroll-animate scroll-animate-delay-1">
+              <div className="bg-black backdrop-blur-sm border-2 border-purple-500/40 p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow">
+                <h3 className="text-xl font-bold text-white mb-6 text-center">AI-First Architecture</h3>
+                <p className="text-gray-300 leading-relaxed text-center">
+                  Built from the ground up with artificial intelligence at its core, not as an afterthought. 
+                  Every feature leverages advanced machine learning for optimal performance.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="group relative scroll-animate scroll-animate-delay-2">
+              <div className="bg-black backdrop-blur-sm border-2 border-purple-500/40 p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow">
+                <h3 className="text-xl font-bold text-white mb-6 text-center">Quantum-Safe Security</h3>
+                <p className="text-gray-300 leading-relaxed text-center">
+                  Next-generation encryption protocols that protect against both current and future threats, 
+                  ensuring your data remains secure for decades to come.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="group relative scroll-animate scroll-animate-delay-1">
+              <div className="bg-black backdrop-blur-sm border-2 border-purple-500/40 p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow">
+                <h3 className="text-xl font-bold text-white mb-6 text-center">Real-Time Processing</h3>
+                <p className="text-gray-300 leading-relaxed text-center">
+                  Process millions of operations per second with sub-millisecond latency. 
+                  Experience true real-time performance that scales with your business.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 4 */}
+            <div className="group relative scroll-animate scroll-animate-delay-2">
+              <div className="bg-black backdrop-blur-sm border-2 border-purple-500/40 p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow">
+                <h3 className="text-xl font-bold text-white mb-6 text-center">Decentralized Network</h3>
+                <p className="text-gray-300 leading-relaxed text-center">
+                  No single point of failure. Our distributed architecture ensures maximum uptime 
+                  and resilience across global infrastructure.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 5 */}
+            <div className="group relative scroll-animate scroll-animate-delay-3">
+              <div className="bg-black backdrop-blur-sm border-2 border-purple-500/40 p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow">
+                <h3 className="text-xl font-bold text-white mb-6 text-center">Predictive Analytics</h3>
+                <p className="text-gray-300 leading-relaxed text-center">
+                  Advanced forecasting capabilities that predict trends and opportunities 
+                  before they happen, giving you a competitive edge.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 6 */}
+            <div className="group relative scroll-animate scroll-animate-delay-3">
+              <div className="bg-black backdrop-blur-sm border-2 border-purple-500/40 p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow">
+                <h3 className="text-xl font-bold text-white mb-6 text-center">Zero-Config Setup</h3>
+                <p className="text-gray-300 leading-relaxed text-center">
+                  Get started in minutes, not weeks. Our intelligent auto-configuration 
+                  adapts to your environment without manual intervention.
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </section>
+
       {/* Benefits Section */}
       <section className="py-20 px-4 relative overflow-hidden scroll-animate">
 
@@ -423,7 +520,7 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="bg-slate-800/30 backdrop-blur-sm border border-purple-500/10 p-8 rounded-3xl relative overflow-hidden">
+            <div className="bg-slate-800/30 backdrop-blur-sm border border-purple-500/10 p-8 rounded-3xl relative overflow-hidden scroll-animate scroll-animate-delay-2">
               {/* Background gradient */}
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-cyan-500/5"></div>
               
@@ -478,7 +575,7 @@ const Home = () => {
 
           <div className="grid md:grid-cols-3 gap-8">
             {[1, 2, 3].map((item, index) => (
-              <div key={index} className="bg-slate-800/30 backdrop-blur-sm border border-purple-500/10 p-6 rounded-2xl hover:bg-slate-800/50 transition-all duration-300">
+              <div key={index} className={`bg-slate-800/30 backdrop-blur-sm border border-purple-500/10 p-6 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 scroll-animate scroll-animate-delay-${index + 1}`}>
                 <div className="flex items-center mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
