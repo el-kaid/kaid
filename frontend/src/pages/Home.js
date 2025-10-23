@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
-import { Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import ScrollDown from "../components/ScrollDown"; // ✅ Correct import
 
@@ -41,7 +40,7 @@ const customStyles = `
   }
   
   .feature-box-glow {
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3), 0 0 30px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.15), 0 0 16px rgba(255, 255, 255, 0.05);
   }
   
   .floating-elements {
@@ -143,6 +142,20 @@ const customStyles = `
   100% { background-position: 50% 50%; }
 }
 
+/* ================= HERO AURORA ANIMATION ================= */
+@keyframes heroAurora {
+  0% { transform: translate(-50%, -1%) rotate(0deg); }
+  25% { transform: translate(-50%, -1%) rotate(-7deg); }
+  50% { transform: translate(-50%, -1%) rotate(0deg); }
+  75% { transform: translate(-50%, -1%) rotate(7deg); }
+  100% { transform: translate(-50%, -1%) rotate(0deg); }
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 0.2; }
+  50% { opacity: 0.3; }
+}
+
 `;
 
 // Add styles to head
@@ -195,6 +208,108 @@ const Home = () => {
     els.forEach(el => io.observe(el));
 
     return () => io.disconnect();
+  }, []);
+
+  // Fireflies canvas animation
+  useEffect(() => {
+    const canvas = document.getElementById('heroCanvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let animationId;
+
+    // Set canvas size
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Firefly class
+    class Firefly {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.radius = Math.random() * 2 + 1;
+        this.opacity = Math.random() * 0.8 + 0.2;
+        this.pulseSpeed = Math.random() * 0.02 + 0.01;
+        this.pulsePhase = Math.random() * Math.PI * 2;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.pulsePhase += this.pulseSpeed;
+
+        // Wrap around screen
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+
+        // Update opacity with pulse
+        this.opacity = 0.2 + Math.sin(this.pulsePhase) * 0.3;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
+        
+        // Create glow effect
+        const gradient = ctx.createRadialGradient(
+          this.x, this.y, 0,
+          this.x, this.y, this.radius * 3
+        );
+        gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+        gradient.addColorStop(0.5, 'rgba(168, 85, 247, 0.5)');
+        gradient.addColorStop(1, 'rgba(168, 85, 247, 0)');
+
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius * 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Core firefly
+        ctx.globalAlpha = this.opacity * 1.5;
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.restore();
+      }
+    }
+
+    // Create fireflies
+    const fireflies = [];
+    for (let i = 0; i < 50; i++) {
+      fireflies.push(new Firefly());
+    }
+
+    // Animation loop
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      fireflies.forEach(firefly => {
+        firefly.update();
+        firefly.draw();
+      });
+
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
   }, []);
 
   const features = [
@@ -251,48 +366,35 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-black">
-<section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black scroll-animate">
-  {/* === Starry Background === */}
-        <div className="absolute inset-0">
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:200px_200px] opacity-20" />
-        </div>
+<section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black text-center">
+  {/* === Background Canvas (Fireflies) === */}
+  <canvas id="heroCanvas" className="absolute inset-0 w-full h-full opacity-40"></canvas>
 
-  {/* === Pure Black Background === */}
+  {/* === Rotating Aurora Layers === */}
+  <div className="hero_aurora absolute inset-1/2 w-[160vw] aspect-square rounded-full blur-[3rem] bg-[radial-gradient(circle_at_50%_20%,rgba(224,203,224,0.15),rgba(76,69,165,0.1),rgba(76,69,165,0))] animate-[heroAurora_14s_ease-in-out_infinite]"></div>
+  <div className="hero_aurora absolute inset-1/2 w-[160vw] aspect-square rounded-full blur-[4rem] opacity-20 bg-[radial-gradient(circle_at_50%_20%,rgba(224,203,224,0.15),rgba(76,69,165,0.1),rgba(76,69,165,0))] animate-[heroAurora_14s_ease-in-out_infinite_reverse]"></div>
 
-{/* === Minimalist Glowing Arc === */}
-<div className="absolute bottom-0 left-0 right-0 flex items-end justify-center overflow-visible translate-y-[-15%]" style={{ height: '50%' }}>
-    <svg 
-      className="w-full h-full" 
-      viewBox="0 0 1000 400" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-      preserveAspectRatio="none"
-    >
-       {/* Outer glow arc */}
-       <path
-         d="M 0 400 Q 500 50 1000 400"
-         stroke="url(#arcGlowOuter)"
-         strokeWidth="10"
-         fill="none"
-         opacity="0.4"
-         style={{ filter: 'blur(12px)' }}
-       />
-       {/* Middle glow arc */}
-       <path
-         d="M 0 400 Q 500 50 1000 400"
-         stroke="url(#arcGlowMiddle)"
-         strokeWidth="6"
-         fill="none"
-         opacity="0.7"
-         style={{ filter: 'blur(6px)' }}
-       />
-       {/* Main arc */}
-       <path
-         d="M 0 400 Q 500 50 1000 400"
-         stroke="url(#arcGradient)"
-         strokeWidth="3"
-         fill="none"
-       />
+  {/* === Triangular Light Overlay === */}
+  <svg viewBox="0 0 622 705" className="absolute w-full h-[80vh] text-white opacity-5 blur-[9vw] animate-[pulse_6s_infinite_ease-in-out]">
+    <path d="M311 0L621.037 704.25H0.962891L311 0Z" fill="currentColor" />
+  </svg>
+
+  {/* === Main Heading - Centered === */}
+  <div className="absolute inset-0 flex items-center justify-center z-10">
+    <h1 className="text-5xl md:text-7xl font-bold uppercase bg-gradient-to-b from-white via-white/90 to-purple-200 bg-clip-text text-transparent tracking-wide">
+      EL KAID
+    </h1>
+  </div>
+
+  {/* === Minimalist Glowing Arc === */}
+  <div className="absolute bottom-20 left-0 right-0 h-32 z-10">
+    <svg className="w-full h-full" viewBox="0 0 1000 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      {/* Outer glow arc */}
+      <path d="M 0 400 Q 500 0 1000 400" stroke="url(#arcGlowOuter)" strokeWidth="40" fill="none" opacity="0.4" style={{ filter: 'blur(12px)' }} />
+      {/* Middle glow arc */}
+      <path d="M 0 400 Q 500 0 1000 400" stroke="url(#arcGlowMiddle)" strokeWidth="24" fill="none" opacity="0.7" style={{ filter: 'blur(6px)' }} />
+      {/* Main arc */}
+      <path d="M 0 400 Q 500 0 1000 400" stroke="url(#arcGradient)" strokeWidth="12" fill="none" />
       <defs>
         <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="transparent" />
@@ -319,61 +421,16 @@ const Home = () => {
     </svg>
   </div>
 
-  {/* === Centered Title === */}
-  <div className="relative z-10 text-center">
-    {/* Subtle glow effect behind text */}
-    <div className="absolute inset-0 flex items-center justify-center">
-      <div className="text-6xl md:text-8xl font-normal uppercase tracking-wide opacity-25 blur-md"
-        style={{
-          fontFamily: "Montserrat, sans-serif",
-          fontWeight: 400,
-          background: "linear-gradient(to bottom, #60a5fa, #3b82f6)",
-          WebkitBackgroundClip: "text",
-          color: "transparent",
-        }}
-      >
-        EL&nbsp;KAID
-      </div>
-    </div>
-
-    <h1
-      className="text-6xl md:text-8xl font-normal uppercase tracking-wide relative text-white"
-      style={{
-        fontFamily: "Montserrat, sans-serif",
-        fontWeight: 400,
-        letterSpacing: '0.05em',
-        textShadow: "0 0 15px rgba(96, 165, 250, 0.3)",
-      }}
-    >
-      EL&nbsp;KAID
-    </h1>
-        </div>
-
-        {/* Scroll indicator */}
-        <ScrollDown />
-      </section>
+  {/* === Scroll Down - Bottom === */}
+  <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10">
+    <ScrollDown />
+  </div>
+</section>
 
 
 
       {/* ================= OVERVIEW SECTION ================= */}
       <section className="relative py-32 px-4 overflow-hidden bg-black flex flex-col items-center text-center scroll-animate">
-        {/* 🌙 Arc line on top */}
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 w-[300px] h-[150px]">
-          <svg viewBox="0 0 300 150" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-            <path
-              d="M0 150 C75 0 225 0 300 150"
-              stroke="url(#grad)"
-              strokeWidth="1.5"
-              fill="none"
-            />
-            <defs>
-              <linearGradient id="grad" x1="0" y1="0" x2="300" y2="0" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#8B5CF6" />
-                <stop offset="1" stopColor="#C084FC" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
 
         {/* 🟣 Section content */}
         <div className="relative z-10 max-w-4xl mx-auto pt-20">
@@ -564,80 +621,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 px-4 relative bg-black scroll-animate">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-              What Our Clients Say
-            </h2>
-          </div> 
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((item, index) => (
-              <div key={index} className={`bg-slate-800/30 backdrop-blur-sm border border-purple-500/10 p-6 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 scroll-animate scroll-animate-delay-${index + 1}`}>
-                <div className="flex items-center mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-gray-300 mb-6 leading-relaxed">
-                  "EL KAID transformed our entire workflow. The AI-powered features saved us countless hours and improved our productivity by 300%."
-                </p>
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-cyan-400 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-white font-bold">
-                      {index === 0 ? 'S' : index === 1 ? 'M' : 'R'}
-                    </span>
-                  </div>
-                  <div>
-                    <div className="text-white font-semibold">
-                      {index === 0 ? 'Sarah Johnson' : index === 1 ? 'Michael Chen' : 'Rachel Davis'}
-                    </div>
-                    <div className="text-gray-400 text-sm">
-                      {index === 0 ? 'CEO, TechStart' : index === 1 ? 'CTO, InnovateCorp' : 'Director, GrowthLab'}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-   {/* CTA Section */}
-      <section className="py-20 px-4 relative overflow-hidden bg-black scroll-animate">
-      
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[750px] lg:w-[1000px] h-[300px] sm:h-[450px] lg:h-[600px] bg-gradient-radial from-blue-500/40 via-sky-600/25 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[525px] lg:w-[700px] h-[200px] sm:h-[300px] lg:h-[400px] bg-gradient-radial from-sky-500/50 via-blue-500/30 to-transparent rounded-full blur-2xl"></div>
-        </div>
-
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Ready to Transform 
-            <br />
-            <span className="bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent">
-              Your Business?
-            </span>
-          </h2>
-          
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <button className="bg-white text-slate-900 px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl">
-              Start Your Free Trial
-            </button>
-            <button className="border-2 border-blue-400/50 text-blue-400 px-8 py-4 rounded-full text-lg font-semibold hover:bg-blue-400/10 transition-all duration-300">
-              Schedule Demo
-            </button>
-          </div>
-
-        </div>
-
-        {/* Floating elements */}
-        <div className="absolute top-10 right-10 w-24 h-24 bg-gradient-to-br from-blue-500/20 to-sky-500/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-10 left-10 w-32 h-32 bg-gradient-to-br from-sky-500/20 to-cyan-500/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
-      </section>
 
     </div>
   );

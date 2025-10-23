@@ -1,143 +1,143 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const helmet = require("helmet");
-const morgan = require("morgan");
+  require("dotenv").config();
+  const express = require("express");
+  const mongoose = require("mongoose");
+  const cors = require("cors");
+  const helmet = require("helmet");
+  const morgan = require("morgan");
 
-const app = express();
+  const app = express();
 
-/* ===========================
-   🔒 Security & Middleware
-=========================== */
-app.use(helmet());
-app.use(morgan("combined"));
-app.use("/uploads", express.static("uploads"));
+  /* ===========================
+    🔒 Security & Middleware
+  =========================== */
+  app.use(helmet());
+  app.use(morgan("combined"));
+  app.use("/uploads", express.static("uploads"));
 
-/* ===========================
-   🌐 CORS Configuration
-=========================== */
-app.use(
-  cors({
-    origin: [
-      "http://localhost:3000",  // React local dev
-      "http://127.0.0.1:3000",  // fallback loopback
-      process.env.FRONTEND_URL, // from .env (optional)
-    ].filter(Boolean),
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
+  /* ===========================
+    🌐 CORS Configuration
+  =========================== */
+  app.use(
+    cors({
+      origin: [
+        "http://localhost:3000",  // React local dev
+        "http://127.0.0.1:3000",  // fallback loopback
+        process.env.FRONTEND_URL, // from .env (optional)
+      ].filter(Boolean),
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+      credentials: true,
+    })
+  );
 
-// ✅ Explicitly handle preflight (important for browsers)
-app.options(/^\/.*$/, cors());
+  // ✅ Explicitly handle preflight (important for browsers)
+  app.options(/^\/.*$/, cors());
 
 
-/* ===========================
-   📦 Body Parsing
-=========================== */
-app.use(express.json({ limit: "10mb" }));
-app.use(express.urlencoded({ extended: true }));
+  /* ===========================
+    📦 Body Parsing
+  =========================== */
+  app.use(express.json({ limit: "10mb" }));
+  app.use(express.urlencoded({ extended: true }));
 
-/* ===========================
-   💾 MongoDB Connection
-=========================== */
-mongoose
-  .connect(process.env.MONGO_URI || "mongodb://localhost:27017/kaid_db", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("✅ MongoDB Connected successfully");
-    console.log(`📊 Database: ${mongoose.connection.db.databaseName}`);
-  })
-  .catch((err) => {
-    console.error("❌ MongoDB connection error:", err);
-    process.exit(1);
+  /* ===========================
+    💾 MongoDB Connection
+  =========================== */
+  mongoose
+    .connect(process.env.MONGO_URI || "mongodb://localhost:27017/kaid_db", {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => {
+      console.log("✅ MongoDB Connected successfully");
+      console.log(`📊 Database: ${mongoose.connection.db.databaseName}`);
+    })
+    .catch((err) => {
+      console.error("❌ MongoDB connection error:", err);
+      process.exit(1);
+    });
+
+  // Mongo connection events
+  mongoose.connection.on("connected", () => {
+    console.log("🔗 Mongoose connected to MongoDB");
+  });
+  mongoose.connection.on("error", (err) => {
+    console.error("❌ Mongoose connection error:", err);
+  });
+  mongoose.connection.on("disconnected", () => {
+    console.log("🔌 Mongoose disconnected");
   });
 
-// Mongo connection events
-mongoose.connection.on("connected", () => {
-  console.log("🔗 Mongoose connected to MongoDB");
-});
-mongoose.connection.on("error", (err) => {
-  console.error("❌ Mongoose connection error:", err);
-});
-mongoose.connection.on("disconnected", () => {
-  console.log("🔌 Mongoose disconnected");
-});
-
-// Graceful shutdown
-process.on("SIGINT", async () => {
-  await mongoose.connection.close();
-  console.log("👋 MongoDB connection closed through app termination");
-  process.exit(0);
-});
-
-/* ===========================
-   🚏 Routes
-=========================== */
-const contactRoutes = require("./routes/contact");
-const authRoutes = require("./routes/auth");
-
-app.use("/api/contact", contactRoutes);
-app.use("/api/auth", authRoutes);
-
-/* ===========================
-   💓 Health & Root Routes
-=========================== */
-app.get("/health", (req, res) => {
-  res.status(200).json({
-    status: "OK",
-    message: "KAID Backend is running",
-    timestamp: new Date().toISOString(),
-    database:
-      mongoose.connection.readyState === 1 ? "Connected" : "Disconnected",
+  // Graceful shutdown
+  process.on("SIGINT", async () => {
+    await mongoose.connection.close();
+    console.log("👋 MongoDB connection closed through app termination");
+    process.exit(0);
   });
-});
 
-app.get("/", (req, res) => {
-  res.json({
-    message: "KAID Backend API",
-    version: "1.0.0",
-    endpoints: {
-      health: "/health",
-      contact: "/api/contact",
-      contactStats: "/api/contact/stats",
-    },
+  /* ===========================
+    🚏 Routes
+  =========================== */
+  const contactRoutes = require("./routes/contact");
+  const authRoutes = require("./routes/auth");
+
+  app.use("/api/contact", contactRoutes);
+  app.use("/api/auth", authRoutes);
+
+  /* ===========================
+    💓 Health & Root Routes
+  =========================== */
+  app.get("/health", (req, res) => {
+    res.status(200).json({
+      status: "OK",
+      message: "KAID Backend is running",
+      timestamp: new Date().toISOString(),
+      database:
+        mongoose.connection.readyState === 1 ? "Connected" : "Disconnected",
+    });
   });
-});
 
-/* ===========================
-   ⚠️ Error Handling
-=========================== */
-app.use((err, req, res, next) => {
-  console.error("Global error handler:", err);
-  res.status(500).json({
-    success: false,
-    message: "Internal server error",
-    error:
-      process.env.NODE_ENV === "development"
-        ? err.message
-        : "Something went wrong",
+  app.get("/", (req, res) => {
+    res.json({
+      message: "KAID Backend API",
+      version: "1.0.0",
+      endpoints: {
+        health: "/health",
+        contact: "/api/contact",
+        contactStats: "/api/contact/stats",
+      },
+    });
   });
-});
 
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: "Route not found",
+  /* ===========================
+    ⚠️ Error Handling
+  =========================== */
+  app.use((err, req, res, next) => {
+    console.error("Global error handler:", err);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error:
+        process.env.NODE_ENV === "development"
+          ? err.message
+          : "Something went wrong",
+    });
   });
-});
 
-/* ===========================
-   🚀 Start Server
-=========================== */
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`🌐 Health check: http://localhost:${PORT}/health`);
-  console.log(`📝 Contact API: http://localhost:${PORT}/api/contact`);
-  console.log(`🔗 Server listening on all interfaces (0.0.0.0:${PORT})`);
-});
+  app.use((req, res) => {
+    res.status(404).json({
+      success: false,
+      message: "Route not found",
+    });
+  });
+
+  /* ===========================
+    🚀 Start Server
+  =========================== */
+  const PORT = process.env.PORT || 8080;
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`🌐 Health check: http://localhost:${PORT}/health`);
+    console.log(`📝 Contact API: http://localhost:${PORT}/api/contact`);
+    console.log(`🔗 Server listening on all interfaces (0.0.0.0:${PORT})`);
+  });
