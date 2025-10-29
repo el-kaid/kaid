@@ -137,6 +137,42 @@ const Career = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showApplicationForm, setShowApplicationForm] = useState(false);
   const [isVisible, setIsVisible] = useState({});
+  
+  // Form state
+  const [formData, setFormData] = useState({
+    fullname: '',
+    dob: '',
+    age: '',
+    number: '',
+    mail: '',
+    address: '',
+    pancard: ''
+  });
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+    // Here you can add API call to submit the form
+    alert('Application submitted successfully!');
+    // Reset form
+    setFormData({
+      fullname: '',
+      dob: '',
+      age: '',
+      number: '',
+      mail: '',
+      address: '',
+      pancard: ''
+    });
+  };
 
   // Scroll animation effect matching Home.js
   useEffect(() => {
@@ -500,6 +536,150 @@ const Career = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Application Form Section */}
+      <section className="py-20 px-4 bg-black scroll-animate">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-purple-400 tracking-widest uppercase text-sm mb-4">Apply Now</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6"
+              style={{
+                background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+              }}
+            >
+              Became a Seller
+            </h2>
+            <p className="text-gray-400 max-w-3xl mx-auto leading-relaxed">
+              Fill out the form below 
+            </p>
+          </div>
+
+          <div className="bg-slate-800/30 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-purple-500/20">
+            <form onSubmit={handleFormSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  name="fullname"
+                  value={formData.fullname}
+                  onChange={handleFormChange}
+                  required
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
+                  placeholder="John Doe"
+                />
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Date of Birth *
+                  </label>
+                  <input
+                    type="date"
+                    name="dob"
+                    value={formData.dob}
+                    onChange={handleFormChange}
+                    required
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Age *
+                  </label>
+                  <input
+                    type="number"
+                    name="age"
+                    value={formData.age}
+                    onChange={handleFormChange}
+                    required
+                    min="18"
+                    max="100"
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
+                    placeholder="25"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Phone Number *
+                </label>
+                <input
+                  type="tel"
+                  name="number"
+                  value={formData.number}
+                  onChange={handleFormChange}
+                  required
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
+                  placeholder="+1 234 567 8900"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  name="mail"
+                  value={formData.mail}
+                  onChange={handleFormChange}
+                  required
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
+                  placeholder="john@example.com"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Address *
+                </label>
+                <textarea
+                  name="address"
+                  value={formData.address}
+                  onChange={handleFormChange}
+                  required
+                  rows={3}
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 resize-none"
+                  placeholder="Street Address, City, State, ZIP Code"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  PAN Card Number *
+                </label>
+                <input
+                  type="text"
+                  name="pancard"
+                  value={formData.pancard}
+                  onChange={handleFormChange}
+                  required
+                  maxLength="10"
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 uppercase"
+                  placeholder="ABCDE1234F"
+                  pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
+                  title="Enter valid PAN card number (e.g., ABCDE1234F)"
+                />
+                <p className="text-xs text-gray-500 mt-1">Format: ABCDE1234F (5 letters, 4 digits, 1 letter)</p>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-white text-black py-4 rounded-full text-lg font-semibold hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center justify-center space-x-2"
+              >
+                <Send className="w-5 h-5" />
+                <span>Submit Application</span>
+              </button>
+            </form>
           </div>
         </div>
       </section>
@@ -976,37 +1156,67 @@ const Career = () => {
               </div>
 
               <form className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="fullname"
+                    required
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
+                    placeholder="John Doe"
+                  />
+                </div>
+
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                      First Name *
+                      Date of Birth *
                     </label>
                     <input
-                      type="text"
+                      type="date"
+                      name="dob"
                       required
                       className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
-                      placeholder="John"
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Last Name *
+                      Age *
                     </label>
                     <input
-                      type="text"
+                      type="number"
+                      name="age"
                       required
+                      min="18"
+                      max="100"
                       className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
-                      placeholder="Doe"
+                      placeholder="25"
                     />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Email Address *
+                    Phone Number *
+                  </label>
+                  <input
+                    type="tel"
+                    name="number"
+                    required
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
+                    placeholder="+1 234 567 8900"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Email *
                   </label>
                   <input
                     type="email"
+                    name="mail"
                     required
                     className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
                     placeholder="john@example.com"
@@ -1015,39 +1225,32 @@ const Career = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Position of Interest
-                  </label>
-                  <select className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white focus:outline-none focus:border-purple-500/50">
-                    <option value="">Select a position</option>
-                    {jobs.map(job => (
-                      <option key={job.id} value={job.title}>{job.title}</option>
-                    ))}
-                    <option value="other">Other / General Application</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Resume/CV *
-                  </label>
-                  <div className="border-2 border-dashed border-purple-500/20 rounded-xl p-6 text-center hover:border-purple-500/40 transition-colors">
-                    <div className="text-gray-400 mb-2">Drop your resume here or click to browse</div>
-                    <input type="file" accept=".pdf,.doc,.docx" className="hidden" />
-                    <button type="button" className="text-purple-400 hover:text-purple-300 transition-colors">
-                      Choose File
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Cover Letter
+                    Address *
                   </label>
                   <textarea
-                    rows={4}
+                    name="address"
+                    required
+                    rows={3}
                     className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 resize-none"
-                    placeholder="Tell us why you'd be a great fit for EL KAID..."
+                    placeholder="Street Address, City, State, ZIP Code"
                   />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    PAN Card Number *
+                  </label>
+                  <input
+                    type="text"
+                    name="pancard"
+                    required
+                    maxLength="10"
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 uppercase"
+                    placeholder="ABCDE1234F"
+                    pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
+                    title="Enter valid PAN card number (e.g., ABCDE1234F)"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Format: ABCDE1234F (5 letters, 4 digits, 1 letter)</p>
                 </div>
 
                 <button

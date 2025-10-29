@@ -2,6 +2,13 @@ import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { useNavigate } from 'react-router-dom';
 import ScrollDown from "../components/ScrollDown"; // ✅ Correct import
+import ButtonAnimatedGradient from "../components/ButtonAnimatedGradient";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import HowToStartBitcoin from "../components/HowToStartBitcoin";
+
+gsap.registerPlugin(ScrollTrigger);
+
 
 // Custom CSS for radial gradients and laptop effects
 const customStyles = `
@@ -91,22 +98,7 @@ const customStyles = `
   }
   
   /* ================= GLOW BUTTON ================= */
-.glow-button {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.85rem 2.5rem;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(168, 85, 247, 0.3);
-  color: #ffffff;
-  font-weight: 500;
-  font-size: 1.125rem;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
+
 
 .glow-button:hover {
   background: rgba(168, 85, 247, 0.1);
@@ -156,6 +148,139 @@ const customStyles = `
   50% { opacity: 0.3; }
 }
 
+/* ================= ORIGINAL INSPECTED BUTTON ================= */
+.button {
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  flex-flow: column;
+  justify-content: center;
+  align-items: stretch;
+  padding: 0;
+  line-height: 1;
+  transition: box-shadow 0.3s;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  font-family: Poppins, sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.button_inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 2.5rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+.button_inner p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: white;
+  letter-spacing: 0.05em;
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  background: radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.35), transparent 70%);
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 1;
+}
+
+.button:hover .glow {
+  opacity: 1;
+  transform: scale(1.05);
+  animation: glowMove 3s ease-in-out infinite alternate;
+}
+
+.button:hover .button_inner {
+  background: rgba(168, 85, 247, 0.15);
+}
+
+@keyframes glowMove {
+  0% { background-position: 50% 50%; }
+  50% { background-position: 60% 40%; }
+  100% { background-position: 50% 50%; }
+}
+
+.petal {
+  background: linear-gradient(180deg, #4c45a5, #bda6e0);
+  border-radius: 0 7rem;
+  transition: all 0.4s ease;
+}
+
+.petal.inverse {
+  border-radius: 7rem 0;
+}
+
+.petals-circle {
+  z-index: 2;
+  background-image: linear-gradient(180deg, #4c45a5, #000 46%);
+  border-radius: 50%;
+  padding: 2px;
+  position: relative;
+  transition: transform 12s linear infinite;
+  animation: spin 22s linear infinite;
+}
+
+.petals-circle_inner {
+  background-color: black;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.petals-circle_text {
+  opacity: 0;
+  font-size: clamp(0.75rem, 3vw, 1rem);
+  position: absolute;
+  color: #aaa;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+}
+
+.petal-texts_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.wrapper {
+  overflow-x: hidden;
+  position: relative;
+}
+.container {
+  display: flex;
+}
+.pin {
+  height: 100vh;
+}
+.mask {
+  width: 0;
+}
+
+
 `;
 
 // Add styles to head
@@ -164,6 +289,297 @@ if (typeof document !== 'undefined') {
   styleSheet.textContent = customStyles;
   document.head.appendChild(styleSheet);
 }
+
+// Feature Box with Animated Gradient Component
+const FeatureBoxWithGradient = ({ title, description, delay = "" }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const boxRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    if (!boxRef.current) return;
+    const rect = boxRef.current.getBoundingClientRect();
+    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
+
+  return (
+    <div className={`relative scroll-animate ${delay}`} ref={boxRef}>
+      {/* Outer glow layer */}
+      <div
+        className="pointer-events-none absolute -inset-1 opacity-0 blur-xl transition-opacity duration-500 rounded-2xl"
+        style={{
+          opacity: isHovered ? 0.15 : 0,
+          background: `radial-gradient(200px circle at ${position.x}px ${position.y}px, #6366f1, #c4b5fd 50%, transparent 70%)`,
+        }}
+      />
+
+      {/* Middle glow layer */}
+      <div
+        className="pointer-events-none absolute -inset-0.5 opacity-0 blur-lg transition-opacity duration-500 rounded-2xl"
+        style={{
+          opacity: isHovered ? 0.25 : 0,
+          background: `radial-gradient(150px circle at ${position.x}px ${position.y}px, #8b5cf6, #e9d5ff 50%, transparent 70%)`,
+        }}
+      />
+
+      {/* Main glow layer */}
+      <div
+        className="pointer-events-none absolute -inset-0 opacity-0 blur-md transition-opacity duration-400 rounded-2xl"
+        style={{
+          opacity: isHovered ? 0.35 : 0,
+          background: `radial-gradient(120px circle at ${position.x}px ${position.y}px, #7c3aed, rgba(255, 255, 255, 0.4) 40%, transparent 65%)`,
+        }}
+      />
+
+      {/* Box with animated border */}
+      <div 
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className="relative"
+      >
+        {/* Animated border that appears only on hover and follows cursor */}
+        <div
+          className="absolute inset-0 rounded-2xl pointer-events-none"
+          style={{
+            background: isHovered 
+              ? `radial-gradient(150px circle at ${position.x}px ${position.y}px, 
+                  rgba(139, 92, 246, 1) 0%, 
+                  rgba(124, 58, 237, 0.7) 25%, 
+                  rgba(139, 92, 246, 0.4) 50%, 
+                  transparent 75%)`
+              : 'transparent',
+            padding: '2px',
+            opacity: isHovered ? 1 : 0,
+            transition: 'opacity 0.3s ease',
+          }}
+        />
+
+        <div 
+          className="bg-black backdrop-blur-sm p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow relative z-10"
+          style={{
+            border: 'none',
+          }}
+        >
+          <h3 className="text-xl font-bold text-white mb-6 text-center">{title}</h3>
+          <p className="text-gray-300 leading-relaxed text-center">{description}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Comparison rotating circle component
+const ComparisonCircle = () => {
+  const topics = [
+    { label: 'Security', sub: 'Protection' },
+    { label: 'Speed', sub: 'Throughput' },
+    { label: 'Fees', sub: 'Cost' },
+    { label: 'Accessibility', sub: 'Open' },
+  ];
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveIndex((i) => (i + 1) % topics.length);
+    }, 2000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center">
+      <div className="absolute inset-0 rounded-full border border-white/15" />
+      <div className="absolute inset-3 rounded-full border border-white/10" />
+      <div className="absolute inset-6 rounded-full border border-white/5" />
+      <div className="relative z-10 text-center">
+        <p className="text-white/60 text-sm uppercase tracking-widest">Focus</p>
+        <h3 className="text-white text-2xl md:text-3xl font-semibold">
+          {topics[activeIndex].label}
+        </h3>
+        <p className="text-white/40 text-sm">{topics[activeIndex].sub}</p>
+      </div>
+    </div>
+  );
+};
+
+// Comparison bullet list component
+const ComparisonText = ({ texts = [] }) => {
+  return (
+    <ul className="space-y-3">
+      {texts.map((text, i) => (
+        <li key={i} className="text-white text-lg leading-relaxed flex items-start gap-3">
+          <span className="mt-2 h-2 w-2 rounded-full bg-white/70"></span>
+          <span className="text-white/90">{text}</span>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+// Bitcoin Comparison Section Component
+const BitcoinComparisonSection = () => {
+  const circleRef = useRef(null);
+  const sectionRef = useRef(null);
+  const [activePointIndex, setActivePointIndex] = useState(0);
+
+  const traditionalPoints = [
+    'Operate within certain hours',
+    'Very high transaction fees and taxes',
+    'Banking apps can be hacked',
+    'Transactions are controlled by banks',
+    'Cannot be provided to some groups of people'
+  ];
+
+  const bitcoinPoints = [
+    'Operate 24/7 without interruption',
+    'Provide fast and cheap transactions',
+    'Transactions cannot be intercepted or reversed',
+    'Free from third-party interference',
+    'Accessible to everyone regardless of their status'
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!circleRef.current || !sectionRef.current) return;
+      
+      const section = sectionRef.current;
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Calculate scroll progress through the section
+      const start = rect.top - windowHeight;
+      const end = rect.bottom;
+      const progress = Math.max(0, Math.min(1, -start / (end - start)));
+      
+      // Rotate based on scroll (0-360 degrees)
+      const rotation = progress * 360;
+      circleRef.current.style.transform = `rotate(${rotation}deg)`;
+      
+      // Update active text
+      const texts = circleRef.current.querySelectorAll('.circle-text');
+      const activeIndex = Math.floor(progress * 5) % 5;
+      
+      texts.forEach((text, i) => {
+        if (i === activeIndex) {
+          text.style.opacity = '1';
+          text.style.color = '#9B8AFB';
+        } else {
+          text.style.opacity = '0.3';
+          text.style.color = '#9CA3AF';
+        }
+      });
+
+      // Update active point index (0-4)
+      const pointIndex = Math.min(4, Math.floor(progress * 5));
+      setActivePointIndex(pointIndex);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const labels = ['Accessibility', 'Transactions', 'Security', 'Inclusivity', 'Bias'];
+
+  return (
+    <section ref={sectionRef} className="relative py-32 px-4 bg-black scroll-animate flex items-center" style={{ minHeight: '200vh' }}>
+      <div className="max-w-7xl mx-auto w-full">
+        {/* Header */}
+        <div className="text-center mb-20">
+          <p className="text-[#9B8AFB] uppercase tracking-widest text-sm mb-3">
+            Comparison
+          </p>
+          <h2 className="text-5xl md:text-6xl font-light text-white">
+            Bitcoin vs Traditional<br />Finances
+          </h2>
+        </div>
+
+        {/* Main Layout */}
+        <div className="relative flex flex-col items-center gap-8">
+          {/* Top Row - Headers */}
+          <div className="flex items-center justify-center gap-6 w-full max-w-5xl">
+            {/* Traditional Finances */}
+            <div className="flex-1 max-w-md bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tl-[120px] rounded-br-[120px] p-10 min-h-[280px] flex flex-col justify-center">
+              <p className="text-white/60 uppercase tracking-wider text-xs mb-2">
+                Traditional
+              </p>
+              <h3 className="text-3xl font-light text-white">
+                Finances
+              </h3>
+            </div>
+
+            {/* Bitcoin */}
+            <div className="flex-1 max-w-md bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tr-[120px] rounded-bl-[120px] p-10 min-h-[280px] flex flex-col justify-center items-end text-right">
+              <p className="text-white/60 uppercase tracking-wider text-xs mb-2">
+                Crypto
+              </p>
+              <h3 className="text-3xl font-light text-white">
+                Bitcoin
+              </h3>
+            </div>
+          </div>
+
+          {/* Center Circle */}
+          <div className="relative w-40 h-40 flex items-center justify-center my-8">
+            <div 
+              ref={circleRef}
+              className="absolute inset-0 transition-transform duration-300 ease-out"
+            >
+              {labels.map((label, i) => {
+                const angle = (i * 72) - 90; // Start from top
+                const radius = 90; // Distance from center
+                const x = Math.cos(angle * Math.PI / 180) * radius;
+                const y = Math.sin(angle * Math.PI / 180) * radius;
+                
+                return (
+                  <div
+                    key={i}
+                    className="circle-text absolute text-sm font-light whitespace-nowrap transition-all duration-500"
+                    style={{
+                      left: '50%',
+                      top: '50%',
+                      transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
+                      opacity: i === 0 ? 1 : 0.3,
+                      color: i === 0 ? '#9B8AFB' : '#9CA3AF'
+                    }}
+                  >
+                    {label}
+                  </div>
+                );
+              })}
+            </div>
+            
+            {/* Circle itself */}
+            <div className="relative w-32 h-32 rounded-full border-2 border-white/20 bg-gradient-to-b from-[#4c45a5]/30 to-black flex items-center justify-center">
+              <div className="w-28 h-28 rounded-full bg-black border border-white/10"></div>
+            </div>
+          </div>
+
+          {/* Bottom Row - Descriptions */}
+          <div className="flex items-start justify-center gap-6 w-full max-w-5xl">
+            {/* Traditional Descriptions */}
+            <div className="flex-1 max-w-md bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tr-[120px] rounded-bl-[120px] p-10 min-h-[280px] flex items-center">
+              <div className="text-white/80 text-base md:text-lg leading-relaxed transition-opacity duration-500">
+                {traditionalPoints[activePointIndex]}
+              </div>
+            </div>
+
+            {/* Crypto Descriptions */}
+            <div className="flex-1 max-w-md bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tl-[120px] rounded-br-[120px] p-10 min-h-[280px] flex items-center justify-end">
+              <div className="text-white/80 text-base md:text-lg leading-relaxed text-right transition-opacity duration-500">
+                {bitcoinPoints[activePointIndex]}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const Home = () => {
     const navigate = useNavigate();
@@ -209,6 +625,150 @@ const Home = () => {
 
     return () => io.disconnect();
   }, []);
+
+
+  useEffect(() => {
+    const track = document.getElementById("horizontal-track");
+    const section = document.getElementById("how-to-start");
+  
+    if (!track || !section) return;
+  
+    const handleScroll = () => {
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Check if section is in viewport
+      const sectionTop = rect.top;
+      const sectionBottom = rect.bottom;
+      const isInViewport = sectionTop < windowHeight && sectionBottom > 0;
+      
+      if (!isInViewport) {
+        // Reset to initial position when out of viewport
+        track.style.transform = 'translateX(0px)';
+        return;
+      }
+      
+      // Calculate progress from 0 to 1 as user scrolls through section
+      const sectionHeight = section.offsetHeight;
+      const scrollStart = sectionTop;
+      const scrollEnd = sectionTop - windowHeight + sectionHeight;
+      const currentScroll = window.scrollY;
+      
+      // When section first enters view, scroll is 0
+      // When section exits view, we want full translation
+      const scrollProgress = (sectionTop - rect.top) / (windowHeight + sectionHeight);
+      const progress = Math.max(0, Math.min(1, scrollProgress));
+      
+      // Calculate max translation - move enough to show next cards
+      // First 2 cards show initially, then scroll reveals cards 3 and 4
+      const cardWidth = track.children[0]?.offsetWidth || 400;
+      const gap = 24; // 6 * 4 (gap-6 = 1.5rem = 24px)
+      const visibleCards = 2;
+      const maxTranslate = cardWidth + gap; // Move one card width to reveal the next cards
+      
+      const translateX = -progress * maxTranslate;
+      track.style.transform = `translateX(${translateX}px)`;
+    };
+  
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial calculation
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  
+  useEffect(() => {
+    const stages = document.querySelectorAll(".stage");
+    const circles = [1, 2, 3, 4].map((i) =>
+      document.getElementById(`circle-${i}`)
+    );
+    const progress = document.getElementById("progress-fill");
+  
+    const handleScroll = () => {
+      let activeIndex = -1;
+      if (!progress) return;
+      if (!circles || circles.length === 0) return;
+  
+      stages.forEach((el, i) => {
+        const rect = el.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const midPoint = windowHeight / 2;
+  
+        // stage considered “active” if its middle is in viewport
+        if (rect.top <= midPoint && rect.bottom >= midPoint) {
+          activeIndex = i;
+        }
+      });
+  
+      // highlight active paragraph
+      stages.forEach((el, i) => {
+        el.style.opacity = i === activeIndex ? "1" : "0.3";
+        el.style.transform = i === activeIndex ? "translateY(0)" : "translateY(20px)";
+        el.style.transition = "all 0.5s ease";
+      });
+  
+      // fill / unfill progress line based on active index
+      const progressPercent =
+        activeIndex >= 0
+          ? ((activeIndex + 1) / stages.length) * 100
+          : 0;
+  
+      progress.style.height = `${progressPercent}%`;
+  
+      // glow circles up to activeIndex
+      circles.forEach((c, i) => {
+        if (i <= activeIndex) {
+          c.style.background =
+            "linear-gradient(90deg, #4c45a5, #e0cbe0)";
+          c.style.boxShadow = "0 0 10px rgba(224,203,224,0.6)";
+        } else {
+          c.style.background = "black";
+          c.style.boxShadow = "none";
+        }
+      });
+    };
+  
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // initialize once
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  
+  // Scroll-based rotation + text fade for "Bitcoin vs Traditional Finances"
+useEffect(() => {
+  const circle = document.getElementById("petalsCircle");
+  const texts = document.querySelectorAll(".petals-circle_text");
+  if (!circle || texts.length === 0) return;
+
+  let lastScrollY = window.scrollY;
+  let rotation = 0;
+
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    const delta = currentScrollY - lastScrollY;
+    rotation += delta * 0.15; // Rotation sensitivity
+    circle.style.transform = `translate3d(0,0,0) rotate(${rotation}deg)`;
+
+    // Determine which text should be visible
+    const normalized = ((rotation % 360) + 360) % 360;
+    const index = Math.floor(normalized / 72); // 360 / 5 = 72° per text
+    const progress = (normalized % 72) / 72;
+
+    texts.forEach((t, i) => {
+      let opacity = 0;
+      if (i === index) opacity = 1 - progress;
+      else if (i === (index + 1) % 5) opacity = progress;
+      t.style.opacity = opacity.toFixed(2);
+      t.style.transform = `rotate(${i * 72}deg) translateY(-4.5rem) rotate(-${i * 72}deg) scale(${0.9 + opacity * 0.1})`;
+    });
+
+    lastScrollY = currentScrollY;
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
+
+  
+  
+  
 
   // Fireflies canvas animation
   useEffect(() => {
@@ -368,7 +928,7 @@ const Home = () => {
     <div className="min-h-screen bg-black">
 <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black text-center">
   {/* === Background Canvas (Fireflies) === */}
-  <canvas id="heroCanvas" className="absolute inset-0 w-full h-full opacity-40"></canvas>
+  <canvas id="heroCanvas" className="absolute inset-0 w-full h-full opacity-10"></canvas>
 
   {/* === Rotating Aurora Layers === */}
   <div className="hero_aurora absolute inset-1/2 w-[160vw] aspect-square rounded-full blur-[3rem] bg-[radial-gradient(circle_at_50%_20%,rgba(224,203,224,0.15),rgba(76,69,165,0.1),rgba(76,69,165,0))] animate-[heroAurora_14s_ease-in-out_infinite]"></div>
@@ -453,13 +1013,12 @@ const Home = () => {
             open for collaboration — redefining how people and businesses interact with technology.
           </p>
 
-          {/* ✨ Get Started Button */}
-          <button type="button" className="glow-button" data-glow-attached="true">
-  <div className="button_inner">
-    <p>Get Started</p>
-          </div>
-  <div className="glow"></div>
-                          </button>
+          <div className="flex justify-center mt-12">
+  <ButtonAnimatedGradient />
+</div>
+
+
+
 
         </div>
 
@@ -488,141 +1047,305 @@ const Home = () => {
           {/* Unique Features Grid */}
           <div className="grid md:grid-cols-2 gap-8">
             {/* Feature 1 */}
-            <div className="group relative scroll-animate scroll-animate-delay-1">
-              <div className="bg-black backdrop-blur-sm border-2 border-purple-500/40 p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow">
-                <h3 className="text-xl font-bold text-white mb-6 text-center">AI-First Architecture</h3>
-                <p className="text-gray-300 leading-relaxed text-center">
-                  Built from the ground up with artificial intelligence at its core, not as an afterthought. 
-                  Every feature leverages advanced machine learning for optimal performance.
-                </p>
-              </div>
-            </div>
+            <FeatureBoxWithGradient 
+              title="AI-First Architecture"
+              description="Built from the ground up with artificial intelligence at its core, not as an afterthought. 
+                  Every feature leverages advanced machine learning for optimal performance."
+              delay="scroll-animate-delay-1"
+            />
 
             {/* Feature 2 */}
-            <div className="group relative scroll-animate scroll-animate-delay-2">
-              <div className="bg-black backdrop-blur-sm border-2 border-purple-500/40 p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow">
-                <h3 className="text-xl font-bold text-white mb-6 text-center">Quantum-Safe Security</h3>
-                <p className="text-gray-300 leading-relaxed text-center">
-                  Next-generation encryption protocols that protect against both current and future threats, 
-                  ensuring your data remains secure for decades to come.
-                </p>
-              </div>
-            </div>
+            <FeatureBoxWithGradient 
+              title="Quantum-Safe Security"
+              description="Next-generation encryption protocols that protect against both current and future threats, 
+                  ensuring your data remains secure for decades to come."
+              delay="scroll-animate-delay-2"
+            />
 
             {/* Feature 3 */}
-            <div className="group relative scroll-animate scroll-animate-delay-1">
-              <div className="bg-black backdrop-blur-sm border-2 border-purple-500/40 p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow">
-                <h3 className="text-xl font-bold text-white mb-6 text-center">Real-Time Processing</h3>
-                <p className="text-gray-300 leading-relaxed text-center">
-                  Process millions of operations per second with sub-millisecond latency. 
-                  Experience true real-time performance that scales with your business.
-                </p>
-              </div>
-            </div>
+            <FeatureBoxWithGradient 
+              title="Real-Time Processing"
+              description="Process millions of operations per second with sub-millisecond latency. 
+                  Experience true real-time performance that scales with your business."
+              delay="scroll-animate-delay-1"
+            />
 
             {/* Feature 4 */}
-            <div className="group relative scroll-animate scroll-animate-delay-2">
-              <div className="bg-black backdrop-blur-sm border-2 border-purple-500/40 p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow">
-                <h3 className="text-xl font-bold text-white mb-6 text-center">Decentralized Network</h3>
-                <p className="text-gray-300 leading-relaxed text-center">
-                  No single point of failure. Our distributed architecture ensures maximum uptime 
-                  and resilience across global infrastructure.
-                </p>
-              </div>
-            </div>
+            <FeatureBoxWithGradient 
+              title="Decentralized Network"
+              description="No single point of failure. Our distributed architecture ensures maximum uptime 
+                  and resilience across global infrastructure."
+              delay="scroll-animate-delay-2"
+            />
 
             {/* Feature 5 */}
-            <div className="group relative scroll-animate scroll-animate-delay-3">
-              <div className="bg-black backdrop-blur-sm border-2 border-purple-500/40 p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow">
-                <h3 className="text-xl font-bold text-white mb-6 text-center">Predictive Analytics</h3>
-                <p className="text-gray-300 leading-relaxed text-center">
-                  Advanced forecasting capabilities that predict trends and opportunities 
-                  before they happen, giving you a competitive edge.
-                </p>
-              </div>
-            </div>
+            <FeatureBoxWithGradient 
+              title="Predictive Analytics"
+              description="Advanced forecasting capabilities that predict trends and opportunities 
+                  before they happen, giving you a competitive edge."
+              delay="scroll-animate-delay-3"
+            />
 
             {/* Feature 6 */}
-            <div className="group relative scroll-animate scroll-animate-delay-3">
-              <div className="bg-black backdrop-blur-sm border-2 border-purple-500/40 p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow">
-                <h3 className="text-xl font-bold text-white mb-6 text-center">Zero-Config Setup</h3>
-                <p className="text-gray-300 leading-relaxed text-center">
-                  Get started in minutes, not weeks. Our intelligent auto-configuration 
-                  adapts to your environment without manual intervention.
-                </p>
-              </div>
-            </div>
+            <FeatureBoxWithGradient 
+              title="Zero-Config Setup"
+              description="Get started in minutes, not weeks. Our intelligent auto-configuration 
+                  adapts to your environment without manual intervention."
+              delay="scroll-animate-delay-3"
+            />
           </div>
-
-
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="py-20 px-4 relative overflow-hidden scroll-animate">
+  {/* ================= BITCOIN VS TRADITIONAL FINANCES ================= */}
+  <BitcoinComparisonSection />
 
+
+    {/* ================= METRICS SECTION ================= */} 
+    <section className="relative py-32 px-4 overflow-hidden bg-black scroll-animate">
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-                Transform Your Business Today
+        {/* Section Header */}
+        <div className="text-center mb-20">
+        <p className="text-[#9B8AFB] tracking-widest uppercase text-sm mb-4">Metrics</p>
+        <h2
+          className="text-3xl md:text-5xl font-bold mb-16"
+          style={{
+            background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
+            WebkitBackgroundClip: 'text',
+            color: 'transparent',
+            letterSpacing: '0.05em',
+          }}
+        >
+          WHAT DOES THE NUMBERS SAY
               </h2>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-center space-x-3">
-                    <span className="text-purple-400 text-lg">✓</span>
-                    <span className="text-gray-300">{benefit}</span>
+      </div>
+
+      {/* Metrics Display */}
+      <div className="relative">
+        {/* Top Row - Two Metrics */}
+        <div className="grid md:grid-cols-2 gap-16 mb-16">
+          {/* Left Metric */}
+          <div className="text-center scroll-animate scroll-animate-delay-1">
+            <div className="text-6xl md:text-7xl font-bold text-[#9B8AFB] mb-4">
+              69+ MLN
                   </div>
-                ))}
+            <p className="text-gray-400 text-lg">Bitcoin wallets are there</p>
+              </div>
+
+          {/* Right Metric */}
+          <div className="text-center scroll-animate scroll-animate-delay-2">
+            <div className="text-6xl md:text-7xl font-bold text-[#9B8AFB] mb-4">
+              1,637 $
+            </div>
+            <p className="text-gray-400 text-lg">Average transaction fee</p>
+          </div>
+        </div>
+
+        {/* Center Metric - Large Triangle */}
+        <div className="relative flex justify-center items-center scroll-animate scroll-animate-delay-3">
+          {/* Triangle Shape with Gradient Border */}
+          <div className="relative">
+            <svg width="400" height="300" viewBox="0 0 400 300" className="mx-auto scroll-animate">
+              {/* Outer glow */}
+              <path d="M 30 -20 L -20 380" 
+                    fill="none" 
+                    stroke="url(#triangleGlowOuter)" 
+                    strokeWidth="3" 
+                    opacity="0.3"
+                    style={{ filter: 'blur(8px)' }} />
+              <path d="M 370 -20 L 420 380" 
+                    fill="none" 
+                    stroke="url(#triangleGlowOuter)" 
+                    strokeWidth="3" 
+                    opacity="0.3"
+                    style={{ filter: 'blur(8px)' }} />
+              
+              {/* Main lines */}
+              <path d="M 30 -20 L -20 380" 
+                    fill="none" 
+                    stroke="url(#triangleGradient)" 
+                    strokeWidth="2" />
+              <path d="M 370 -20 L 420 380" 
+                    fill="none" 
+                    stroke="url(#triangleGradient)" 
+                    strokeWidth="2" />
+              
+              <defs>
+                <linearGradient id="triangleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#8b5cf6" />
+                  <stop offset="50%" stopColor="#6366f1" />
+                  <stop offset="100%" stopColor="#4c45a5" />
+                </linearGradient>
+                <linearGradient id="triangleGlowOuter" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#a78bfa" />
+                  <stop offset="100%" stopColor="#6366f1" />
+                </linearGradient>
+              </defs>
+            </svg>
+
+            {/* Center Number */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center -mt-8 scroll-animate">
+                <div className="text-5xl md:text-6xl font-bold text-[#6B6B8B] mb-2">
+                  290,457
+                </div>
+                <div className="text-gray-400 text-lg">
+                  Transactions / Day
+                </div>
               </div>
             </div>
-
-            <div className="bg-slate-800/30 backdrop-blur-sm border border-purple-500/10 p-8 rounded-3xl relative overflow-hidden scroll-animate scroll-animate-delay-2">
-              {/* Background gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-cyan-500/5"></div>
-              
-              <div className="relative z-10">
-                <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-white mb-4">Start Your Free Trial</h3>
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-purple-500/10 rounded-xl border border-purple-500/20 hover:bg-purple-500/20 transition-colors">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-purple-400 text-lg">⏱️</span>
-                      <span className="text-gray-300">Setup in 5 minutes</span>
-                    </div>
-                    <span className="text-purple-400 text-lg">✓</span>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-4 bg-purple-500/10 rounded-xl border border-purple-500/20 hover:bg-purple-500/20 transition-colors">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-purple-400 text-lg">💰</span>
-                      <span className="text-gray-300">Cancel anytime</span>
-                    </div>
-                    <span className="text-purple-400 text-lg">✓</span>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-4 bg-purple-500/10 rounded-xl border border-purple-500/20 hover:bg-purple-500/20 transition-colors">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-purple-400 text-lg">⭐</span>
-                      <span className="text-gray-300">24/7 support included</span>
-                    </div>
-                    <span className="text-purple-400 text-lg">✓</span>
-                  </div>
-                </div>
-
-                {/* <button className="w-full bg-white text-slate-900 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-300 mt-6 shadow-xl hover:scale-105">
-                  Get Started Now
-                </button> */}
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      <HowToStartBitcoin />
 
 
+
+{/* ================= WHO CAN USE BITCOIN SECTION ================= */}
+<section className="relative py-32 px-4 overflow-hidden bg-black scroll-animate">
+  <div className="max-w-7xl mx-auto relative z-10">
+    {/* Section Header */}
+    <div className="text-right mb-10 w-full">
+      <div className="ml-auto max-w-[45rem] flex flex-col items-end gap-1">
+        <p className="text-transparent bg-clip-text bg-gradient-to-r from-[#4c45a5] to-[#e0cbe0] uppercase text-sm md:text-base tracking-widest">
+          Options
+        </p>
+        <h2 className="text-transparent bg-clip-text bg-gradient-to-b from-white/60 to-white/95 text-4xl md:text-6xl font-light uppercase whitespace-nowrap">
+          Who can use bitcoin
+        </h2>
+        <p className="text-transparent bg-clip-text bg-gradient-to-b from-white/50 to-white max-w-[35rem] text-sm md:text-lg mt-1">
+          With the technology of bitcoin, everyone<br />
+          will be able to get what suits him best.
+        </p>
+      </div>
+    </div>
+
+    {/* Three Card Grid - Staircase Layout */}
+    <div className="grid md:grid-cols-3 gap-0 relative" style={{ minHeight: '58rem' }}>
+      
+      {/* Card 1 - Businesses */}
+      <div className="relative group self-start">
+        <div 
+          className="absolute inset-0 rounded-tr-[7rem] rounded-bl-[7rem] p-[2px]"
+          style={{
+            background: 'linear-gradient(130deg, black, #e0cbe0 54%, #4c45a5)',
+          }}
+        >
+          <div className="bg-black rounded-tr-[7rem] rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-20">
+            <h3 
+              className="text-3xl font-bold mb-6 scroll-animate scroll-animate-delay-1"
+              style={{
+                background: 'linear-gradient(360deg, rgba(255,255,255,0.4), #FFFFFF 45%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              Businesses
+            </h3>
+            <p 
+              className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
+              style={{
+                background: 'linear-gradient(360deg, rgba(255,255,255,0.5), #FFFFFF 50%, #FFFFFF)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              Bitcoin is a very secure and inexpensive way to handle payments.
+            </p>
+          </div>
+        </div>
+        <div style={{ height: '20rem' }}></div>
+      </div>
+
+      {/* Card 2 - Individuals */}
+      <div className="relative group self-center md:w-[96%] md:-ml-[0.1rem] md:mt-8">
+        <div 
+          className="absolute inset-0 rounded-tr-[7rem] rounded-bl-[7rem] p-[2px]"
+          style={{
+            background: 'linear-gradient(180deg, #5850aa, #4c45a5)',
+          }}
+        >
+          <div className="bg-black rounded-tr-[7rem] rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-20">
+            <h3 
+              className="text-3xl font-bold mb-6 scroll-animate scroll-animate-delay-1"
+              style={{
+                background: 'linear-gradient(360deg, rgba(255,255,255,0.4), #FFFFFF 45%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              Individuals
+            </h3>
+            <p 
+              className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
+              style={{
+                background: 'linear-gradient(360deg, rgba(255,255,255,0.5), #FFFFFF 50%, #FFFFFF)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              Bitcoin is the easiest way to transact at a very low cost.
+            </p>
+          </div>
+        </div>
+        <div style={{ height: '20rem' }}></div>
+      </div>
+
+      {/* Card 3 - Developers (touching Individuals, no overlap) */}
+      <div className="relative group self-end md:-ml-[1.1rem] md:w-[97%] md:mt-[10rem] md:translate-y-[2rem]">
+
+        <div 
+          className="absolute inset-0 rounded-tr-[7rem] rounded-bl-[7rem] p-[2px]"
+          style={{
+            background: 'linear-gradient(130deg, #4d46a5, #e0cbe0 54%, black)',
+          }}
+        >
+          <div className="bg-black rounded-tr-[7rem] rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-20">
+            <h3 
+              className="text-3xl font-bold mb-6 scroll-animate scroll-animate-delay-1"
+              style={{
+                background: 'linear-gradient(360deg, rgba(255,255,255,0.4), #FFFFFF 45%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              Developers
+            </h3>
+            <p 
+              className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
+              style={{
+                background: 'linear-gradient(360deg, rgba(255,255,255,0.5), #FFFFFF 50%, #FFFFFF)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              Learn Bitcoin and start building Bitcoin-based applications.
+            </p>
+          </div>
+        </div>
+        <div style={{ height: '20rem' }}></div>
+      </div>
+
+    </div>
+
+    {/* Mobile: Stack Vertically */}
+    <style jsx>{`
+      @media (max-width: 768px) {
+        .grid.md\\:grid-cols-3 {
+          grid-template-columns: 1fr;
+          height: auto;
+          gap: 1rem;
+        }
+        .self-start, .self-center, .self-end {
+          align-self: start;
+        }
+      }
+    `}</style>
+  </div>
+</section>
     </div>
   );
 };

@@ -1,98 +1,81 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import ButtonAnimatedGradient from './ButtonAnimatedGradient';
 
-const Footer = () => {
+export default function BitcoinHero() {
   return (
-    <footer className="py-12 px-4 border-t border-slate-800 bg-black">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 mb-8">
-          
-          {/* Brand Section */}
-          <div>
-            <div className="text-2xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent">
-                EL KAID
-              </span>
-            </div>
-            <p className="text-gray-400 mb-4 text-sm">
-              Transforming accounting with AI-powered automation and intelligent business solutions.
-            </p>
-            <div className="flex space-x-4">
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center hover:bg-purple-500/30 transition-colors"
-              >
-                <span className="text-purple-400 text-sm">T</span>
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center hover:bg-purple-500/30 transition-colors"
-              >
-                <span className="text-purple-400 text-sm">L</span>
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center hover:bg-purple-500/30 transition-colors"
-              >
-                <span className="text-purple-400 text-sm">G</span>
-              </a>
-            </div>
+    <div className="relative min-h-screen bg-black overflow-hidden flex items-center">
+      {/* === Minimalist Glowing Arc === */}
+      <div className="absolute bottom-0 -right-32 h-[700px] w-[700px] z-0">
+        <svg className="w-full h-full" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* Outer glow half circle */}
+          <path d="M 0 900 A 800 800 0 0 1 1000 900" stroke="url(#arcGlowOuter)" strokeWidth="40" fill="none" opacity="0.4" style={{ filter: 'blur(12px)' }} />
+          {/* Middle glow half circle */}
+          <path d="M 0 900 A 800 800 0 0 1 1000 900" stroke="url(#arcGlowMiddle)" strokeWidth="24" fill="none" opacity="0.7" style={{ filter: 'blur(6px)' }} />
+          {/* Main half circle */}
+          <path d="M 0 900 A 800 800 0 0 1 1000 900" stroke="url(#arcGradient)" strokeWidth="12" fill="none" />
+          <defs>
+            <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="transparent" />
+              <stop offset="20%" stopColor="#7c3aed" />
+              <stop offset="50%" stopColor="#ffffff" />
+              <stop offset="80%" stopColor="#7c3aed" />
+              <stop offset="100%" stopColor="transparent" />
+            </linearGradient>
+            <linearGradient id="arcGlowMiddle" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="transparent" />
+              <stop offset="25%" stopColor="#8b5cf6" />
+              <stop offset="50%" stopColor="#e9d5ff" />
+              <stop offset="75%" stopColor="#8b5cf6" />
+              <stop offset="100%" stopColor="transparent" />
+            </linearGradient>
+            <linearGradient id="arcGlowOuter" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="transparent" />
+              <stop offset="30%" stopColor="#6366f1" />
+              <stop offset="50%" stopColor="#c4b5fd" />
+              <stop offset="70%" stopColor="#6366f1" />
+              <stop offset="100%" stopColor="transparent" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      {/* Main content */}
+      <div className="relative z-10 w-full px-8 md:px-16 lg:px-24 py-20">
+        <div className="max-w-7xl">
+          {/* Small header text */}
+          <div className="mb-6">
+            <span className="text-purple-400 text-sm md:text-base font-light tracking-tight uppercase">
+              Dive into the future
+            </span>
           </div>
-          
-          {/* Product Section */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Product</h4>
-            <ul className="space-y-2 text-gray-400 text-sm">
-              <li><Link to="/our-work" className="hover:text-white transition-colors">Features</Link></li>
-              <li><Link to="/buy-software" className="hover:text-white transition-colors">Pricing</Link></li>
-              <li><a href="/#" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors">Security</a></li>
-              <li><a href="/#" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors">Integrations</a></li>
-            </ul>
+
+          {/* Main heading */}
+          <h1 className="text-white text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-medium tracking-tight mb-12 leading-tight whitespace-nowrap">
+            START YOUR JOURNEY
+          </h1>
+
+          {/* Large NOW text with gradient */}
+          <div className="mb-16 -ml-1 md:-ml-2 lg:-ml-3 -mt-4 md:-mt-6 lg:-mt-8">
+            <h2 className="text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] font-semibold leading-none bg-gradient-to-r from-purple-400 via-purple-300 to-purple-500 bg-clip-text text-transparent tracking-tighter">
+              NOW!
+            </h2>
           </div>
-          
-          {/* Company Section */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Company</h4>
-            <ul className="space-y-2 text-gray-400 text-sm">
-              <li><Link to="/" className="hover:text-white transition-colors">About</Link></li>
-              <li><Link to="/career" className="hover:text-white transition-colors">Work With Us</Link></li>
-              <li><Link to="/updates" className="hover:text-white transition-colors">Blog</Link></li>
-              <li><Link to="/updates" className="hover:text-white transition-colors">Support Hub</Link></li>
-            </ul>
-          </div>
-          
-          {/* Support Section */}
-          <div>
-            <h4 className="text-white font-semibold mb-4">Support</h4>
-            <ul className="space-y-2 text-gray-400 text-sm">
-              <li><a href="/#" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors">Help Center</a></li>
-              <li><a href="/#" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors">Documentation</a></li>
-              <li><a href="/#" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors">API Reference</a></li>
-              <li><a href="/#" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors">Status</a></li>
-            </ul>
-          </div>
-        </div>
-        
-        {/* Bottom Section */}
-        <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <div className="text-gray-400 text-sm">
-            © {new Date().getFullYear()} EL KAID. All rights reserved.
-          </div>
-          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6 text-gray-400 text-sm">
-            <a href="/#" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="/#" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="/#" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors">Cookie Policy</a>
-          </div>
+
+          {/* Description text */}
+          <p className="text-gray-300 text-sm md:text-base max-w-xl mb-8 leading-relaxed -mt-6 md:-mt-8 lg:-mt-10">
+            In order to start using bitcoin, you can buy<br />
+            it on one of the exchanges below and be<br />
+            one of the first, who will step into the future!
+          </p>
+
+          {/* CTA Button */}
+          <ButtonAnimatedGradient text="Buy Bitcoin" />
         </div>
       </div>
-    </footer>
-  );
-};
 
-export default Footer;
+      {/* Additional ambient effects */}
+      <div className="absolute top-20 right-1/4 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-1/3 left-1/4 w-48 h-48 bg-blue-600/10 rounded-full blur-3xl"></div>
+    </div>
+  );
+}
