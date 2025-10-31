@@ -7,7 +7,20 @@ const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [activeItem, setActiveItem] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState(null);
+  const [itemPositions, setItemPositions] = useState({});
   const location = useLocation();
+
+  const handleNavItemMouseMove = (itemPath, e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setItemPositions(prev => ({
+      ...prev,
+      [itemPath]: {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      }
+    }));
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,37 +66,68 @@ const Navbar = () => {
         <div className="flex items-center justify-center relative">
           {/* Navigation Items - Center */}
           <div className="hidden lg:flex items-center space-x-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`
-                  relative px-4 py-2 text-sm font-semibold transition-all duration-300 ease-out rounded-xl group overflow-hidden
-                  ${activeItem === item.path
-                    ? 'text-white bg-white/10 shadow-lg shadow-purple-500/20'
-                    : 'text-gray-300 hover:text-white hover:bg-white/5'
-                  }
-                `}
-              >
-                <span className="relative z-20">
-                  {item.label}
-                </span>
-                
-                {/* Active indicator with enhanced design */}
-                {activeItem === item.path && (
-                  <>
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-xl"></div>
-                    <div className="absolute -bottom-0.5 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full shadow-lg shadow-purple-500/50"></div>
-                  </>
-                )}
-                
-                {/* Hover effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                
-                {/* Shimmer effect */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isHovered = hoveredItem === item.path;
+              const position = itemPositions[item.path] || { x: 0, y: 0 };
+              const isActive = activeItem === item.path;
+              
+              return (
+                <div key={item.path} className="relative inline-flex">
+                  {/* Outer glow layer */}
+                  <div
+                    className="pointer-events-none absolute -inset-4 opacity-0 blur-lg transition-opacity duration-500 rounded-xl"
+                    style={{
+                      opacity: isHovered ? 0.2 : 0,
+                      background: `radial-gradient(180px circle at ${position.x}px ${position.y}px, #6366f1, #c4b5fd 50%, transparent 70%)`,
+                    }}
+                  />
+
+                  {/* Middle glow layer */}
+                  <div
+                    className="pointer-events-none absolute -inset-3 opacity-0 blur-md transition-opacity duration-500 rounded-xl"
+                    style={{
+                      opacity: isHovered ? 0.3 : 0,
+                      background: `radial-gradient(150px circle at ${position.x}px ${position.y}px, #8b5cf6, #e9d5ff 50%, transparent 70%)`,
+                    }}
+                  />
+
+                  {/* Main glow layer */}
+                  <div
+                    className="pointer-events-none absolute -inset-2 opacity-0 blur-sm transition-opacity duration-400 rounded-xl"
+                    style={{
+                      opacity: isHovered ? 0.4 : 0,
+                      background: `radial-gradient(120px circle at ${position.x}px ${position.y}px, #7c3aed, rgba(255, 255, 255, 0.4) 40%, transparent 65%)`,
+                    }}
+                  />
+
+                  <Link
+                    to={item.path}
+                    onMouseMove={(e) => handleNavItemMouseMove(item.path, e)}
+                    onMouseEnter={() => setHoveredItem(item.path)}
+                    onMouseLeave={() => {
+                      setHoveredItem(null);
+                      setItemPositions(prev => ({ ...prev, [item.path]: { x: 0, y: 0 } }));
+                    }}
+                    className={`
+                      relative px-4 py-2 text-sm font-semibold transition-all duration-300 ease-out rounded-xl group overflow-hidden z-10
+                      ${isActive
+                        ? 'text-white bg-black shadow-lg shadow-purple-500/20'
+                        : 'text-gray-300 hover:text-white bg-black'
+                      }
+                    `}
+                  >
+                    <span className="relative z-20 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                      {item.label}
+                    </span>
+                    
+                    {/* Active indicator */}
+                    {isActive && (
+                      <div className="absolute -bottom-0.5 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full shadow-lg shadow-purple-500/50"></div>
+                    )}
+                  </Link>
+                </div>
+              );
+            })}
           </div>
 
           {/* Mobile menu button */}

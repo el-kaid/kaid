@@ -423,111 +423,116 @@ const OurWork = () => {
         </div>
       </section>
 
-      {/* Filter Section */}
-      <section className="py-12 px-4 bg-black scroll-animate">
+      
+      {/* Blog Section */}
+      <section className="py-20 px-4 bg-black scroll-animate">
         <div className="max-w-6xl mx-auto">
-          <h3 className="text-2xl font-bold text-white text-center mb-8">Project Modules</h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            {categories.map((category) => {
-              const IconComponent = category.icon;
-              return (
-                <button
-                  key={category.id}
-                  onClick={() => setActiveFilter(category.id)}
-                  className={`flex items-center space-x-2 px-6 py-3 rounded-full transition-all duration-300 ${
-                    activeFilter === category.id
-                      ? 'bg-purple-500/30 border border-purple-500/50 text-white'
-                      : 'bg-slate-800/30 border border-purple-500/10 text-gray-400 hover:bg-slate-800/50'
-                  }`}
-                >
-                  <IconComponent className="w-4 h-4" />
-                  <span>{category.name}</span>
-                </button>
-              );
-            })}
+          <div className="text-center mb-12">
+            <p className="text-[#9B8AFB] tracking-widest uppercase text-sm mb-4">Company</p>
+            <h2
+              className="text-3xl md:text-5xl font-bold mb-4"
+              style={{
+                background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+              }}
+            >
+              Blog & Updates
+            </h2>
+            <p className="text-gray-400 max-w-3xl mx-auto">What we're building, learning and shipping at EL KAID-B1.</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[ 
+              {
+                title: 'Scaling our OCR to millions of documents',
+                date: 'Oct 2025',
+                tag: 'Engineering',
+                excerpt: 'How we re-architected our OCR pipeline for throughput and accuracy.',
+              },
+              {
+                title: 'Designing for trust in fintech UIs',
+                date: 'Sep 2025',
+                tag: 'Design',
+                excerpt: 'Principles behind our interface choices for clarity, safety and speed.',
+              },
+              {
+                title: 'From MVP to enterprise readiness',
+                date: 'Aug 2025',
+                tag: 'Product',
+                excerpt: 'Lessons learned while hardening EL KAID-B1 for larger orgs.',
+              },
+            ].map((post, i) => (
+              <article key={i} className="bg-slate-800/30 backdrop-blur-sm rounded-2xl border border-purple-500/10 hover:border-purple-500/30 transition-all duration-300 p-6 flex flex-col gap-4">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="px-2 py-1 rounded-full bg-purple-500/20 text-purple-300">{post.tag}</span>
+                  <span className="text-gray-400">{post.date}</span>
+                </div>
+                <h3 className="text-white font-semibold text-lg">{post.title}</h3>
+                <p className="text-gray-400 text-sm flex-1">{post.excerpt}</p>
+                <div>
+                  <button className="text-purple-300 hover:text-purple-200 transition-colors text-sm">Read more →</button>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Projects Grid */}
-      <section className="py-16 px-4 bg-black scroll-animate">
+      {/* Launches Section */}
+      <section className="py-20 px-4 bg-black scroll-animate">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project) => (
-              <div
-                key={project.id}
-                className="bg-slate-800/30 backdrop-blur-sm rounded-2xl overflow-hidden border border-purple-500/10 project-card-hover hover:border-purple-500/30 transition-all duration-300"
-                onMouseEnter={() => setHoveredProject(project.id)}
-                onMouseLeave={() => setHoveredProject(null)}
-              >
-                <div className="relative overflow-hidden h-48">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                  />
-                  <div className="absolute top-4 right-4 flex space-x-2">
-                    <div className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(project.status)}`}>
-                      {project.status}
-                    </div>
-                  </div>
-                  <div className="absolute top-4 left-4">
-                    <div className={`px-2 py-1 rounded-full text-xs font-semibold ${getPhaseColor(project.phase)}`}>
-                      {project.phase}
-                    </div>
-                  </div>
+          <div className="text-center mb-12">
+            <p className="text-[#9B8AFB] tracking-widest uppercase text-sm mb-4">Roadmap</p>
+            <h2
+              className="text-3xl md:text-5xl font-bold mb-4"
+              style={{
+                background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+              }}
+            >
+              Launches
+            </h2>
+            <p className="text-gray-400 max-w-3xl mx-auto">What we plan to launch next.</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                name: 'EL KAID-B1 Desktop v1.0',
+                eta: 'November 2025',
+                highlight: 'Offline-first with secure sync',
+                status: 'Planned',
+              },
+              {
+                name: 'Banking Sync 2.0',
+                eta: 'December 2025',
+                highlight: 'Multi-bank webhooks and real-time reconciliation',
+                status: 'In progress',
+              },
+              {
+                name: 'OCR Accuracy Pack',
+                eta: 'Q1 2026',
+                highlight: 'New models for invoices and receipts',
+                status: 'Research',
+              },
+            ].map((item, i) => (
+              <div key={i} className="bg-slate-800/30 backdrop-blur-sm rounded-2xl border border-purple-500/10 hover:border-purple-500/30 transition-all duration-300 p-6">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-white font-semibold">{item.name}</h3>
+                  <span className="text-xs text-gray-400">{item.eta}</span>
                 </div>
-
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-3">{project.title}</h3>
-                  <p className="text-gray-400 mb-4 line-clamp-3">{project.description}</p>
-
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.map((tech, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Project Details */}
-                  <div className="grid grid-cols-2 gap-4 text-sm text-gray-400 mb-4">
-                    <div className="flex items-center space-x-1">
-                      <Calendar className="w-4 h-4" />
-                      <span>{project.timeline}</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Users className="w-4 h-4" />
-                      <span>{project.team}</span>
-                    </div>
-                  </div>
-
-                  {/* Results */}
-                  <div className="bg-slate-700/50 rounded-lg p-3 mb-4">
-                    <div className="text-sm text-gray-400 mb-1">Achievement:</div>
-                    <div className="text-green-400 font-semibold">{project.results}</div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex space-x-3">
-                    <button className="flex-1 px-4 py-2 rounded-lg flex items-center justify-center space-x-2 bg-purple-500/20 border border-purple-500/30 text-white hover:bg-purple-500/30 transition-all duration-300">
-                      <Code className="w-4 h-4" />
-                      <span>View Details</span>
-                    </button>
-                    <button className="bg-slate-700/50 text-white p-2 rounded-lg hover:bg-slate-700 transition-all duration-300">
-                      <Github className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
+                <p className="text-gray-400 text-sm mb-4">{item.highlight}</p>
+                <span className={`text-xs px-2 py-1 rounded-full ${item.status === 'In progress' ? 'bg-blue-500/20 text-blue-300' : item.status === 'Planned' ? 'bg-purple-500/20 text-purple-300' : 'bg-yellow-500/20 text-yellow-300'}`}>{item.status}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+
+      
 
       {/* CTA Section */}
       <section className="py-20 px-4 relative overflow-hidden bg-black scroll-animate">
@@ -549,14 +554,9 @@ const OurWork = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button type="button" className="glow-button" data-glow-attached="true">
-              <div className="button_inner">
-                <p className="flex items-center space-x-2">
-                  <Rocket className="w-5 h-5" />
-                  <span>Request Demo</span>
-                </p>
-              </div>
-              <div className="glow"></div>
+            <button className="bg-white text-black px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-200 transition-all duration-300 flex items-center gap-2">
+              <Rocket className="w-5 h-5" />
+              Request Demo
             </button>
             <button className="border-2 border-blue-400/50 text-blue-400 px-8 py-4 rounded-full text-lg font-semibold hover:bg-blue-400/10 transition-all duration-300">
               Download Beta

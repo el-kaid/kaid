@@ -356,13 +356,10 @@ useEffect(() => {
           </p>
           <button 
             onClick={() => setIsSubmitted(false)}
-            className="glow-button"
+            className="border-2 border-purple-400/50 text-purple-300 px-8 py-3 rounded-full font-semibold hover:bg-purple-400/10 transition-all duration-300 flex items-center justify-center gap-2"
           >
-            <div className="button_inner flex items-center space-x-2">
-              <Send className="w-5 h-5" />
-              <span>Send Another Message</span>
-            </div>
-            <div className="glow"></div>
+            <Send className="w-5 h-5" />
+            <span>Send Another Message</span>
           </button>
         </div>
       </div>
@@ -607,12 +604,12 @@ useEffect(() => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="glow-button w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                  className={`w-full border-2 border-purple-400/50 text-purple-300 px-6 py-3 rounded-full font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${isSubmitting ? '' : 'hover:bg-purple-400/10'}`}
                 >
-                  <div className="button_inner flex items-center justify-center space-x-2">
+                  <div className="flex items-center justify-center space-x-2">
                     {isSubmitting ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <div className="w-5 h-5 border-2 border-purple-300 border-t-transparent rounded-full animate-spin" />
                         <span>Sending...</span>
                       </>
                     ) : (
@@ -622,7 +619,6 @@ useEffect(() => {
                       </>
                     )}
                   </div>
-                  <div className="glow"></div>
                 </button>
               </form>
             </div>

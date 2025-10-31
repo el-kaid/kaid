@@ -394,22 +394,20 @@ const BuySoftware = () => {
 <div className="flex flex-col sm:flex-row gap-4 justify-center">
   <button
     onClick={() => handleDownload('Windows')}
-    className={`glow-button download-btn w-full sm:w-auto ${
+    className={`border-2 border-green-400/50 text-green-400 px-6 py-3 rounded-full font-semibold hover:bg-green-400/10 transition-all duration-300 w-full sm:w-auto ${
       detectedOS === 'Windows' ? 'ring-2 ring-green-400' : ''
     }`}
   >
-    <div className="button_inner"><p>Download for Windows (.exe)</p></div>
-    <div className="glow"></div>
+    Download for Windows (.exe)
   </button>
 
   <button
     onClick={() => handleDownload('macOS')}
-    className={`glow-button download-btn w-full sm:w-auto ${
+    className={`border-2 border-green-400/50 text-green-400 px-6 py-3 rounded-full font-semibold hover:bg-green-400/10 transition-all duration-300 w-full sm:w-auto ${
       detectedOS === 'macOS' ? 'ring-2 ring-green-400' : ''
     }`}
   >
-    <div className="button_inner"><p>Download for macOS (.dmg)</p></div>
-    <div className="glow"></div>
+    Download for macOS (.dmg)
   </button>
 </div>
 
@@ -506,11 +504,8 @@ const BuySoftware = () => {
                       )}
                     </div>
 
-                    <button className="glow-button w-full">
-                      <div className="button_inner">
-                        <p>Start Free Trial</p>
-                      </div>
-                      <div className="glow"></div>
+                    <button className="w-full border-2 border-purple-400/50 text-purple-300 px-6 py-3 rounded-full font-semibold hover:bg-purple-400/10 transition-all duration-300">
+                      Start Free Trial
                     </button>
                   </div>
 

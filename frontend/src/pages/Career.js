@@ -137,7 +137,7 @@ const Career = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showApplicationForm, setShowApplicationForm] = useState(false);
   const [isVisible, setIsVisible] = useState({});
-  
+
   // Form state
   const [formData, setFormData] = useState({
     fullname: '',
@@ -146,6 +146,7 @@ const Career = () => {
     number: '',
     mail: '',
     address: '',
+    country: '',
     pancard: ''
   });
 
@@ -170,6 +171,7 @@ const Career = () => {
       number: '',
       mail: '',
       address: '',
+      country: '',
       pancard: ''
     });
   };
@@ -542,7 +544,7 @@ const Career = () => {
 
       {/* Application Form Section */}
       <section className="py-20 px-4 bg-black scroll-animate">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-purple-400 tracking-widest uppercase text-sm mb-4">Apply Now</p>
             <h2 className="text-4xl md:text-5xl font-bold mb-6"
@@ -559,7 +561,25 @@ const Career = () => {
             </p>
           </div>
 
-          <div className="bg-slate-800/30 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-purple-500/20">
+          <div className="grid md:grid-cols-2 gap-8 items-start">
+            {/* Terms & Conditions - Left */}
+            <div className="bg-slate-800/30 backdrop-blur-sm rounded-3xl p-8 md:p-10 border border-purple-500/20">
+              <h3 className="text-2xl font-bold text-white mb-4">Terms & Conditions</h3>
+              <p className="text-gray-300 mb-4">Please read these important points before submitting your seller application:</p>
+              <ul className="list-disc list-inside space-y-3 text-gray-300">
+                <li>Provide accurate and verifiable personal and business information.</li>
+                <li>Agree to comply with local regulations and tax requirements.</li>
+                <li>Transactions and payouts are subject to verification and review.</li>
+                <li>Any misuse or fraudulent activities may result in account suspension.</li>
+                <li>Data will be handled according to our privacy policy.</li>
+              </ul>
+              <div className="mt-6 text-sm text-gray-400">
+                By submitting the application, you agree to our <span className="text-purple-300">Terms of Service</span> and <span className="text-purple-300">Privacy Policy</span>.
+              </div>
+            </div>
+
+            {/* Seller Form - Right */}
+            <div className="bg-slate-800/30 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-purple-500/20">
             <form onSubmit={handleFormSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -655,6 +675,31 @@ const Career = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Country *
+                </label>
+                <select
+                  name="country"
+                  value={formData.country}
+                  onChange={handleFormChange}
+                  required
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white focus:outline-none focus:border-purple-500/50"
+                >
+                  <option value="" disabled>Select your country</option>
+                  <option value="United States">United States</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="Canada">Canada</option>
+                  <option value="India">India</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Germany">Germany</option>
+                  <option value="France">France</option>
+                  <option value="Singapore">Singapore</option>
+                  <option value="United Arab Emirates">United Arab Emirates</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
                   PAN Card Number *
                 </label>
                 <input
@@ -679,7 +724,8 @@ const Career = () => {
                 <Send className="w-5 h-5" />
                 <span>Submit Application</span>
               </button>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </section>
@@ -1013,12 +1059,9 @@ const Career = () => {
             <button 
               type="button"
               onClick={() => setShowApplicationForm(true)}
-              className="glow-button"
+              className="bg-white text-black px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-200 transition-all duration-300"
             >
-              <div className="button_inner">
-                <p>Apply Now</p>
-              </div>
-              <div className="glow"></div>
+              Apply Now
             </button>
             <button className="border-2 border-blue-400/50 text-blue-400 px-8 py-4 rounded-full text-lg font-semibold hover:bg-blue-400/10 transition-all duration-300">
               Contact HR
@@ -1156,18 +1199,18 @@ const Career = () => {
               </div>
 
               <form className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
                     Full Name *
-                  </label>
-                  <input
-                    type="text"
+                    </label>
+                    <input
+                      type="text"
                     name="fullname"
-                    required
-                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
+                      required
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
                     placeholder="John Doe"
-                  />
-                </div>
+                    />
+                  </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
@@ -1181,19 +1224,19 @@ const Career = () => {
                       className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
                       Age *
-                    </label>
-                    <input
+                  </label>
+                  <input
                       type="number"
                       name="age"
-                      required
+                    required
                       min="18"
                       max="100"
-                      className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
                       placeholder="25"
-                    />
+                  />
                   </div>
                 </div>
 
@@ -1234,6 +1277,29 @@ const Career = () => {
                     className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 resize-none"
                     placeholder="Street Address, City, State, ZIP Code"
                   />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Country *
+                  </label>
+                  <select
+                    name="country"
+                    required
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white focus:outline-none focus:border-purple-500/50"
+                  >
+                    <option value="" disabled selected>Select your country</option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Canada">Canada</option>
+                    <option value="India">India</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Germany">Germany</option>
+                    <option value="France">France</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="United Arab Emirates">United Arab Emirates</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
 
                 <div>
