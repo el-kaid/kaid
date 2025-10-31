@@ -335,7 +335,7 @@ const FeatureBoxWithGradient = ({ title, description, delay = "" }) => {
       />
 
       {/* Box with animated border */}
-      <div 
+      <div
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -345,7 +345,7 @@ const FeatureBoxWithGradient = ({ title, description, delay = "" }) => {
         <div
           className="absolute inset-0 rounded-2xl pointer-events-none"
           style={{
-            background: isHovered 
+            background: isHovered
               ? `radial-gradient(150px circle at ${position.x}px ${position.y}px, 
                   rgba(139, 92, 246, 1) 0%, 
                   rgba(124, 58, 237, 0.7) 25%, 
@@ -358,7 +358,7 @@ const FeatureBoxWithGradient = ({ title, description, delay = "" }) => {
           }}
         />
 
-        <div 
+        <div
           className="bg-black backdrop-blur-sm p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow relative z-10"
           style={{
             border: 'none',
@@ -422,6 +422,7 @@ const ComparisonText = ({ texts = [] }) => {
 // Bitcoin Comparison Section Component
 const BitcoinComparisonSection = () => {
   const circleRef = useRef(null);
+  const arcRef = useRef(null);
   const sectionRef = useRef(null);
   const [activePointIndex, setActivePointIndex] = useState(0);
 
@@ -443,51 +444,72 @@ const BitcoinComparisonSection = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!circleRef.current || !sectionRef.current) return;
-      
+      if (!arcRef.current || !sectionRef.current) return;
+
       const section = sectionRef.current;
       const rect = section.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      
-      // Calculate scroll progress through the section
-      const start = rect.top - windowHeight;
-      const end = rect.bottom;
-      const progress = Math.max(0, Math.min(1, -start / (end - start)));
-      
-      // Rotate based on scroll (0-360 degrees)
-      const rotation = progress * 360;
-      circleRef.current.style.transform = `rotate(${rotation}deg)`;
-      
-      // Update active text
-      const texts = circleRef.current.querySelectorAll('.circle-text');
-      const activeIndex = Math.floor(progress * 5) % 5;
-      
-      texts.forEach((text, i) => {
-        if (i === activeIndex) {
-          text.style.opacity = '1';
-          text.style.color = '#9B8AFB';
-        } else {
-          text.style.opacity = '0.3';
-          text.style.color = '#9CA3AF';
-        }
-      });
+      const sectionHeight = section.offsetHeight;
 
-      // Update active point index (0-4)
-      const pointIndex = Math.min(4, Math.floor(progress * 5));
+      // Calculate scroll progress through the sticky section
+      // Progress goes from 0 (section starts) to 1 (section ends)
+      const sectionTop = section.offsetTop;
+      const currentScroll = window.scrollY;
+      const scrollStart = sectionTop - windowHeight;
+      const scrollEnd = sectionTop + sectionHeight - windowHeight;
+      const scrollRange = scrollEnd - scrollStart;
+
+      let progress = 0;
+      if (scrollRange > 0) {
+        progress = Math.max(0, Math.min(1, (currentScroll - scrollStart) / scrollRange));
+      }
+
+      // Rotate arc smoothly based on scroll progress - maintains position
+      const rotation = progress * 720; // 2 full rotations as you scroll
+      if (arcRef.current) {
+        arcRef.current.style.transform = `rotate(${rotation}deg)`;
+        arcRef.current.style.transformOrigin = '50% 50%';
+        arcRef.current.style.transition = 'none'; // Prevent any CSS transitions
+      }
+
+      // Update active point index (0-4) with hold zones
+      // Cards hold still until complete text is visible, then transition
+      const numPoints = 5;
+      const sectionSize = 1 / numPoints; // 0.2 per section (20% each)
+      const holdPercentage = 0.95; // Hold card for 95% of section to ensure text is fully visible
+
+      // Calculate which section we're in
+      let sectionIndex = Math.floor(progress / sectionSize);
+      sectionIndex = Math.min(sectionIndex, numPoints - 1);
+
+      // Within each section, check if we're still in the hold zone
+      const sectionProgress = (progress % sectionSize) / sectionSize;
+      const isInHoldZone = sectionProgress < holdPercentage;
+
+      // Determine point index - hold current card until hold zone ends
+      let pointIndex = sectionIndex;
+      if (!isInHoldZone && sectionIndex < numPoints - 1) {
+        // Only transition to next point after hold zone completes
+        pointIndex = sectionIndex + 1;
+      }
+
+      // Clamp to valid range
+      pointIndex = Math.min(Math.max(0, pointIndex), numPoints - 1);
+
       setActivePointIndex(pointIndex);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Initial call
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const labels = ['Accessibility', 'Transactions', 'Security', 'Inclusivity', 'Bias'];
 
   return (
-    <section ref={sectionRef} className="relative py-32 px-4 bg-black scroll-animate flex items-center" style={{ minHeight: '200vh' }}>
-      <div className="max-w-7xl mx-auto w-full">
+    <section ref={sectionRef} className="relative py-16 px-4 bg-black" style={{ minHeight: '260vh' }}>
+      <div className="max-w-7xl mx-auto w-full sticky top-12 md:top-16">
         {/* Header */}
         <div className="text-center mb-20">
           <p className="text-[#9B8AFB] uppercase tracking-widest text-sm mb-3">
@@ -499,11 +521,11 @@ const BitcoinComparisonSection = () => {
         </div>
 
         {/* Main Layout */}
-        <div className="relative flex flex-col items-center gap-8">
+        <div className="relative flex flex-col items-center gap-2">
           {/* Top Row - Headers */}
-          <div className="flex items-center justify-center gap-6 w-full max-w-5xl">
+          <div className="flex items-center justify-center gap-6 w-full max-w-7xl">
             {/* Traditional Finances */}
-            <div className="flex-1 max-w-md bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tl-[120px] rounded-br-[120px] p-10 min-h-[280px] flex flex-col justify-center">
+            <div className="flex-1 max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tl-[120px] rounded-br-[120px] p-10 min-h-[200px] flex flex-col justify-center">
               <p className="text-white/60 uppercase tracking-wider text-xs mb-2">
                 Traditional
               </p>
@@ -513,7 +535,7 @@ const BitcoinComparisonSection = () => {
             </div>
 
             {/* Bitcoin */}
-            <div className="flex-1 max-w-md bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tr-[120px] rounded-bl-[120px] p-10 min-h-[280px] flex flex-col justify-center items-end text-right">
+            <div className="flex-1 max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tr-[120px] rounded-bl-[120px] p-10 min-h-[200px] flex flex-col justify-center items-end text-right">
               <p className="text-white/60 uppercase tracking-wider text-xs mb-2">
                 Crypto
               </p>
@@ -523,53 +545,65 @@ const BitcoinComparisonSection = () => {
             </div>
           </div>
 
-          {/* Center Circle */}
-          <div className="relative w-40 h-40 flex items-center justify-center my-8">
-            <div 
-              ref={circleRef}
-              className="absolute inset-0 transition-transform duration-300 ease-out"
-            >
-              {labels.map((label, i) => {
-                const angle = (i * 72) - 90; // Start from top
-                const radius = 90; // Distance from center
-                const x = Math.cos(angle * Math.PI / 180) * radius;
-                const y = Math.sin(angle * Math.PI / 180) * radius;
-                
-                return (
-                  <div
-                    key={i}
-                    className="circle-text absolute text-sm font-light whitespace-nowrap transition-all duration-500"
-                    style={{
-                      left: '50%',
-                      top: '50%',
-                      transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
-                      opacity: i === 0 ? 1 : 0.3,
-                      color: i === 0 ? '#9B8AFB' : '#9CA3AF'
-                    }}
-                  >
-                    {label}
-                  </div>
-                );
-              })}
+          {/* Center Circle with SVG Arc */}
+          <div className="relative w-40 h-40 md:w-44 md:h-44 flex items-center justify-center">
+            {/* Rotating SVG arc */}
+            <div ref={circleRef} className="absolute inset-0 flex items-center justify-center">
+              <svg ref={arcRef} viewBox="0 0 100 100" className="w-full h-full" aria-hidden="true" style={{ willChange: 'transform' }}>
+                <defs>
+                  <linearGradient id="compArcGradient" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#7b5cff" />
+                    <stop offset="100%" stopColor="#d9c6d6" />
+                  </linearGradient>
+                </defs>
+                {/* faint background ring */}
+                <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.05)" strokeWidth="6" fill="none" vectorEffect="non-scaling-stroke" />
+                {/* arc segment */}
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="40"
+                  fill="none"
+                  stroke="url(#compArcGradient)"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                  style={{ strokeDasharray: '120 260', strokeDashoffset: '0' }}
+                />
+                {/* soft shadow for gloss */}
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="40"
+                  fill="none"
+                  stroke="rgba(123,92,255,0.3)"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                  style={{ strokeDasharray: '120 260', strokeDashoffset: '0', filter: 'blur(1.5px)' }}
+                />
+              </svg>
             </div>
-            
-            {/* Circle itself */}
-            <div className="relative w-32 h-32 rounded-full border-2 border-white/20 bg-gradient-to-b from-[#4c45a5]/30 to-black flex items-center justify-center">
-              <div className="w-28 h-28 rounded-full bg-black border border-white/10"></div>
+
+            {/* Centered label */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <span className="text-white/80 text-base md:text-lg font-light">
+                {labels[activePointIndex]}
+              </span>
             </div>
           </div>
 
           {/* Bottom Row - Descriptions */}
-          <div className="flex items-start justify-center gap-6 w-full max-w-5xl">
+          <div className="flex items-start justify-center gap-6 w-full max-w-7xl">
             {/* Traditional Descriptions */}
-            <div className="flex-1 max-w-md bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tr-[120px] rounded-bl-[120px] p-10 min-h-[280px] flex items-center">
+            <div className="flex-1 max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tr-[120px] rounded-bl-[120px] p-10 min-h-[200px] flex items-center">
               <div className="text-white/80 text-base md:text-lg leading-relaxed transition-opacity duration-500">
                 {traditionalPoints[activePointIndex]}
               </div>
             </div>
 
             {/* Crypto Descriptions */}
-            <div className="flex-1 max-w-md bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tl-[120px] rounded-br-[120px] p-10 min-h-[280px] flex items-center justify-end">
+            <div className="flex-1 max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tl-[120px] rounded-br-[120px] p-10 min-h-[200px] flex items-center justify-end">
               <div className="text-white/80 text-base md:text-lg leading-relaxed text-right transition-opacity duration-500">
                 {bitcoinPoints[activePointIndex]}
               </div>
@@ -582,8 +616,8 @@ const BitcoinComparisonSection = () => {
 };
 
 const Home = () => {
-    const navigate = useNavigate();
-    const [isVisible, setIsVisible] = useState({});
+  const navigate = useNavigate();
+  const [isVisible, setIsVisible] = useState({});
 
   // Scroll animation effect (your original)
   useEffect(() => {
@@ -630,89 +664,89 @@ const Home = () => {
   useEffect(() => {
     const track = document.getElementById("horizontal-track");
     const section = document.getElementById("how-to-start");
-  
+
     if (!track || !section) return;
-  
+
     const handleScroll = () => {
       const rect = section.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      
+
       // Check if section is in viewport
       const sectionTop = rect.top;
       const sectionBottom = rect.bottom;
       const isInViewport = sectionTop < windowHeight && sectionBottom > 0;
-      
+
       if (!isInViewport) {
         // Reset to initial position when out of viewport
         track.style.transform = 'translateX(0px)';
         return;
       }
-      
+
       // Calculate progress from 0 to 1 as user scrolls through section
       const sectionHeight = section.offsetHeight;
       const scrollStart = sectionTop;
       const scrollEnd = sectionTop - windowHeight + sectionHeight;
       const currentScroll = window.scrollY;
-      
+
       // When section first enters view, scroll is 0
       // When section exits view, we want full translation
       const scrollProgress = (sectionTop - rect.top) / (windowHeight + sectionHeight);
       const progress = Math.max(0, Math.min(1, scrollProgress));
-      
+
       // Calculate max translation - move enough to show next cards
       // First 2 cards show initially, then scroll reveals cards 3 and 4
       const cardWidth = track.children[0]?.offsetWidth || 400;
       const gap = 24; // 6 * 4 (gap-6 = 1.5rem = 24px)
       const visibleCards = 2;
       const maxTranslate = cardWidth + gap; // Move one card width to reveal the next cards
-      
+
       const translateX = -progress * maxTranslate;
       track.style.transform = `translateX(${translateX}px)`;
     };
-  
+
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // Initial calculation
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
+
   useEffect(() => {
     const stages = document.querySelectorAll(".stage");
     const circles = [1, 2, 3, 4].map((i) =>
       document.getElementById(`circle-${i}`)
     );
     const progress = document.getElementById("progress-fill");
-  
+
     const handleScroll = () => {
       let activeIndex = -1;
       if (!progress) return;
       if (!circles || circles.length === 0) return;
-  
+
       stages.forEach((el, i) => {
         const rect = el.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         const midPoint = windowHeight / 2;
-  
+
         // stage considered “active” if its middle is in viewport
         if (rect.top <= midPoint && rect.bottom >= midPoint) {
           activeIndex = i;
         }
       });
-  
+
       // highlight active paragraph
       stages.forEach((el, i) => {
         el.style.opacity = i === activeIndex ? "1" : "0.3";
         el.style.transform = i === activeIndex ? "translateY(0)" : "translateY(20px)";
         el.style.transition = "all 0.5s ease";
       });
-  
+
       // fill / unfill progress line based on active index
       const progressPercent =
         activeIndex >= 0
           ? ((activeIndex + 1) / stages.length) * 100
           : 0;
-  
+
       progress.style.height = `${progressPercent}%`;
-  
+
       // glow circles up to activeIndex
       circles.forEach((c, i) => {
         if (i <= activeIndex) {
@@ -725,50 +759,50 @@ const Home = () => {
         }
       });
     };
-  
+
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // initialize once
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
+
   // Scroll-based rotation + text fade for "Bitcoin vs Traditional Finances"
-useEffect(() => {
-  const circle = document.getElementById("petalsCircle");
-  const texts = document.querySelectorAll(".petals-circle_text");
-  if (!circle || texts.length === 0) return;
+  useEffect(() => {
+    const circle = document.getElementById("petalsCircle");
+    const texts = document.querySelectorAll(".petals-circle_text");
+    if (!circle || texts.length === 0) return;
 
-  let lastScrollY = window.scrollY;
-  let rotation = 0;
+    let lastScrollY = window.scrollY;
+    let rotation = 0;
 
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-    const delta = currentScrollY - lastScrollY;
-    rotation += delta * 0.15; // Rotation sensitivity
-    circle.style.transform = `translate3d(0,0,0) rotate(${rotation}deg)`;
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const delta = currentScrollY - lastScrollY;
+      rotation += delta * 0.15; // Rotation sensitivity
+      circle.style.transform = `translate3d(0,0,0) rotate(${rotation}deg)`;
 
-    // Determine which text should be visible
-    const normalized = ((rotation % 360) + 360) % 360;
-    const index = Math.floor(normalized / 72); // 360 / 5 = 72° per text
-    const progress = (normalized % 72) / 72;
+      // Determine which text should be visible
+      const normalized = ((rotation % 360) + 360) % 360;
+      const index = Math.floor(normalized / 72); // 360 / 5 = 72° per text
+      const progress = (normalized % 72) / 72;
 
-    texts.forEach((t, i) => {
-      let opacity = 0;
-      if (i === index) opacity = 1 - progress;
-      else if (i === (index + 1) % 5) opacity = progress;
-      t.style.opacity = opacity.toFixed(2);
-      t.style.transform = `rotate(${i * 72}deg) translateY(-4.5rem) rotate(-${i * 72}deg) scale(${0.9 + opacity * 0.1})`;
-    });
+      texts.forEach((t, i) => {
+        let opacity = 0;
+        if (i === index) opacity = 1 - progress;
+        else if (i === (index + 1) % 5) opacity = progress;
+        t.style.opacity = opacity.toFixed(2);
+        t.style.transform = `rotate(${i * 72}deg) translateY(-4.5rem) rotate(-${i * 72}deg) scale(${0.9 + opacity * 0.1})`;
+      });
 
-    lastScrollY = currentScrollY;
-  };
+      lastScrollY = currentScrollY;
+    };
 
-  window.addEventListener("scroll", handleScroll);
-  return () => window.removeEventListener("scroll", handleScroll);
-}, []);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  
-  
-  
+
+
+
 
   // Fireflies canvas animation
   useEffect(() => {
@@ -818,7 +852,7 @@ useEffect(() => {
       draw() {
         ctx.save();
         ctx.globalAlpha = this.opacity;
-        
+
         // Create glow effect
         const gradient = ctx.createRadialGradient(
           this.x, this.y, 0,
@@ -839,7 +873,7 @@ useEffect(() => {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fill();
-        
+
         ctx.restore();
       }
     }
@@ -853,7 +887,7 @@ useEffect(() => {
     // Animation loop
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       fireflies.forEach(firefly => {
         firefly.update();
         firefly.draw();
@@ -926,66 +960,66 @@ useEffect(() => {
 
   return (
     <div className="min-h-screen bg-black">
-<section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black text-center">
-  {/* === Background Canvas (Fireflies) === */}
-  <canvas id="heroCanvas" className="absolute inset-0 w-full h-full opacity-10"></canvas>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black text-center">
+        {/* === Background Canvas (Fireflies) === */}
+        <canvas id="heroCanvas" className="absolute inset-0 w-full h-full opacity-10"></canvas>
 
-  {/* === Rotating Aurora Layers === */}
-  <div className="hero_aurora absolute inset-1/2 w-[160vw] aspect-square rounded-full blur-[3rem] bg-[radial-gradient(circle_at_50%_20%,rgba(224,203,224,0.15),rgba(76,69,165,0.1),rgba(76,69,165,0))] animate-[heroAurora_14s_ease-in-out_infinite]"></div>
-  <div className="hero_aurora absolute inset-1/2 w-[160vw] aspect-square rounded-full blur-[4rem] opacity-20 bg-[radial-gradient(circle_at_50%_20%,rgba(224,203,224,0.15),rgba(76,69,165,0.1),rgba(76,69,165,0))] animate-[heroAurora_14s_ease-in-out_infinite_reverse]"></div>
+        {/* === Rotating Aurora Layers === */}
+        <div className="hero_aurora absolute inset-1/2 w-[160vw] aspect-square rounded-full blur-[3rem] bg-[radial-gradient(circle_at_50%_20%,rgba(224,203,224,0.15),rgba(76,69,165,0.1),rgba(76,69,165,0))] animate-[heroAurora_14s_ease-in-out_infinite]"></div>
+        <div className="hero_aurora absolute inset-1/2 w-[160vw] aspect-square rounded-full blur-[4rem] opacity-20 bg-[radial-gradient(circle_at_50%_20%,rgba(224,203,224,0.15),rgba(76,69,165,0.1),rgba(76,69,165,0))] animate-[heroAurora_14s_ease-in-out_infinite_reverse]"></div>
 
-  {/* === Triangular Light Overlay === */}
-  <svg viewBox="0 0 622 705" className="absolute w-full h-[80vh] text-white opacity-5 blur-[9vw] animate-[pulse_6s_infinite_ease-in-out]">
-    <path d="M311 0L621.037 704.25H0.962891L311 0Z" fill="currentColor" />
-  </svg>
+        {/* === Triangular Light Overlay === */}
+        <svg viewBox="0 0 622 705" className="absolute w-full h-[80vh] text-white opacity-5 blur-[9vw] animate-[pulse_6s_infinite_ease-in-out]">
+          <path d="M311 0L621.037 704.25H0.962891L311 0Z" fill="currentColor" />
+        </svg>
 
-  {/* === Main Heading - Centered === */}
-  <div className="absolute inset-0 flex items-center justify-center z-10">
-    <h1 className="text-5xl md:text-7xl font-bold uppercase bg-gradient-to-b from-white via-white/90 to-purple-200 bg-clip-text text-transparent tracking-wide">
-      EL KAID
-    </h1>
-  </div>
+        {/* === Main Heading - Centered === */}
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <h1 className="text-5xl md:text-7xl font-bold uppercase bg-gradient-to-b from-white via-white/90 to-purple-200 bg-clip-text text-transparent tracking-wide">
+            EL KAID
+          </h1>
+        </div>
 
-  {/* === Minimalist Glowing Arc === */}
-  <div className="absolute bottom-20 left-0 right-0 h-32 z-10">
-    <svg className="w-full h-full" viewBox="0 0 1000 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      {/* Outer glow arc */}
-      <path d="M 0 400 Q 500 0 1000 400" stroke="url(#arcGlowOuter)" strokeWidth="40" fill="none" opacity="0.4" style={{ filter: 'blur(12px)' }} />
-      {/* Middle glow arc */}
-      <path d="M 0 400 Q 500 0 1000 400" stroke="url(#arcGlowMiddle)" strokeWidth="24" fill="none" opacity="0.7" style={{ filter: 'blur(6px)' }} />
-      {/* Main arc */}
-      <path d="M 0 400 Q 500 0 1000 400" stroke="url(#arcGradient)" strokeWidth="12" fill="none" />
-      <defs>
-        <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="transparent" />
-          <stop offset="20%" stopColor="#7c3aed" />
-          <stop offset="50%" stopColor="#ffffff" />
-          <stop offset="80%" stopColor="#7c3aed" />
-          <stop offset="100%" stopColor="transparent" />
-        </linearGradient>
-        <linearGradient id="arcGlowMiddle" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="transparent" />
-          <stop offset="25%" stopColor="#8b5cf6" />
-          <stop offset="50%" stopColor="#e9d5ff" />
-          <stop offset="75%" stopColor="#8b5cf6" />
-          <stop offset="100%" stopColor="transparent" />
-        </linearGradient>
-        <linearGradient id="arcGlowOuter" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="transparent" />
-          <stop offset="30%" stopColor="#6366f1" />
-          <stop offset="50%" stopColor="#c4b5fd" />
-          <stop offset="70%" stopColor="#6366f1" />
-          <stop offset="100%" stopColor="transparent" />
-        </linearGradient>
-      </defs>
-    </svg>
-  </div>
+        {/* === Minimalist Glowing Arc === */}
+        <div className="absolute bottom-20 left-0 right-0 h-32 z-10">
+          <svg className="w-full h-full" viewBox="0 0 1000 400" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            {/* Outer glow arc */}
+            <path d="M 0 400 Q 500 0 1000 400" stroke="url(#arcGlowOuter)" strokeWidth="40" fill="none" opacity="0.4" style={{ filter: 'blur(12px)' }} />
+            {/* Middle glow arc */}
+            <path d="M 0 400 Q 500 0 1000 400" stroke="url(#arcGlowMiddle)" strokeWidth="24" fill="none" opacity="0.7" style={{ filter: 'blur(6px)' }} />
+            {/* Main arc */}
+            <path d="M 0 400 Q 500 0 1000 400" stroke="url(#arcGradient)" strokeWidth="12" fill="none" />
+            <defs>
+              <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="transparent" />
+                <stop offset="20%" stopColor="#7c3aed" />
+                <stop offset="50%" stopColor="#ffffff" />
+                <stop offset="80%" stopColor="#7c3aed" />
+                <stop offset="100%" stopColor="transparent" />
+              </linearGradient>
+              <linearGradient id="arcGlowMiddle" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="transparent" />
+                <stop offset="25%" stopColor="#8b5cf6" />
+                <stop offset="50%" stopColor="#e9d5ff" />
+                <stop offset="75%" stopColor="#8b5cf6" />
+                <stop offset="100%" stopColor="transparent" />
+              </linearGradient>
+              <linearGradient id="arcGlowOuter" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="transparent" />
+                <stop offset="30%" stopColor="#6366f1" />
+                <stop offset="50%" stopColor="#c4b5fd" />
+                <stop offset="70%" stopColor="#6366f1" />
+                <stop offset="100%" stopColor="transparent" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
 
-  {/* === Scroll Down - Bottom === */}
-  <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10">
-    <ScrollDown />
-  </div>
-</section>
+        {/* === Scroll Down - Bottom === */}
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10">
+          <ScrollDown />
+        </div>
+      </section>
 
 
 
@@ -1005,7 +1039,7 @@ useEffect(() => {
             }}
           >
             What is EL&nbsp;Kaid?
-            </h2>
+          </h2>
           <p className="text-gray-400 max-w-3xl mx-auto leading-relaxed text-lg mb-12">
             EL&nbsp;Kaid represents the next generation of intelligent systems — blending AI precision,
             real-time analytics, and seamless digital finance integration. It operates with no central
@@ -1014,8 +1048,8 @@ useEffect(() => {
           </p>
 
           <div className="flex justify-center mt-12">
-  <ButtonAnimatedGradient />
-</div>
+            <ButtonAnimatedGradient />
+          </div>
 
 
 
@@ -1047,7 +1081,7 @@ useEffect(() => {
           {/* Unique Features Grid */}
           <div className="grid md:grid-cols-2 gap-8">
             {/* Feature 1 */}
-            <FeatureBoxWithGradient 
+            <FeatureBoxWithGradient
               title="AI-First Architecture"
               description="Built from the ground up with artificial intelligence at its core, not as an afterthought. 
                   Every feature leverages advanced machine learning for optimal performance."
@@ -1055,7 +1089,7 @@ useEffect(() => {
             />
 
             {/* Feature 2 */}
-            <FeatureBoxWithGradient 
+            <FeatureBoxWithGradient
               title="Quantum-Safe Security"
               description="Next-generation encryption protocols that protect against both current and future threats, 
                   ensuring your data remains secure for decades to come."
@@ -1063,7 +1097,7 @@ useEffect(() => {
             />
 
             {/* Feature 3 */}
-            <FeatureBoxWithGradient 
+            <FeatureBoxWithGradient
               title="Real-Time Processing"
               description="Process millions of operations per second with sub-millisecond latency. 
                   Experience true real-time performance that scales with your business."
@@ -1071,7 +1105,7 @@ useEffect(() => {
             />
 
             {/* Feature 4 */}
-            <FeatureBoxWithGradient 
+            <FeatureBoxWithGradient
               title="Decentralized Network"
               description="No single point of failure. Our distributed architecture ensures maximum uptime 
                   and resilience across global infrastructure."
@@ -1079,7 +1113,7 @@ useEffect(() => {
             />
 
             {/* Feature 5 */}
-            <FeatureBoxWithGradient 
+            <FeatureBoxWithGradient
               title="Predictive Analytics"
               description="Advanced forecasting capabilities that predict trends and opportunities 
                   before they happen, giving you a competitive edge."
@@ -1087,7 +1121,7 @@ useEffect(() => {
             />
 
             {/* Feature 6 */}
-            <FeatureBoxWithGradient 
+            <FeatureBoxWithGradient
               title="Zero-Config Setup"
               description="Get started in minutes, not weeks. Our intelligent auto-configuration 
                   adapts to your environment without manual intervention."
@@ -1097,103 +1131,103 @@ useEffect(() => {
         </div>
       </section>
 
-  {/* ================= BITCOIN VS TRADITIONAL FINANCES ================= */}
-  <BitcoinComparisonSection />
+      {/* ================= BITCOIN VS TRADITIONAL FINANCES ================= */}
+      <BitcoinComparisonSection />
 
 
-    {/* ================= METRICS SECTION ================= */} 
-    <section className="relative py-32 px-4 overflow-hidden bg-black scroll-animate">
+      {/* ================= METRICS SECTION ================= */}
+      <section className="relative py-32 px-4 overflow-hidden bg-black scroll-animate">
         <div className="max-w-6xl mx-auto relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-20">
-        <p className="text-[#9B8AFB] tracking-widest uppercase text-sm mb-4">Metrics</p>
-        <h2
-          className="text-3xl md:text-5xl font-bold mb-16"
-          style={{
-            background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
-            WebkitBackgroundClip: 'text',
-            color: 'transparent',
-            letterSpacing: '0.05em',
-          }}
-        >
-          WHAT DOES THE NUMBERS SAY
-              </h2>
-      </div>
-
-      {/* Metrics Display */}
-      <div className="relative">
-        {/* Top Row - Two Metrics */}
-        <div className="grid md:grid-cols-2 gap-16 mb-16">
-          {/* Left Metric */}
-          <div className="text-center scroll-animate scroll-animate-delay-1">
-            <div className="text-6xl md:text-7xl font-bold text-[#9B8AFB] mb-4">
-              69+ MLN
-                  </div>
-            <p className="text-gray-400 text-lg">Bitcoin wallets are there</p>
-              </div>
-
-          {/* Right Metric */}
-          <div className="text-center scroll-animate scroll-animate-delay-2">
-            <div className="text-6xl md:text-7xl font-bold text-[#9B8AFB] mb-4">
-              1,637 $
-            </div>
-            <p className="text-gray-400 text-lg">Average transaction fee</p>
+          {/* Section Header */}
+          <div className="text-center mb-20">
+            <p className="text-[#9B8AFB] tracking-widest uppercase text-sm mb-4">Metrics</p>
+            <h2
+              className="text-3xl md:text-5xl font-bold mb-16"
+              style={{
+                background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+                letterSpacing: '0.05em',
+              }}
+            >
+              WHAT DOES THE NUMBERS SAY
+            </h2>
           </div>
-        </div>
 
-        {/* Center Metric - Large Triangle */}
-        <div className="relative flex justify-center items-center scroll-animate scroll-animate-delay-3">
-          {/* Triangle Shape with Gradient Border */}
+          {/* Metrics Display */}
           <div className="relative">
-            <svg width="400" height="300" viewBox="0 0 400 300" className="mx-auto scroll-animate">
-              {/* Outer glow */}
-              <path d="M 30 -20 L -20 380" 
-                    fill="none" 
-                    stroke="url(#triangleGlowOuter)" 
-                    strokeWidth="3" 
-                    opacity="0.3"
-                    style={{ filter: 'blur(8px)' }} />
-              <path d="M 370 -20 L 420 380" 
-                    fill="none" 
-                    stroke="url(#triangleGlowOuter)" 
-                    strokeWidth="3" 
-                    opacity="0.3"
-                    style={{ filter: 'blur(8px)' }} />
-              
-              {/* Main lines */}
-              <path d="M 30 -20 L -20 380" 
-                    fill="none" 
-                    stroke="url(#triangleGradient)" 
-                    strokeWidth="2" />
-              <path d="M 370 -20 L 420 380" 
-                    fill="none" 
-                    stroke="url(#triangleGradient)" 
-                    strokeWidth="2" />
-              
-              <defs>
-                <linearGradient id="triangleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#8b5cf6" />
-                  <stop offset="50%" stopColor="#6366f1" />
-                  <stop offset="100%" stopColor="#4c45a5" />
-                </linearGradient>
-                <linearGradient id="triangleGlowOuter" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#a78bfa" />
-                  <stop offset="100%" stopColor="#6366f1" />
-                </linearGradient>
-              </defs>
-            </svg>
+            {/* Top Row - Two Metrics */}
+            <div className="grid md:grid-cols-2 gap-16 mb-16">
+              {/* Left Metric */}
+              <div className="text-center scroll-animate scroll-animate-delay-1">
+                <div className="text-6xl md:text-7xl font-bold text-[#9B8AFB] mb-4">
+                  69+ MLN
+                </div>
+                <p className="text-gray-400 text-lg">Bitcoin wallets are there</p>
+              </div>
 
-            {/* Center Number */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center -mt-8 scroll-animate">
-                <div className="text-5xl md:text-6xl font-bold text-[#6B6B8B] mb-2">
-                  290,457
+              {/* Right Metric */}
+              <div className="text-center scroll-animate scroll-animate-delay-2">
+                <div className="text-6xl md:text-7xl font-bold text-[#9B8AFB] mb-4">
+                  1,637 $
                 </div>
-                <div className="text-gray-400 text-lg">
-                  Transactions / Day
-                </div>
+                <p className="text-gray-400 text-lg">Average transaction fee</p>
               </div>
             </div>
+
+            {/* Center Metric - Large Triangle */}
+            <div className="relative flex justify-center items-center scroll-animate scroll-animate-delay-3">
+              {/* Triangle Shape with Gradient Border */}
+              <div className="relative">
+                <svg width="400" height="300" viewBox="0 0 400 300" className="mx-auto scroll-animate">
+                  {/* Outer glow */}
+                  <path d="M 30 -20 L -20 380"
+                    fill="none"
+                    stroke="url(#triangleGlowOuter)"
+                    strokeWidth="3"
+                    opacity="0.3"
+                    style={{ filter: 'blur(8px)' }} />
+                  <path d="M 370 -20 L 420 380"
+                    fill="none"
+                    stroke="url(#triangleGlowOuter)"
+                    strokeWidth="3"
+                    opacity="0.3"
+                    style={{ filter: 'blur(8px)' }} />
+
+                  {/* Main lines */}
+                  <path d="M 30 -20 L -20 380"
+                    fill="none"
+                    stroke="url(#triangleGradient)"
+                    strokeWidth="2" />
+                  <path d="M 370 -20 L 420 380"
+                    fill="none"
+                    stroke="url(#triangleGradient)"
+                    strokeWidth="2" />
+
+                  <defs>
+                    <linearGradient id="triangleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#8b5cf6" />
+                      <stop offset="50%" stopColor="#6366f1" />
+                      <stop offset="100%" stopColor="#4c45a5" />
+                    </linearGradient>
+                    <linearGradient id="triangleGlowOuter" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#a78bfa" />
+                      <stop offset="100%" stopColor="#6366f1" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+
+                {/* Center Number */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center -mt-8 scroll-animate">
+                    <div className="text-5xl md:text-6xl font-bold text-[#6B6B8B] mb-2">
+                      290,457
+                    </div>
+                    <div className="text-gray-400 text-lg">
+                      Transactions / Day
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1204,135 +1238,135 @@ useEffect(() => {
 
 
 
-{/* ================= WHO CAN USE BITCOIN SECTION ================= */}
-<section className="relative py-32 px-4 overflow-hidden bg-black scroll-animate">
-  <div className="max-w-7xl mx-auto relative z-10">
-    {/* Section Header */}
-    <div className="text-right mb-10 w-full">
-      <div className="ml-auto max-w-[45rem] flex flex-col items-end gap-1">
-        <p className="text-transparent bg-clip-text bg-gradient-to-r from-[#4c45a5] to-[#e0cbe0] uppercase text-sm md:text-base tracking-widest">
-          Options
-        </p>
-        <h2 className="text-transparent bg-clip-text bg-gradient-to-b from-white/60 to-white/95 text-4xl md:text-6xl font-light uppercase whitespace-nowrap">
-          Who can use bitcoin
-        </h2>
-        <p className="text-transparent bg-clip-text bg-gradient-to-b from-white/50 to-white max-w-[35rem] text-sm md:text-lg mt-1">
-          With the technology of bitcoin, everyone<br />
-          will be able to get what suits him best.
-        </p>
-      </div>
-    </div>
-
-    {/* Three Card Grid - Staircase Layout */}
-    <div className="grid md:grid-cols-3 gap-0 relative" style={{ minHeight: '58rem' }}>
-      
-      {/* Card 1 - Businesses */}
-      <div className="relative group self-start">
-        <div 
-          className="absolute inset-0 rounded-tr-[7rem] rounded-bl-[7rem] p-[2px]"
-          style={{
-            background: 'linear-gradient(130deg, black, #e0cbe0 54%, #4c45a5)',
-          }}
-        >
-          <div className="bg-black rounded-tr-[7rem] rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-20">
-            <h3 
-              className="text-3xl font-bold mb-6 scroll-animate scroll-animate-delay-1"
-              style={{
-                background: 'linear-gradient(360deg, rgba(255,255,255,0.4), #FFFFFF 45%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Businesses
-            </h3>
-            <p 
-              className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
-              style={{
-                background: 'linear-gradient(360deg, rgba(255,255,255,0.5), #FFFFFF 50%, #FFFFFF)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Bitcoin is a very secure and inexpensive way to handle payments.
-            </p>
+      {/* ================= WHO CAN USE BITCOIN SECTION ================= */}
+      <section className="relative py-32 px-4 overflow-hidden bg-black scroll-animate">
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Section Header */}
+          <div className="text-right mb-10 w-full">
+            <div className="ml-auto max-w-[45rem] flex flex-col items-end gap-1">
+              <p className="text-transparent bg-clip-text bg-gradient-to-r from-[#4c45a5] to-[#e0cbe0] uppercase text-sm md:text-base tracking-widest">
+                Options
+              </p>
+              <h2 className="text-transparent bg-clip-text bg-gradient-to-b from-white/60 to-white/95 text-4xl md:text-6xl font-light uppercase whitespace-nowrap">
+                Who can use bitcoin
+              </h2>
+              <p className="text-transparent bg-clip-text bg-gradient-to-b from-white/50 to-white max-w-[35rem] text-sm md:text-lg mt-1">
+                With the technology of bitcoin, everyone<br />
+                will be able to get what suits him best.
+              </p>
+            </div>
           </div>
-        </div>
-        <div style={{ height: '20rem' }}></div>
-      </div>
 
-      {/* Card 2 - Individuals */}
-      <div className="relative group self-center md:w-[96%] md:-ml-[0.1rem] md:mt-8">
-        <div 
-          className="absolute inset-0 rounded-tr-[7rem] rounded-bl-[7rem] p-[2px]"
-          style={{
-            background: 'linear-gradient(180deg, #5850aa, #4c45a5)',
-          }}
-        >
-          <div className="bg-black rounded-tr-[7rem] rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-20">
-            <h3 
-              className="text-3xl font-bold mb-6 scroll-animate scroll-animate-delay-1"
-              style={{
-                background: 'linear-gradient(360deg, rgba(255,255,255,0.4), #FFFFFF 45%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Individuals
-            </h3>
-            <p 
-              className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
-              style={{
-                background: 'linear-gradient(360deg, rgba(255,255,255,0.5), #FFFFFF 50%, #FFFFFF)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Bitcoin is the easiest way to transact at a very low cost.
-            </p>
+          {/* Three Card Grid - Staircase Layout */}
+          <div className="grid md:grid-cols-3 gap-0 relative" style={{ minHeight: '58rem' }}>
+
+            {/* Card 1 - Businesses */}
+            <div className="relative group self-start">
+              <div
+                className="absolute inset-0 rounded-tr-[7rem] rounded-bl-[7rem] p-[2px]"
+                style={{
+                  background: 'linear-gradient(130deg, black, #e0cbe0 54%, #4c45a5)',
+                }}
+              >
+                <div className="bg-black rounded-tr-[7rem] rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-20">
+                  <h3
+                    className="text-3xl font-bold mb-6 scroll-animate scroll-animate-delay-1"
+                    style={{
+                      background: 'linear-gradient(360deg, rgba(255,255,255,0.4), #FFFFFF 45%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }}
+                  >
+                    Businesses
+                  </h3>
+                  <p
+                    className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
+                    style={{
+                      background: 'linear-gradient(360deg, rgba(255,255,255,0.5), #FFFFFF 50%, #FFFFFF)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }}
+                  >
+                    Bitcoin is a very secure and inexpensive way to handle payments.
+                  </p>
+                </div>
+              </div>
+              <div style={{ height: '20rem' }}></div>
+            </div>
+
+            {/* Card 2 - Individuals */}
+            <div className="relative group self-center md:w-[96%] md:-ml-[0.1rem] md:mt-8">
+              <div
+                className="absolute inset-0 rounded-tr-[7rem] rounded-bl-[7rem] p-[2px]"
+                style={{
+                  background: 'linear-gradient(180deg, #5850aa, #4c45a5)',
+                }}
+              >
+                <div className="bg-black rounded-tr-[7rem] rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-20">
+                  <h3
+                    className="text-3xl font-bold mb-6 scroll-animate scroll-animate-delay-1"
+                    style={{
+                      background: 'linear-gradient(360deg, rgba(255,255,255,0.4), #FFFFFF 45%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }}
+                  >
+                    Individuals
+                  </h3>
+                  <p
+                    className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
+                    style={{
+                      background: 'linear-gradient(360deg, rgba(255,255,255,0.5), #FFFFFF 50%, #FFFFFF)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }}
+                  >
+                    Bitcoin is the easiest way to transact at a very low cost.
+                  </p>
+                </div>
+              </div>
+              <div style={{ height: '20rem' }}></div>
+            </div>
+
+            {/* Card 3 - Developers (touching Individuals, no overlap) */}
+            <div className="relative group self-end md:-ml-[1.1rem] md:w-[97%] md:mt-[10rem] md:translate-y-[2rem]">
+
+              <div
+                className="absolute inset-0 rounded-tr-[7rem] rounded-bl-[7rem] p-[2px]"
+                style={{
+                  background: 'linear-gradient(130deg, #4d46a5, #e0cbe0 54%, black)',
+                }}
+              >
+                <div className="bg-black rounded-tr-[7rem] rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-20">
+                  <h3
+                    className="text-3xl font-bold mb-6 scroll-animate scroll-animate-delay-1"
+                    style={{
+                      background: 'linear-gradient(360deg, rgba(255,255,255,0.4), #FFFFFF 45%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }}
+                  >
+                    Developers
+                  </h3>
+                  <p
+                    className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
+                    style={{
+                      background: 'linear-gradient(360deg, rgba(255,255,255,0.5), #FFFFFF 50%, #FFFFFF)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }}
+                  >
+                    Learn Bitcoin and start building Bitcoin-based applications.
+                  </p>
+                </div>
+              </div>
+              <div style={{ height: '20rem' }}></div>
+            </div>
+
           </div>
-        </div>
-        <div style={{ height: '20rem' }}></div>
-      </div>
 
-      {/* Card 3 - Developers (touching Individuals, no overlap) */}
-      <div className="relative group self-end md:-ml-[1.1rem] md:w-[97%] md:mt-[10rem] md:translate-y-[2rem]">
-
-        <div 
-          className="absolute inset-0 rounded-tr-[7rem] rounded-bl-[7rem] p-[2px]"
-          style={{
-            background: 'linear-gradient(130deg, #4d46a5, #e0cbe0 54%, black)',
-          }}
-        >
-          <div className="bg-black rounded-tr-[7rem] rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-20">
-            <h3 
-              className="text-3xl font-bold mb-6 scroll-animate scroll-animate-delay-1"
-              style={{
-                background: 'linear-gradient(360deg, rgba(255,255,255,0.4), #FFFFFF 45%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Developers
-            </h3>
-            <p 
-              className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
-              style={{
-                background: 'linear-gradient(360deg, rgba(255,255,255,0.5), #FFFFFF 50%, #FFFFFF)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Learn Bitcoin and start building Bitcoin-based applications.
-            </p>
-          </div>
-        </div>
-        <div style={{ height: '20rem' }}></div>
-      </div>
-
-    </div>
-
-    {/* Mobile: Stack Vertically */}
-    <style jsx>{`
+          {/* Mobile: Stack Vertically */}
+          <style jsx>{`
       @media (max-width: 768px) {
         .grid.md\\:grid-cols-3 {
           grid-template-columns: 1fr;
@@ -1344,8 +1378,8 @@ useEffect(() => {
         }
       }
     `}</style>
-  </div>
-</section>
+        </div>
+      </section>
     </div>
   );
 };
