@@ -5,14 +5,14 @@ export default function BitcoinHero() {
   return (
     <div className="relative min-h-screen bg-black overflow-hidden flex items-center">
       {/* === Minimalist Glowing Arc === */}
-      <div className="absolute bottom-0 -right-32 h-[700px] w-[700px] z-0">
-        <svg className="w-full h-full" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div className="absolute bottom-32 -right-32 h-[1000px] w-[1000px] z-0" style={{ transform: 'rotate(-15deg)', transformOrigin: 'bottom right' }}>
+        <svg className="w-full h-full" viewBox="0 0 1200 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
           {/* Outer glow half circle */}
-          <path d="M 0 900 A 800 800 0 0 1 1000 900" stroke="url(#arcGlowOuter)" strokeWidth="40" fill="none" opacity="0.4" style={{ filter: 'blur(12px)' }} />
+          <path d="M 0 1100 A 1100 1100 0 0 1 1200 1100" stroke="url(#arcGlowOuter)" strokeWidth="40" fill="none" opacity="0.4" style={{ filter: 'blur(12px)' }} />
           {/* Middle glow half circle */}
-          <path d="M 0 900 A 800 800 0 0 1 1000 900" stroke="url(#arcGlowMiddle)" strokeWidth="24" fill="none" opacity="0.7" style={{ filter: 'blur(6px)' }} />
+          <path d="M 0 1100 A 1100 1100 0 0 1 1200 1100" stroke="url(#arcGlowMiddle)" strokeWidth="24" fill="none" opacity="0.7" style={{ filter: 'blur(6px)' }} />
           {/* Main half circle */}
-          <path d="M 0 900 A 800 800 0 0 1 1000 900" stroke="url(#arcGradient)" strokeWidth="12" fill="none" />
+          <path d="M 0 1100 A 1100 1100 0 0 1 1200 1100" stroke="url(#arcGradient)" strokeWidth="12" fill="none" />
           <defs>
             <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="transparent" />

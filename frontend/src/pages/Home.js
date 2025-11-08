@@ -6,6 +6,7 @@ import ButtonAnimatedGradient from "../components/ButtonAnimatedGradient";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HowToStartBitcoin from "../components/HowToStartBitcoin";
+import ElKaidVsTraditionalFinances from "../components/ElKaidVsTraditionalFinances";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -306,7 +307,7 @@ const FeatureBoxWithGradient = ({ title, description, delay = "" }) => {
   const handleMouseLeave = () => setIsHovered(false);
 
   return (
-    <div className={`relative scroll-animate ${delay}`} ref={boxRef}>
+    <div className={`relative scroll-animate ${delay} h-full flex flex-col`} ref={boxRef}>
       {/* Outer glow layer */}
       <div
         className="pointer-events-none absolute -inset-1 opacity-0 blur-xl transition-opacity duration-500 rounded-2xl"
@@ -339,7 +340,7 @@ const FeatureBoxWithGradient = ({ title, description, delay = "" }) => {
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="relative"
+        className="relative h-full"
       >
         {/* Animated border that appears only on hover and follows cursor */}
         <div
@@ -359,13 +360,13 @@ const FeatureBoxWithGradient = ({ title, description, delay = "" }) => {
         />
 
         <div
-          className="bg-black backdrop-blur-sm p-16 rounded-2xl transition-all duration-300 h-64 feature-box-glow relative z-10"
+          className="bg-black backdrop-blur-sm p-16 rounded-2xl transition-all duration-300 h-full min-h-[280px] feature-box-glow relative z-10 flex flex-col"
           style={{
             border: 'none',
           }}
         >
           <h3 className="text-xl font-bold text-white mb-6 text-center">{title}</h3>
-          <p className="text-gray-300 leading-relaxed text-center">{description}</p>
+          <p className="text-gray-300 leading-relaxed text-justify flex-grow">{description}</p>
         </div>
       </div>
     </div>
@@ -419,201 +420,6 @@ const ComparisonText = ({ texts = [] }) => {
   );
 };
 
-// Bitcoin Comparison Section Component
-const BitcoinComparisonSection = () => {
-  const circleRef = useRef(null);
-  const arcRef = useRef(null);
-  const sectionRef = useRef(null);
-  const [activePointIndex, setActivePointIndex] = useState(0);
-
-  const traditionalPoints = [
-    'Operate within certain hours',
-    'Very high transaction fees and taxes',
-    'Banking apps can be hacked',
-    'Transactions are controlled by banks',
-    'Cannot be provided to some groups of people'
-  ];
-
-  const bitcoinPoints = [
-    'Operate 24/7 without interruption',
-    'Provide fast and cheap transactions',
-    'Transactions cannot be intercepted or reversed',
-    'Free from third-party interference',
-    'Accessible to everyone regardless of their status'
-  ];
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!arcRef.current || !sectionRef.current) return;
-
-      const section = sectionRef.current;
-      const rect = section.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const sectionHeight = section.offsetHeight;
-
-      // Calculate scroll progress through the sticky section
-      // Progress goes from 0 (section starts) to 1 (section ends)
-      const sectionTop = section.offsetTop;
-      const currentScroll = window.scrollY;
-      const scrollStart = sectionTop - windowHeight;
-      const scrollEnd = sectionTop + sectionHeight - windowHeight;
-      const scrollRange = scrollEnd - scrollStart;
-
-      let progress = 0;
-      if (scrollRange > 0) {
-        progress = Math.max(0, Math.min(1, (currentScroll - scrollStart) / scrollRange));
-      }
-
-      // Rotate arc smoothly based on scroll progress - maintains position
-      const rotation = progress * 720; // 2 full rotations as you scroll
-      if (arcRef.current) {
-        arcRef.current.style.transform = `rotate(${rotation}deg)`;
-        arcRef.current.style.transformOrigin = '50% 50%';
-        arcRef.current.style.transition = 'none'; // Prevent any CSS transitions
-      }
-
-      // Update active point index (0-4) with hold zones
-      // Cards hold still until complete text is visible, then transition
-      const numPoints = 5;
-      const sectionSize = 1 / numPoints; // 0.2 per section (20% each)
-      const holdPercentage = 0.95; // Hold card for 95% of section to ensure text is fully visible
-
-      // Calculate which section we're in
-      let sectionIndex = Math.floor(progress / sectionSize);
-      sectionIndex = Math.min(sectionIndex, numPoints - 1);
-
-      // Within each section, check if we're still in the hold zone
-      const sectionProgress = (progress % sectionSize) / sectionSize;
-      const isInHoldZone = sectionProgress < holdPercentage;
-
-      // Determine point index - hold current card until hold zone ends
-      let pointIndex = sectionIndex;
-      if (!isInHoldZone && sectionIndex < numPoints - 1) {
-        // Only transition to next point after hold zone completes
-        pointIndex = sectionIndex + 1;
-      }
-
-      // Clamp to valid range
-      pointIndex = Math.min(Math.max(0, pointIndex), numPoints - 1);
-
-      setActivePointIndex(pointIndex);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial call
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const labels = ['Accessibility', 'Transactions', 'Security', 'Inclusivity', 'Bias'];
-
-  return (
-    <section ref={sectionRef} className="relative py-16 px-4 bg-black" style={{ minHeight: '260vh' }}>
-      <div className="max-w-7xl mx-auto w-full sticky top-12 md:top-16">
-        {/* Header */}
-        <div className="text-center mb-20">
-          <p className="text-[#9B8AFB] uppercase tracking-widest text-sm mb-3">
-            Comparison
-          </p>
-          <h2 className="text-5xl md:text-6xl font-light text-white">
-            Bitcoin vs Traditional<br />Finances
-          </h2>
-        </div>
-
-        {/* Main Layout */}
-        <div className="relative flex flex-col items-center gap-2">
-          {/* Top Row - Headers */}
-          <div className="flex items-center justify-center gap-6 w-full max-w-7xl">
-            {/* Traditional Finances */}
-            <div className="flex-1 max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tl-[120px] rounded-br-[120px] p-10 min-h-[200px] flex flex-col justify-center">
-              <p className="text-white/60 uppercase tracking-wider text-xs mb-2">
-                Traditional
-              </p>
-              <h3 className="text-3xl font-light text-white">
-                Finances
-              </h3>
-            </div>
-
-            {/* Bitcoin */}
-            <div className="flex-1 max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tr-[120px] rounded-bl-[120px] p-10 min-h-[200px] flex flex-col justify-center items-end text-right">
-              <p className="text-white/60 uppercase tracking-wider text-xs mb-2">
-                Crypto
-              </p>
-              <h3 className="text-3xl font-light text-white">
-                Bitcoin
-              </h3>
-            </div>
-          </div>
-
-          {/* Center Circle with SVG Arc */}
-          <div className="relative w-40 h-40 md:w-44 md:h-44 flex items-center justify-center">
-            {/* Rotating SVG arc */}
-            <div ref={circleRef} className="absolute inset-0 flex items-center justify-center">
-              <svg ref={arcRef} viewBox="0 0 100 100" className="w-full h-full" aria-hidden="true" style={{ willChange: 'transform' }}>
-                <defs>
-                  <linearGradient id="compArcGradient" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#7b5cff" />
-                    <stop offset="100%" stopColor="#d9c6d6" />
-                  </linearGradient>
-                </defs>
-                {/* faint background ring */}
-                <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.05)" strokeWidth="6" fill="none" vectorEffect="non-scaling-stroke" />
-                {/* arc segment */}
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="40"
-                  fill="none"
-                  stroke="url(#compArcGradient)"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                  vectorEffect="non-scaling-stroke"
-                  style={{ strokeDasharray: '120 260', strokeDashoffset: '0' }}
-                />
-                {/* soft shadow for gloss */}
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="40"
-                  fill="none"
-                  stroke="rgba(123,92,255,0.3)"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                  vectorEffect="non-scaling-stroke"
-                  style={{ strokeDasharray: '120 260', strokeDashoffset: '0', filter: 'blur(1.5px)' }}
-                />
-              </svg>
-            </div>
-
-            {/* Centered label */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span className="text-white/80 text-base md:text-lg font-light">
-                {labels[activePointIndex]}
-              </span>
-            </div>
-          </div>
-
-          {/* Bottom Row - Descriptions */}
-          <div className="flex items-start justify-center gap-6 w-full max-w-7xl">
-            {/* Traditional Descriptions */}
-            <div className="flex-1 max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tr-[120px] rounded-bl-[120px] p-10 min-h-[200px] flex items-center">
-              <div className="text-white/80 text-base md:text-lg leading-relaxed transition-opacity duration-500">
-                {traditionalPoints[activePointIndex]}
-              </div>
-            </div>
-
-            {/* Crypto Descriptions */}
-            <div className="flex-1 max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tl-[120px] rounded-br-[120px] p-10 min-h-[200px] flex items-center justify-end">
-              <div className="text-white/80 text-base md:text-lg leading-relaxed text-right transition-opacity duration-500">
-                {bitcoinPoints[activePointIndex]}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
 
 const Home = () => {
   const navigate = useNavigate();
@@ -969,15 +775,48 @@ const Home = () => {
         <div className="hero_aurora absolute inset-1/2 w-[160vw] aspect-square rounded-full blur-[4rem] opacity-20 bg-[radial-gradient(circle_at_50%_20%,rgba(224,203,224,0.15),rgba(76,69,165,0.1),rgba(76,69,165,0))] animate-[heroAurora_14s_ease-in-out_infinite_reverse]"></div>
 
         {/* === Triangular Light Overlay === */}
-        <svg viewBox="0 0 622 705" className="absolute w-full h-[80vh] text-white opacity-5 blur-[9vw] animate-[pulse_6s_infinite_ease-in-out]">
+        <svg viewBox="0 0 622 705" className="absolute w-full h-[80vh] text-white opacity-[0.02] blur-[9vw] animate-[pulse_6s_infinite_ease-in-out]">
           <path d="M311 0L621.037 704.25H0.962891L311 0Z" fill="currentColor" />
         </svg>
 
         {/* === Main Heading - Centered === */}
         <div className="absolute inset-0 flex items-center justify-center z-10">
-          <h1 className="text-5xl md:text-7xl font-bold uppercase bg-gradient-to-b from-white via-white/90 to-purple-200 bg-clip-text text-transparent tracking-wide">
-            EL KAID
-          </h1>
+          <div className="relative z-10 text-center">
+            {/* Subtle glow effect behind text (match OurWork) */}
+            <div className="absolute inset-0 flex items-center justify-center" style={{ transform: 'translateY(-10px)' }}>
+              <div
+                className="text-6xl md:text-8xl font-bold uppercase tracking-wide opacity-10 blur-md"
+                style={{
+                  fontFamily: "Montserrat, sans-serif",
+                  fontWeight: 600,
+                  background: "linear-gradient(to bottom, #60a5fa, #3b82f6)",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",
+                }}
+              >
+                EL KAID
+              </div>
+            </div>
+            <h1
+              className="text-6xl md:text-8xl font-bold uppercase relative text-white mb-6"
+              style={{
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: 600,
+                letterSpacing: '0.03em',
+                color: '#ffffff',
+              }}
+            >
+              EL KAID
+            </h1>
+            <p className="text-xl md:text-2xl mt-4 whitespace-nowrap uppercase font-semibold" style={{ 
+              color: 'rgba(255, 255, 255, 0.6)',
+              fontFamily: "Montserrat, sans-serif",
+              fontWeight: 600,
+              letterSpacing: '0.02em'
+            }}>
+              The Next Era of Financial System is Here
+            </p>
+          </div>
         </div>
 
         {/* === Minimalist Glowing Arc === */}
@@ -1040,15 +879,12 @@ const Home = () => {
           >
             What is EL&nbsp;Kaid?
           </h2>
-          <p className="text-gray-400 max-w-3xl mx-auto leading-relaxed text-lg mb-12">
-            EL&nbsp;Kaid represents the next generation of intelligent systems — blending AI precision,
-            real-time analytics, and seamless digital finance integration. It operates with no central
-            authority, empowering innovation and transparency. Every process is automated, secure, and
-            open for collaboration — redefining how people and businesses interact with technology.
+          <p className="text-gray-400 max-w-[95vw] mx-auto leading-normal text-lg mb-12 px-8 text-justify" style={{ maxWidth: '1400px', lineHeight: '1.6' }}>
+            EL KAID is the next evolution of financial intelligence — a revolutionary system that blends AI-driven automation and manual precision to simplify and empower modern business management. From billing, bookkeeping, taxation, banking, asset tracking, and B1M (Business 1 Messenger), everything you need to run your business flows seamlessly through one unified fingertip access. With cutting-edge technology and globally connected financial data, EL KAID transforms the way businesses operate — creating a virtual office ecosystem that's accessible anytime, anywhere. We're redefining the fintech landscape by giving individuals and businesses the power to manage their finances effortlessly — without the need for consultants. EL KAID isn't just a platform it's the new era of business and financial management.
           </p>
 
           <div className="flex justify-center mt-12">
-            <ButtonAnimatedGradient />
+            <ButtonAnimatedGradient onClick={() => navigate('/buy-software')} />
           </div>
 
 
@@ -1079,160 +915,165 @@ const Home = () => {
           </div>
 
           {/* Unique Features Grid */}
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 items-stretch">
             {/* Feature 1 */}
             <FeatureBoxWithGradient
-              title="AI-First Architecture"
-              description="Built from the ground up with artificial intelligence at its core, not as an afterthought. 
-                  Every feature leverages advanced machine learning for optimal performance."
+              title="Next-Era Financial System"
+              description="EL KAID redefines how businesses handle money — merging automation, intelligence, and real-time connectivity into one seamless platform. It’s not just finance management; it’s the future of digital finance in motion."
               delay="scroll-animate-delay-1"
             />
 
             {/* Feature 2 */}
             <FeatureBoxWithGradient
-              title="Quantum-Safe Security"
-              description="Next-generation encryption protocols that protect against both current and future threats, 
-                  ensuring your data remains secure for decades to come."
+              title="AI-Driven Insights"
+              description="Powered by advanced AI, EL KAID transforms raw financial data into clear, actionable insights. Make smarter decisions, faster — with predictive analytics guiding every transaction and trend."
               delay="scroll-animate-delay-2"
             />
 
             {/* Feature 3 */}
             <FeatureBoxWithGradient
-              title="Real-Time Processing"
-              description="Process millions of operations per second with sub-millisecond latency. 
-                  Experience true real-time performance that scales with your business."
+              title="Universal Access"
+              description="Your entire financial ecosystem — from billing to banking — available anytime, anywhere. Whether you're in the office or on the move, EL KAID keeps your business in sync across the globe."
               delay="scroll-animate-delay-1"
             />
 
             {/* Feature 4 */}
             <FeatureBoxWithGradient
-              title="Decentralized Network"
-              description="No single point of failure. Our distributed architecture ensures maximum uptime 
-                  and resilience across global infrastructure."
+              title="Trust and Security"
+              description="Built on bank-grade encryption and verified protocols, EL KAID ensures your data remains safe, private, and tamper-proof. Transparency and trust are at the core of every transaction."
               delay="scroll-animate-delay-2"
             />
 
             {/* Feature 5 */}
             <FeatureBoxWithGradient
-              title="Predictive Analytics"
-              description="Advanced forecasting capabilities that predict trends and opportunities 
-                  before they happen, giving you a competitive edge."
+              title="Built for the New Era of Digital Finance"
+              description="Designed for innovators and businesses ready to evolve, EL KAID brings the next generation of fintech infrastructure — faster, smarter, and fully adaptive to the digital economy."
               delay="scroll-animate-delay-3"
             />
 
             {/* Feature 6 */}
             <FeatureBoxWithGradient
-              title="Zero-Config Setup"
-              description="Get started in minutes, not weeks. Our intelligent auto-configuration 
-                  adapts to your environment without manual intervention."
+              title="Seamless Experience"
+              description="Every click, every action, every connection — crafted for effortless flow and intuitive control. EL KAID turns complex financial operations into a smooth, unified experience."
               delay="scroll-animate-delay-3"
             />
           </div>
-        </div>
-      </section>
 
-      {/* ================= BITCOIN VS TRADITIONAL FINANCES ================= */}
-      <BitcoinComparisonSection />
-
-
-      {/* ================= METRICS SECTION ================= */}
-      <section className="relative py-32 px-4 overflow-hidden bg-black scroll-animate">
-        <div className="max-w-6xl mx-auto relative z-10">
-          {/* Section Header */}
-          <div className="text-center mb-20">
-            <p className="text-[#9B8AFB] tracking-widest uppercase text-sm mb-4">Metrics</p>
-            <h2
-              className="text-3xl md:text-5xl font-bold mb-16"
-              style={{
-                background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-                letterSpacing: '0.05em',
-              }}
-            >
-              WHAT DOES THE NUMBERS SAY
-            </h2>
-          </div>
-
-          {/* Metrics Display */}
-          <div className="relative">
-            {/* Top Row - Two Metrics */}
-            <div className="grid md:grid-cols-2 gap-16 mb-16">
-              {/* Left Metric */}
-              <div className="text-center scroll-animate scroll-animate-delay-1">
-                <div className="text-6xl md:text-7xl font-bold text-[#9B8AFB] mb-4">
-                  69+ MLN
-                </div>
-                <p className="text-gray-400 text-lg">Bitcoin wallets are there</p>
-              </div>
-
-              {/* Right Metric */}
-              <div className="text-center scroll-animate scroll-animate-delay-2">
-                <div className="text-6xl md:text-7xl font-bold text-[#9B8AFB] mb-4">
-                  1,637 $
-                </div>
-                <p className="text-gray-400 text-lg">Average transaction fee</p>
-              </div>
-            </div>
-
-            {/* Center Metric - Large Triangle */}
-            <div className="relative flex justify-center items-center scroll-animate scroll-animate-delay-3">
-              {/* Triangle Shape with Gradient Border */}
-              <div className="relative">
-                <svg width="400" height="300" viewBox="0 0 400 300" className="mx-auto scroll-animate">
-                  {/* Outer glow */}
-                  <path d="M 30 -20 L -20 380"
-                    fill="none"
-                    stroke="url(#triangleGlowOuter)"
-                    strokeWidth="3"
-                    opacity="0.3"
-                    style={{ filter: 'blur(8px)' }} />
-                  <path d="M 370 -20 L 420 380"
-                    fill="none"
-                    stroke="url(#triangleGlowOuter)"
-                    strokeWidth="3"
-                    opacity="0.3"
-                    style={{ filter: 'blur(8px)' }} />
-
-                  {/* Main lines */}
-                  <path d="M 30 -20 L -20 380"
-                    fill="none"
-                    stroke="url(#triangleGradient)"
-                    strokeWidth="2" />
-                  <path d="M 370 -20 L 420 380"
-                    fill="none"
-                    stroke="url(#triangleGradient)"
-                    strokeWidth="2" />
-
-                  <defs>
-                    <linearGradient id="triangleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#8b5cf6" />
-                      <stop offset="50%" stopColor="#6366f1" />
-                      <stop offset="100%" stopColor="#4c45a5" />
-                    </linearGradient>
-                    <linearGradient id="triangleGlowOuter" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#a78bfa" />
-                      <stop offset="100%" stopColor="#6366f1" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-
-                {/* Center Number */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center -mt-8 scroll-animate">
-                    <div className="text-5xl md:text-6xl font-bold text-[#6B6B8B] mb-2">
-                      290,457
-                    </div>
-                    <div className="text-gray-400 text-lg">
-                      Transactions / Day
-                    </div>
-                  </div>
-                </div>
-              </div>
+          {/* Feature 7 - Worldwide Payments (Bottom/Centered) */}
+          <div className="mt-8 flex justify-center">
+            <div className="w-full md:w-1/2 h-full">
+              <FeatureBoxWithGradient
+                title="Worldwide Payments"
+                description="Go borderless with instant global payments and smart currency handling. EL KAID connects you to the world's financial network — making international transactions as easy as local ones."
+                delay="scroll-animate-delay-1"
+              />
             </div>
           </div>
         </div>
       </section>
+
+      {/* ================= EL KAID VS TRADITIONAL FINANCES ================= */}
+      <ElKaidVsTraditionalFinances />
+
+
+{/* ================= METRICS SECTION ================= */}
+<section className="relative py-32 px-4 overflow-hidden bg-black scroll-animate">
+  <div className="max-w-6xl mx-auto relative z-10">
+    {/* Section Header */}
+    <div className="text-center mb-20">
+      <p className="text-[#9B8AFB] tracking-widest uppercase text-sm mb-4">Metrics</p>
+      <h2
+        className="text-3xl md:text-5xl font-bold mb-16"
+        style={{
+          background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
+          WebkitBackgroundClip: 'text',
+          color: 'transparent',
+          letterSpacing: '0.05em',
+        }}
+      >
+        WHAT DO THE NUMBERS SAY
+      </h2>
+    </div>
+
+    {/* Metrics Display */}
+    <div className="relative">
+      {/* Top Row - Two Metrics */}
+      <div className="grid md:grid-cols-2 gap-16 mb-16">
+        {/* Left Metric */}
+        <div className="text-center scroll-animate scroll-animate-delay-1">
+          <div className="text-6xl md:text-7xl font-bold text-[#9B8AFB] mb-4">
+            1.2M+
+          </div>
+          <p className="text-gray-400 text-lg">Active Businesses Powered by EL KAID</p>
+        </div>
+
+        {/* Right Metric */}
+        <div className="text-center scroll-animate scroll-animate-delay-2">
+          <div className="text-6xl md:text-7xl font-bold text-[#9B8AFB] mb-4">
+            98%
+          </div>
+          <p className="text-gray-400 text-lg">Customer Retention & Satisfaction Rate</p>
+        </div>
+      </div>
+
+      {/* Center Metric - Large Triangle */}
+      <div className="relative flex justify-center items-center scroll-animate scroll-animate-delay-3">
+        <div className="relative">
+          <svg width="400" height="300" viewBox="0 0 400 300" className="mx-auto scroll-animate">
+            {/* Outer Glow */}
+            <path d="M 30 -20 L -20 380"
+              fill="none"
+              stroke="url(#triangleGlowOuter)"
+              strokeWidth="3"
+              opacity="0.3"
+              style={{ filter: 'blur(8px)' }} />
+            <path d="M 370 -20 L 420 380"
+              fill="none"
+              stroke="url(#triangleGlowOuter)"
+              strokeWidth="3"
+              opacity="0.3"
+              style={{ filter: 'blur(8px)' }} />
+
+            {/* Main Lines */}
+            <path d="M 30 -20 L -20 380"
+              fill="none"
+              stroke="url(#triangleGradient)"
+              strokeWidth="2" />
+            <path d="M 370 -20 L 420 380"
+              fill="none"
+              stroke="url(#triangleGradient)"
+              strokeWidth="2" />
+
+            <defs>
+              <linearGradient id="triangleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#8b5cf6" />
+                <stop offset="50%" stopColor="#6366f1" />
+                <stop offset="100%" stopColor="#4c45a5" />
+              </linearGradient>
+              <linearGradient id="triangleGlowOuter" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#a78bfa" />
+                <stop offset="100%" stopColor="#6366f1" />
+              </linearGradient>
+            </defs>
+          </svg>
+
+          {/* Center Number */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center -mt-8 scroll-animate">
+              <div className="text-5xl md:text-6xl font-bold text-[#6B6B8B] mb-2">
+                ₹5.8B+
+              </div>
+              <div className="text-gray-400 text-lg">
+                Transactions Processed Securely
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       <HowToStartBitcoin />
 

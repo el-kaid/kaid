@@ -537,15 +537,15 @@ const OurWork = () => {
       {/* CTA Section */}
       <section className="py-20 px-4 relative overflow-hidden bg-black scroll-animate">
         <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[750px] lg:w-[1000px] h-[300px] sm:h-[450px] lg:h-[600px] bg-gradient-radial from-blue-500/40 via-sky-600/25 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[525px] lg:w-[700px] h-[200px] sm:h-[300px] lg:h-[400px] bg-gradient-radial from-sky-500/50 via-blue-500/30 to-transparent rounded-full blur-2xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[750px] lg:w-[1000px] h-[300px] sm:h-[450px] lg:h-[600px] bg-gradient-radial from-purple-500/40 via-purple-600/25 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[525px] lg:w-[700px] h-[200px] sm:h-[300px] lg:h-[400px] bg-gradient-radial from-purple-500/50 via-purple-600/30 to-transparent rounded-full blur-2xl"></div>
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
             Experience
             <br />
-            <span className="bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 bg-clip-text text-transparent">
               EL KAID-B1
             </span>
           </h2>
@@ -558,15 +558,15 @@ const OurWork = () => {
               <Rocket className="w-5 h-5" />
               Request Demo
             </button>
-            <button className="border-2 border-blue-400/50 text-blue-400 px-8 py-4 rounded-full text-lg font-semibold hover:bg-blue-400/10 transition-all duration-300">
+            <button className="border-2 border-purple-400/50 text-purple-400 px-8 py-4 rounded-full text-lg font-semibold hover:bg-purple-400/10 transition-all duration-300">
               Download Beta
             </button>
           </div>
         </div>
 
         {/* Floating elements */}
-        <div className="absolute top-10 right-10 w-24 h-24 bg-gradient-to-br from-blue-500/20 to-sky-500/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-10 left-10 w-32 h-32 bg-gradient-to-br from-sky-500/20 to-cyan-500/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute top-10 right-10 w-24 h-24 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-10 left-10 w-32 h-32 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
       </section>
 
     </div>

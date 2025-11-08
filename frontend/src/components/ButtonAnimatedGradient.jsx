@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-const ButtonAnimatedGradient = ({ text = "Get Started" }) => {
+const ButtonAnimatedGradient = ({ text = "Get Started", onClick }) => {
   const divRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -62,6 +62,7 @@ const ButtonAnimatedGradient = ({ text = "Get Started" }) => {
         onBlur={handleBlur}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={onClick}
         className="group relative inline-flex h-12 items-center justify-center rounded-md bg-black px-8 font-medium text-white shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-gray-950 z-10"
       >
         <span className="relative z-20 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent font-semibold">

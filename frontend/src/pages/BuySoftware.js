@@ -340,9 +340,9 @@ const BuySoftware = () => {
               className="text-4xl md:text-6xl font-semibold mb-8 relative text-white" 
               style={{ 
                 fontFamily: 'Montserrat, sans-serif', 
-                fontWeight: 600, 
+                fontWeight: 100, 
                 letterSpacing: '0.05em', 
-                textShadow: '0 0 15px rgba(96, 165, 250, 0.35)' 
+                textShadow: '0 0 15px rgba(96, 165, 250, 0.3)' 
               }}
             >
               Choose Your Perfect Plan
@@ -938,13 +938,13 @@ const BuySoftware = () => {
       {/* Final CTA */}
       <section className="py-20 px-4 relative overflow-hidden bg-black">
         <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-gradient-to-r from-blue-500/40 via-sky-600/25 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-gradient-to-r from-purple-500/40 via-purple-600/25 to-transparent rounded-full blur-3xl"></div>
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
             Ready to Transform <br />
-            <span className="bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 bg-clip-text text-transparent">
               Your Business?
             </span>
           </h2>
@@ -957,7 +957,7 @@ const BuySoftware = () => {
               <span>Start Free Trial</span>
               <ArrowRight className="w-5 h-5" />
             </button>
-            <button className="border-2 border-blue-400/50 text-blue-400 hover:bg-blue-400/10 px-10 py-4 rounded-full text-lg font-semibold transition-all duration-300">
+            <button className="border-2 border-purple-400/50 text-purple-400 hover:bg-purple-400/10 px-10 py-4 rounded-full text-lg font-semibold transition-all duration-300">
               Schedule Demo
             </button>
           </div>

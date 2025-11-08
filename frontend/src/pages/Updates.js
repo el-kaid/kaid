@@ -129,7 +129,7 @@ const Updates = () => {
     phone: '',
     subject: '',
     message: '',
-    inquiryType: 'general'
+    inquiryType: 'billing'
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -314,7 +314,7 @@ useEffect(() => {
           phone: '',
           subject: '',
           message: '',
-          inquiryType: 'general'
+          inquiryType: 'billing'
         });
       } else {
         setSubmitError(data.message || 'Failed to submit your inquiry. Please try again.');
@@ -390,9 +390,7 @@ useEffect(() => {
                 letterSpacing: '0.05em'
               }}
             >
-              GET IN
-              <br />
-              TOUCH
+              GET IN TOUCH
             </div>
           </div>
 
@@ -400,14 +398,12 @@ useEffect(() => {
             className="text-5xl md:text-7xl font-semibold text-white mb-6 leading-tight relative"
             style={{
               fontFamily: "Montserrat, sans-serif",
-              fontWeight: 600,
+              fontWeight: 100,
               letterSpacing: '0.05em',
-              textShadow: "0 0 15px rgba(96, 165, 250, 0.35)",
+              textShadow: "0 0 15px rgba(96, 165, 250, 0.3)",
             }}
           >
-            Get In
-            <br />
-            Touch
+            Get In Touch
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
              Need help getting started? Our expert team is here to help you succeed.
@@ -558,12 +554,12 @@ useEffect(() => {
                     className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-purple-500/50 transition-colors"
                     disabled={isSubmitting}
                   >
-                    <option value="general">General Support</option>
-                    <option value="technical">Technical Issues</option>
-                    <option value="sales">Sales Inquiry</option>
-                    <option value="enterprise">Enterprise Solutions</option>
-                    <option value="billing">Billing Questions</option>
-                    <option value="partnership">Partnership Opportunities</option>
+                    <option value="billing">Billing</option>
+                    <option value="bookkeeping">Bookkeeping</option>
+                    <option value="taxation">Taxation</option>
+                    <option value="banking">Banking</option>
+                    <option value="B1M">B1M</option>
+                    <option value="asset management">Asset Management</option>
                   </select>
                 </div>
 
@@ -708,8 +704,8 @@ useEffect(() => {
       {/* CTA Section */}
       <section className="py-20 px-4 relative overflow-hidden bg-black scroll-animate">
         <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[750px] lg:w-[1000px] h-[300px] sm:h-[450px] lg:h-[600px] bg-gradient-radial from-blue-500/40 via-sky-600/25 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[525px] lg:w-[700px] h-[200px] sm:h-[300px] lg:h-[400px] bg-gradient-radial from-sky-500/50 via-blue-500/30 to-transparent rounded-full blur-2xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[750px] lg:w-[1000px] h-[300px] sm:h-[450px] lg:h-[600px] bg-gradient-radial from-purple-500/40 via-purple-600/25 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[525px] lg:w-[700px] h-[200px] sm:h-[300px] lg:h-[400px] bg-gradient-radial from-purple-500/50 via-purple-600/30 to-transparent rounded-full blur-2xl"></div>
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -718,7 +714,7 @@ useEffect(() => {
               Ready to
             </span>
             <br />
-            <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 bg-clip-text text-transparent">
               Transform Your Business?
             </span>
           </h2>
@@ -737,8 +733,8 @@ useEffect(() => {
         </div>
 
         {/* Floating elements */}
-        <div className="absolute top-10 right-10 w-24 h-24 bg-gradient-to-br from-blue-500/20 to-sky-500/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-10 left-10 w-32 h-32 bg-gradient-to-br from-sky-500/20 to-cyan-500/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute top-10 right-10 w-24 h-24 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-10 left-10 w-32 h-32 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
       </section>
     </div>
   );
