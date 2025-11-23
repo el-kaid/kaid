@@ -20,6 +20,9 @@ app.use("/uploads", express.static("uploads"));
 app.use(
   cors({
     origin: [
+      "https://elkaid.com",
+      "https://www.elkaid.com",
+      "https://kaid-zeta.vercel.app",
       "http://localhost:3000", // React local dev
       "http://127.0.0.1:3000",
       process.env.FRONTEND_URL, // optional .env override
