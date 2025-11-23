@@ -975,104 +975,94 @@ const Home = () => {
       {/* ================= EL KAID VS TRADITIONAL FINANCES ================= */}
       <ElKaidVsTraditionalFinances />
 
-
-{/* ================= METRICS SECTION ================= */}
-<section className="relative py-32 px-4 overflow-hidden bg-black scroll-animate">
-  <div className="max-w-6xl mx-auto relative z-10">
-    {/* Section Header */}
-    <div className="text-center mb-20">
-      <p className="text-[#9B8AFB] tracking-widest uppercase text-sm mb-4">Metrics</p>
-      <h2
-        className="text-3xl md:text-5xl font-bold mb-16"
-        style={{
-          background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
-          WebkitBackgroundClip: 'text',
-          color: 'transparent',
-          letterSpacing: '0.05em',
-        }}
-      >
-        WHAT DO THE NUMBERS SAY
-      </h2>
-    </div>
-
-    {/* Metrics Display */}
-    <div className="relative">
-      {/* Top Row - Two Metrics */}
-      <div className="grid md:grid-cols-2 gap-16 mb-16">
-        {/* Left Metric */}
-        <div className="text-center scroll-animate scroll-animate-delay-1">
-          <div className="text-6xl md:text-7xl font-bold text-[#9B8AFB] mb-4">
-            1.2M+
+      {/* ================= METRICS SECTION ================= */}
+      {/* <section id="metrics" className="relative py-32 px-4 overflow-hidden bg-black scroll-animate">
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="text-center mb-20">
+            <p className="text-[#9B8AFB] tracking-widest uppercase text-sm mb-4">Metrics</p>
+            <h2
+              className="text-3xl md:text-5xl font-bold mb-16"
+              style={{
+                background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+                letterSpacing: '0.05em',
+              }}
+            >
+              WHAT DO THE NUMBERS SAY
+            </h2>
           </div>
-          <p className="text-gray-400 text-lg">Active Businesses Powered by EL KAID</p>
-        </div>
 
-        {/* Right Metric */}
-        <div className="text-center scroll-animate scroll-animate-delay-2">
-          <div className="text-6xl md:text-7xl font-bold text-[#9B8AFB] mb-4">
-            98%
-          </div>
-          <p className="text-gray-400 text-lg">Customer Retention & Satisfaction Rate</p>
-        </div>
-      </div>
-
-      {/* Center Metric - Large Triangle */}
-      <div className="relative flex justify-center items-center scroll-animate scroll-animate-delay-3">
-        <div className="relative">
-          <svg width="400" height="300" viewBox="0 0 400 300" className="mx-auto scroll-animate">
-            {/* Outer Glow */}
-            <path d="M 30 -20 L -20 380"
-              fill="none"
-              stroke="url(#triangleGlowOuter)"
-              strokeWidth="3"
-              opacity="0.3"
-              style={{ filter: 'blur(8px)' }} />
-            <path d="M 370 -20 L 420 380"
-              fill="none"
-              stroke="url(#triangleGlowOuter)"
-              strokeWidth="3"
-              opacity="0.3"
-              style={{ filter: 'blur(8px)' }} />
-
-            {/* Main Lines */}
-            <path d="M 30 -20 L -20 380"
-              fill="none"
-              stroke="url(#triangleGradient)"
-              strokeWidth="2" />
-            <path d="M 370 -20 L 420 380"
-              fill="none"
-              stroke="url(#triangleGradient)"
-              strokeWidth="2" />
-
-            <defs>
-              <linearGradient id="triangleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#8b5cf6" />
-                <stop offset="50%" stopColor="#6366f1" />
-                <stop offset="100%" stopColor="#4c45a5" />
-              </linearGradient>
-              <linearGradient id="triangleGlowOuter" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#a78bfa" />
-                <stop offset="100%" stopColor="#6366f1" />
-              </linearGradient>
-            </defs>
-          </svg>
-
-          {/* Center Number */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center -mt-8 scroll-animate">
-              <div className="text-5xl md:text-6xl font-bold text-[#6B6B8B] mb-2">
-                ₹5.8B+
+          <div className="relative">
+            <div className="grid md:grid-cols-2 gap-16 mb-16">
+              <div className="text-center scroll-animate scroll-animate-delay-1">
+                <div className="text-6xl md:text-7xl font-bold text-[#9B8AFB] mb-4">
+                  1.2M+
+                </div>
+                <p className="text-gray-400 text-lg">Active Businesses Powered by EL KAID</p>
               </div>
-              <div className="text-gray-400 text-lg">
-                Transactions Processed Securely
+
+              <div className="text-center scroll-animate scroll-animate-delay-2">
+                <div className="text-6xl md:text-7xl font-bold text-[#9B8AFB] mb-4">
+                  98%
+                </div>
+                <p className="text-gray-400 text-lg">Customer Retention & Satisfaction Rate</p>
+              </div>
+            </div>
+
+            <div className="relative flex justify-center items-center scroll-animate scroll-animate-delay-3">
+              <div className="relative">
+                <svg width="400" height="300" viewBox="0 0 400 300" className="mx-auto scroll-animate">
+                  <path d="M 30 -20 L -20 380"
+                    fill="none"
+                    stroke="url(#triangleGlowOuter)"
+                    strokeWidth="3"
+                    opacity="0.3"
+                    style={{ filter: 'blur(8px)' }} />
+                  <path d="M 370 -20 L 420 380"
+                    fill="none"
+                    stroke="url(#triangleGlowOuter)"
+                    strokeWidth="3"
+                    opacity="0.3"
+                    style={{ filter: 'blur(8px)' }} />
+
+                  <path d="M 30 -20 L -20 380"
+                    fill="none"
+                    stroke="url(#triangleGradient)"
+                    strokeWidth="2" />
+                  <path d="M 370 -20 L 420 380"
+                    fill="none"
+                    stroke="url(#triangleGradient)"
+                    strokeWidth="2" />
+
+                  <defs>
+                    <linearGradient id="triangleGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#8b5cf6" />
+                      <stop offset="50%" stopColor="#6366f1" />
+                      <stop offset="100%" stopColor="#4c45a5" />
+                    </linearGradient>
+                    <linearGradient id="triangleGlowOuter" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#a78bfa" />
+                      <stop offset="100%" stopColor="#6366f1" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center -mt-8 scroll-animate">
+                    <div className="text-5xl md:text-6xl font-bold text-[#6B6B8B] mb-2">
+                      ₹5.8B+
+                    </div>
+                    <div className="text-gray-400 text-lg">
+                      Transactions Processed Securely
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section> */}
 
 
       <HowToStartBitcoin />
@@ -1083,17 +1073,25 @@ const Home = () => {
       <section className="relative py-32 px-4 overflow-hidden bg-black scroll-animate">
         <div className="max-w-7xl mx-auto relative z-10">
           {/* Section Header */}
-          <div className="text-right mb-10 w-full">
+          <div className="text-right mb-4 w-full">
             <div className="ml-auto max-w-[45rem] flex flex-col items-end gap-1">
               <p className="text-transparent bg-clip-text bg-gradient-to-r from-[#4c45a5] to-[#e0cbe0] uppercase text-sm md:text-base tracking-widest">
                 Options
               </p>
-              <h2 className="text-transparent bg-clip-text bg-gradient-to-b from-white/60 to-white/95 text-4xl md:text-6xl font-light uppercase whitespace-nowrap">
-                Who can use bitcoin
+              <h2
+                className="text-4xl md:text-6xl font-bold uppercase whitespace-nowrap"
+                style={{
+                  background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
+                  WebkitBackgroundClip: 'text',
+                  color: 'transparent',
+                  letterSpacing: '0.05em',
+                }}
+              >
+                Who can use B1 & B2
               </h2>
               <p className="text-transparent bg-clip-text bg-gradient-to-b from-white/50 to-white max-w-[35rem] text-sm md:text-lg mt-1">
-                With the technology of bitcoin, everyone<br />
-                will be able to get what suits him best.
+                With the technology of B1 and B2, everyone<br />
+                will be able to get what suits them best.
               </p>
             </div>
           </div>
@@ -1118,7 +1116,8 @@ const Home = () => {
                       WebkitTextFillColor: 'transparent',
                     }}
                   >
-                    Businesses
+                    Businesses 
+
                   </h3>
                   <p
                     className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
@@ -1128,7 +1127,7 @@ const Home = () => {
                       WebkitTextFillColor: 'transparent',
                     }}
                   >
-                    Bitcoin is a very secure and inexpensive way to handle payments.
+                    Manage every transaction, automate workflows, and scale effortlessly.
                   </p>
                 </div>
               </div>
@@ -1152,7 +1151,8 @@ const Home = () => {
                       WebkitTextFillColor: 'transparent',
                     }}
                   >
-                    Individuals
+                    Founders & Decision Makers
+
                   </h3>
                   <p
                     className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
@@ -1162,7 +1162,7 @@ const Home = () => {
                       WebkitTextFillColor: 'transparent',
                     }}
                   >
-                    Bitcoin is the easiest way to transact at a very low cost.
+                    Flow unites B1 and B2 for instant clarity and confident decisions
                   </p>
                 </div>
               </div>
@@ -1187,7 +1187,7 @@ const Home = () => {
                       WebkitTextFillColor: 'transparent',
                     }}
                   >
-                    Developers
+                    Teams & Departments
                   </h3>
                   <p
                     className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
@@ -1197,7 +1197,8 @@ const Home = () => {
                       WebkitTextFillColor: 'transparent',
                     }}
                   >
-                    Learn Bitcoin and start building Bitcoin-based applications.
+                    Collaborate, plan, and execute in one intelligent workspace.
+
                   </p>
                 </div>
               </div>

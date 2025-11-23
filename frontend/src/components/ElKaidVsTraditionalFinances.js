@@ -58,18 +58,18 @@ const ElKaidVsTraditionalFinances = () => {
 
   const traditionalPoints = [
     'Operate within certain hours',
-    'Very high transaction fees and taxes',
-    'Banking apps can be hacked',
-    'Transactions are controlled by banks',
-    'Cannot be provided to some groups of people'
+    'Evolved Finance Rooted in vision. Designed for growth',
+    'Seamless Transactions flowing beyond boundaries',
+    'Built to think, designed to evolve',
+    'Adaptive Flow Powering motion with precision'
   ];
 
   const bitcoinPoints = [
     'Operate 24/7 without interruption',
-    'Provide fast and cheap transactions',
-    'Transactions cannot be intercepted or reversed',
-    'Free from third-party interference',
-    'Accessible to everyone regardless of their status'
+    '⁠Crafted for stability. Driven by intelligence',
+    'Speed with purpose. Trust in every move',
+    'Intelligent Workspace where clarity meets creation',
+    '⁠Dynamic flow Connecting finance to intelligence'
   ];
 
   useEffect(() => {
@@ -145,50 +145,65 @@ const ElKaidVsTraditionalFinances = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const labels = ['Accessibility', 'Transactions', 'Security', 'Inclusivity', 'Bias'];
+  const labels = ['Accessibility', 'Finance', 'Transcation', 'Workspace', 'Flow'];
 
   return (
     <>
       {/* ================= EL KAID VS TRADITIONAL FINANCES ================= */}
-      <section ref={sectionRef} className="relative py-16 px-4 bg-black" style={{ minHeight: '260vh' }}>
-        <div className="max-w-7xl mx-auto w-full sticky top-12 md:top-16">
+      <section 
+        ref={sectionRef} 
+        className="relative py-8 sm:py-12 md:py-16 px-3 sm:px-4 md:px-6 bg-black" 
+        style={{ minHeight: 'clamp(200vh, 260vh, 300vh)' }}
+      >
+        <div className="max-w-7xl mx-auto w-full sticky top-8 sm:top-12 md:top-16">
           {/* Header */}
-          <div className="text-center mb-20">
-            <p className="text-[#9B8AFB] uppercase tracking-widest text-sm mb-3">
-              Comparison
+          <div className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20">
+            <p className="text-[#9B8AFB] uppercase tracking-widest text-xs sm:text-sm mb-2 sm:mb-3 px-2">
+    Originality
             </p>
-            <h2 className="text-5xl md:text-6xl font-light text-white">
-              EL&nbsp;KAID vs Traditional<br />Finances
+            <h2
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold px-2"
+              style={{
+                background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+                letterSpacing: '0.05em',
+              }}
+            >
+              EL&nbsp;KAID Designed Different<br className="hidden sm:block" />{' '}
+              <span className="sm:hidden"> </span>Built for Progress
             </h2>
           </div>
 
           {/* Main Layout */}
-          <div className="relative flex flex-col items-center gap-2">
+          <div className="relative flex flex-col items-center gap-3 sm:gap-4 md:gap-6">
             {/* Top Row - Headers */}
-            <div className="flex items-center justify-center gap-6 w-full max-w-7xl">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 md:gap-6 w-full max-w-7xl">
               {/* Traditional Finances */}
-              <div className="flex-1 max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tl-[120px] rounded-br-[120px] p-10 min-h-[200px] flex flex-col justify-center items-center text-center">
-                <p className="text-white/60 uppercase tracking-wider text-xs mb-2">
-                  Traditional
-                </p>
-                <h3 className="text-3xl font-light text-white">
-                  Finances
+              <div className="flex-1 w-full sm:max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tl-[40px] rounded-tr-[40px] sm:rounded-tr-none sm:rounded-tl-[80px] md:rounded-tl-[120px] rounded-br-[40px] rounded-bl-[40px] sm:rounded-bl-none sm:rounded-br-[80px] md:rounded-br-[120px] p-6 sm:p-8 md:p-10 min-h-[150px] sm:min-h-[180px] md:min-h-[200px] flex flex-col justify-center items-center text-center">
+
+                <h3 className="text-2xl sm:text-2xl md:text-3xl font-light text-white mb-3 sm:mb-4">
+                  B1
                 </h3>
+                <p className="text-white/60 uppercase tracking-wider text-[10px] sm:text-xs mb-1 sm:mb-2">
+                Build For Business
+                </p>
               </div>
 
               {/* EL KAID */}
-              <div className="flex-1 max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tr-[120px] rounded-bl-[120px] p-10 min-h-[200px] flex flex-col justify-center items-center text-center">
-                <p className="text-white/60 uppercase tracking-wider text-xs mb-2">
-                  AI-Powered
-                </p>
-                <h3 className="text-3xl font-light text-white">
-                  EL&nbsp;KAID
+              <div className="flex-1 w-full sm:max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tr-[40px] rounded-tl-[40px] sm:rounded-tl-none sm:rounded-tr-[80px] md:rounded-tr-[120px] rounded-bl-[40px] rounded-br-[40px] sm:rounded-br-none sm:rounded-bl-[80px] md:rounded-bl-[120px] p-6 sm:p-8 md:p-10 min-h-[150px] sm:min-h-[180px] md:min-h-[200px] flex flex-col justify-center items-center text-center">
+              <h3 className="text-2xl sm:text-2xl md:text-3xl font-light text-white mb-3 sm:mb-4">
+                  B2
                 </h3>
+                <p className="text-white/60 uppercase tracking-wider text-[10px] sm:text-xs mb-1 sm:mb-2">
+                  Build For Smart Workspace
+                </p>
+
               </div>
             </div>
 
             {/* Center Rotating Arc */}
-            <div className="relative w-40 h-40 md:w-44 md:h-44 flex items-center justify-center">
+            <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 lg:w-44 lg:h-44 flex items-center justify-center my-2 sm:my-4">
               {/* Background circle */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <svg viewBox="0 0 100 100" className="w-full h-full" aria-hidden="true">
@@ -210,7 +225,7 @@ const ElKaidVsTraditionalFinances = () => {
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <span 
                   key={`label-${activePointIndex}`}
-                  className="text-white/80 text-base md:text-lg font-light"
+                  className="text-white/80 text-sm sm:text-base md:text-lg font-light px-2 text-center"
                   style={{
                     animation: 'fadeIn 1.2s ease-out'
                   }}
@@ -221,12 +236,12 @@ const ElKaidVsTraditionalFinances = () => {
             </div>
 
             {/* Bottom Row - Descriptions */}
-            <div className="flex items-start justify-center gap-6 w-full max-w-7xl">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-start justify-center gap-3 sm:gap-4 md:gap-6 w-full max-w-7xl">
               {/* Traditional Descriptions */}
-              <div className="flex-1 max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tr-[120px] rounded-bl-[120px] p-10 min-h-[200px] flex items-center justify-center overflow-hidden">
+              <div className="flex-1 w-full sm:max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tr-[40px] rounded-tl-[40px] sm:rounded-tl-none sm:rounded-tr-[80px] md:rounded-tr-[120px] rounded-bl-[40px] rounded-br-[40px] sm:rounded-br-none sm:rounded-bl-[80px] md:rounded-bl-[120px] p-6 sm:p-8 md:p-10 min-h-[150px] sm:min-h-[180px] md:min-h-[200px] flex items-center justify-center overflow-hidden">
                 <div 
                   key={`traditional-${activePointIndex}`}
-                  className="text-white/80 text-base md:text-lg leading-relaxed text-center"
+                  className="text-white/80 text-sm sm:text-base md:text-lg leading-relaxed text-center px-2"
                   style={{
                     animation: scrollDirection === 'down' 
                       ? 'slideUp 0.8s ease-out' 
@@ -238,10 +253,10 @@ const ElKaidVsTraditionalFinances = () => {
               </div>
 
               {/* EL KAID Descriptions */}
-              <div className="flex-1 max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tl-[120px] rounded-br-[120px] p-10 min-h-[200px] flex items-center justify-center overflow-hidden">
+              <div className="flex-1 w-full sm:max-w-xl bg-gradient-to-b from-[#7B6FC8] via-[#6B5FB8] to-[#B0A0D8] rounded-tl-[40px] rounded-tr-[40px] sm:rounded-tr-none sm:rounded-tl-[80px] md:rounded-tl-[120px] rounded-br-[40px] rounded-bl-[40px] sm:rounded-bl-none sm:rounded-br-[80px] md:rounded-br-[120px] p-6 sm:p-8 md:p-10 min-h-[150px] sm:min-h-[180px] md:min-h-[200px] flex items-center justify-center overflow-hidden">
                 <div 
                   key={`bitcoin-${activePointIndex}`}
-                  className="text-white/80 text-base md:text-lg leading-relaxed text-center"
+                  className="text-white/80 text-sm sm:text-base md:text-lg leading-relaxed text-center px-2"
                   style={{
                     animation: scrollDirection === 'down' 
                       ? 'slideUp 0.8s ease-out' 

@@ -6,6 +6,7 @@ import {
   Zap, Shield, Rocket, Code, Smartphone, Database, Brain,
   AlertCircle, X
 } from 'lucide-react';
+import ScrollDown from "../components/ScrollDown";
 
 // Custom CSS for radial gradients and animations
 const customStyles = `
@@ -369,14 +370,14 @@ useEffect(() => {
   return (
     <div className="min-h-screen bg-black">
       {/* Header Section */}
-      <section className="pt-40 pb-20 px-4 bg-black relative overflow-hidden scroll-animate">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black scroll-animate">
+        {/* Starry Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:200px_200px] opacity-20" />
         </div>
         
-        <div className="max-w-6xl mx-auto text-center relative z-10 pt-6">
-          
-          
+        {/* Centered Title */}
+        <div className="relative z-10 text-center">
           {/* Subtle glow effect behind text (match Home/Career) */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div
@@ -408,6 +409,11 @@ useEffect(() => {
           <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
              Need help getting started? Our expert team is here to help you succeed.
           </p>
+        </div>
+
+        {/* === Scroll Down - Bottom === */}
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10">
+          <ScrollDown />
         </div>
       </section>
 

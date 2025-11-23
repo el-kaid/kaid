@@ -1,7 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import ButtonAnimatedGradient from './ButtonAnimatedGradient';
 
 export default function BitcoinHero() {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate('/buy-software');
+  };
   return (
     <div className="relative min-h-screen bg-black overflow-hidden flex items-center">
       {/* === Minimalist Glowing Arc === */}
@@ -63,13 +69,13 @@ export default function BitcoinHero() {
 
           {/* Description text */}
           <p className="text-gray-300 text-sm md:text-base max-w-xl mb-8 leading-relaxed -mt-6 md:-mt-8 lg:-mt-10">
-            In order to start using bitcoin, you can buy<br />
-            it on one of the exchanges below and be<br />
-            one of the first, who will step into the future!
+            Where vision meets intelligence, and finance evolves beyond limits.
+            Join the ecosystem that empowers thinkers, builders, and leaders of tomorrow.
+            Enter EL KAID — Built for Progress.
           </p>
 
           {/* CTA Button */}
-          <ButtonAnimatedGradient text="Buy Bitcoin" />
+          <ButtonAnimatedGradient text="Buy B1 & B2" onClick={handleButtonClick} />
         </div>
       </div>
 

@@ -39,6 +39,7 @@ import {
   Receipt,
   Calculator
 } from 'lucide-react';
+import ScrollDown from "../components/ScrollDown";
 
 // Custom CSS matching Home.js theme
 const customStyles = `
@@ -707,6 +708,11 @@ const Career = () => {
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
             Join our mission to revolutionize business finance with cutting-edge technology
           </p>
+        </div>
+
+        {/* === Scroll Down - Bottom === */}
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10">
+          <ScrollDown />
         </div>
       </section>
 

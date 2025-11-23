@@ -106,24 +106,24 @@ const HowToStartBitcoin = () => {
 
   const steps = [
     {
-      title: "Inform yourself",
+      title: "Manage Capital in One Space",
       description:
-        "Bitcoin is different than what you know and use every day. Before you start using Bitcoin, there are a few things that you need to know in order to use it securely and avoid common pitfalls.",
+        "B1 allows users to handle all financial operations — accounts, ledgers, billing, and analytics — from one dashboard. Track cash flow, revenue, and transactions in real time. No manual entries — your data syncs automatically with every action.",
     },
     {
-      title: "Choose your wallet",
+      title: "Smart Transactions & Secure Payments",
       description:
-        "You can install an app on your mobile device for everyday use or you can have a wallet only for online payments on your computer. In any case, choosing a wallet is easy and can be done in minutes.",
+        "Send, receive, and record payments instantly. AI verifies, records, and reconciles each transaction with full transparency. You can customize approval limits, roles, and permissions for your team. Everything is secured with blockchain-grade encryption.",
     },
     {
-      title: "Spend Bitcoin",
+      title: "Plan, Build, and Collaborate",
       description:
-        "There are a growing number of services and merchants accepting Bitcoin all over the world. Use Bitcoin to pay them and rate your experience to help them gain more visibility.",
+        "B2 is where finance meets productivity. Teams can create workspaces for projects, budgeting, and performance tracking. Each workspace connects directly with B1's financial data — so every project has live cost visibility. Manage teams, assign roles, and automate reporting from one place.",
     },
     {
-      title: "Get Bitcoin",
+      title: "The Flow Connector — Sync Everything",
       description:
-        "You can get Bitcoin by accepting it as a payment for goods and services. There are also several ways you can buy Bitcoin.",
+        "Flow bridges B1 and B2, making every decision connected. When a transaction happens in B1, B2 instantly updates your workspace insights — budgets, forecasts, and performance metrics. No need to switch tools — finance and operations move together. You work smarter, faster, and with full clarity.",
     },
   ];
 
@@ -135,7 +135,15 @@ const HowToStartBitcoin = () => {
           <p className="text-[#9B8AFB] text-sm uppercase tracking-wider mb-4">
             Guide
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold">
+          <h2
+            className="text-4xl md:text-6xl font-bold"
+            style={{
+              background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
+              WebkitBackgroundClip: 'text',
+              color: 'transparent',
+              letterSpacing: '0.05em',
+            }}
+          >
             How to start using bitcoin
           </h2>
         </div>
@@ -181,7 +189,15 @@ const HowToStartBitcoin = () => {
               className="horizontal-section w-screen h-full flex-shrink-0 px-[10vw] flex items-center justify-start"
             >
               <div className="max-w-2xl mt-64 md:mt-80">
-                <h3 className="text-3xl md:text-4xl font-bold mb-3">
+                <h3
+                  className="text-3xl md:text-4xl font-bold mb-3"
+                  style={{
+                    background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
+                    WebkitBackgroundClip: 'text',
+                    color: 'transparent',
+                    letterSpacing: '0.05em',
+                  }}
+                >
                   {step.title}
                 </h3>
                 <p className="text-gray-300 text-base md:text-lg leading-relaxed max-w-[50ch]">
