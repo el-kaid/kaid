@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import HomeFooter from './components/HomeFooter';
 import Home from './pages/Home';
 import OurWork from './pages/OurWork';
 import Updates from './pages/Updates';
@@ -28,6 +29,7 @@ const ScrollToTop = () => {
 const Layout = ({ children }) => {
   const location = useLocation();
   const isDashboard = location.pathname === '/dashboard';
+  const isHome = location.pathname === '/';
 
   return (
     <div className="bg-darkBackground min-h-screen text-white">
@@ -35,7 +37,7 @@ const Layout = ({ children }) => {
       <main className={isDashboard ? "" : "px-0"}>
         {children}
       </main>
-      {!isDashboard && <Footer />}
+      {!isDashboard && (isHome ? <HomeFooter /> : <Footer />)}
     </div>
   );
 };

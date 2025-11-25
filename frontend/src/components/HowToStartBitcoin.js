@@ -106,51 +106,43 @@ const HowToStartBitcoin = () => {
 
   const steps = [
     {
-      title: "Manage Capital in One Space",
+      title: "Inform yourself",
       description:
-        "B1 allows users to handle all financial operations — accounts, ledgers, billing, and analytics — from one dashboard. Track cash flow, revenue, and transactions in real time. No manual entries — your data syncs automatically with every action.",
+        "Bitcoin is different than what you know and use every day. Before you start using Bitcoin, there are a few things that you need to know in order to use it securely and avoid common pitfalls.",
     },
     {
-      title: "Smart Transactions & Secure Payments",
+      title: "Choose your wallet",
       description:
-        "Send, receive, and record payments instantly. AI verifies, records, and reconciles each transaction with full transparency. You can customize approval limits, roles, and permissions for your team. Everything is secured with blockchain-grade encryption.",
+        "You can install an app on your mobile device for everyday use or you can have a wallet only for online payments on your computer. In any case, choosing a wallet is easy and can be done in minutes.",
     },
     {
-      title: "Plan, Build, and Collaborate",
+      title: "Spend Bitcoin",
       description:
-        "B2 is where finance meets productivity. Teams can create workspaces for projects, budgeting, and performance tracking. Each workspace connects directly with B1's financial data — so every project has live cost visibility. Manage teams, assign roles, and automate reporting from one place.",
+        "There are a growing number of services and merchants accepting Bitcoin all over the world. Use Bitcoin to pay them and rate your experience to help them gain more visibility.",
     },
     {
-      title: "The Flow Connector — Sync Everything",
+      title: "Get Bitcoin",
       description:
-        "Flow bridges B1 and B2, making every decision connected. When a transaction happens in B1, B2 instantly updates your workspace insights — budgets, forecasts, and performance metrics. No need to switch tools — finance and operations move together. You work smarter, faster, and with full clarity.",
+        "You can get Bitcoin by accepting it as a payment for goods and services. There are also several ways you can buy Bitcoin.",
     },
   ];
 
   return (
     <div className="bg-black text-white">
-      <section className="horizontal-scroll-wrapper relative bg-black h-screen overflow-hidden">
+      <section className="horizontal-scroll-wrapper relative bg-black min-h-screen md:h-screen overflow-hidden">
         {/* Title */}
-        <div className="absolute top-16 left-0 right-0 z-20 px-[10vw] text-center pointer-events-none">
-          <p className="text-[#9B8AFB] text-sm uppercase tracking-wider mb-4">
+        <div className="absolute top-8 sm:top-12 md:top-16 left-0 right-0 z-20 px-4 sm:px-6 md:px-8 lg:px-[10vw] text-center pointer-events-none">
+          <p className="text-[#9B8AFB] text-xs sm:text-sm uppercase tracking-wider mb-2 sm:mb-4">
             Guide
           </p>
-          <h2
-            className="text-4xl md:text-6xl font-bold"
-            style={{
-              background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
-              WebkitBackgroundClip: 'text',
-              color: 'transparent',
-              letterSpacing: '0.05em',
-            }}
-          >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
             How to start using bitcoin
           </h2>
         </div>
 
         {/* Progress bar */}
-        <div className="absolute top-[55%] left-[10vw] w-[80vw] z-30 pointer-events-none">
-          <div className="relative w-full h-1 overflow-visible">
+        <div className="absolute top-[45%] sm:top-[50%] md:top-[55%] left-4 sm:left-6 md:left-8 lg:left-[10vw] right-4 sm:right-6 md:right-8 lg:right-[10vw] z-30 pointer-events-none">
+          <div className="relative w-full h-0.5 sm:h-1 overflow-visible">
             {/* Background line */}
             <div className="bg-line absolute w-full h-full bg-gray-700 rounded-full opacity-30 z-0"></div>
 
@@ -164,10 +156,10 @@ const HowToStartBitcoin = () => {
             {[0, 33.33, 66.66, 100].map((pos, i) => (
               <div
                 key={i}
-                className="step-dot absolute w-10 h-10 rounded-full border-2 border-transparent bg-black z-20"
+                className="step-dot absolute w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full border-2 border-transparent bg-black z-20"
                 style={{
                   left: `${pos}%`,
-                  top: "-18px",
+                  top: "-12px",
                   transform:
                     pos === 0
                       ? "translateX(0)"
@@ -186,21 +178,13 @@ const HowToStartBitcoin = () => {
           {steps.map((step, index) => (
             <section
               key={index}
-              className="horizontal-section w-screen h-full flex-shrink-0 px-[10vw] flex items-center justify-start"
+              className="horizontal-section w-screen h-full flex-shrink-0 px-4 sm:px-6 md:px-8 lg:px-[10vw] flex items-center justify-start"
             >
-              <div className="max-w-2xl mt-64 md:mt-80">
-                <h3
-                  className="text-3xl md:text-4xl font-bold mb-3"
-                  style={{
-                    background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
-                    WebkitBackgroundClip: 'text',
-                    color: 'transparent',
-                    letterSpacing: '0.05em',
-                  }}
-                >
+              <div className="max-w-2xl mt-32 sm:mt-40 md:mt-56 lg:mt-64 xl:mt-80">
+                <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3">
                   {step.title}
                 </h3>
-                <p className="text-gray-300 text-base md:text-lg leading-relaxed max-w-[50ch]">
+                <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-full sm:max-w-[50ch]">
                   {step.description}
                 </p>
               </div>

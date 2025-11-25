@@ -292,7 +292,7 @@ const OurWork = () => {
           </div>
 
           <h1
-            className="text-6xl md:text-8xl font-bold uppercase tracking-wide relative text-white mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase tracking-wide relative text-white mb-4 sm:mb-6 px-4"
             style={{
               fontFamily: "Montserrat, sans-serif",
               fontWeight: 100,
@@ -303,7 +303,7 @@ const OurWork = () => {
             OUR WORK
           </h1>
           
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-4">
             Building the next generation of intelligent software solutions
           </p>
         </div>
@@ -315,11 +315,11 @@ const OurWork = () => {
       </section>
 
 {/* OVERVIEW SECTION - Enhanced */}
-<section className="relative py-32 px-4 overflow-hidden bg-black flex flex-col items-center text-center scroll-animate">
-  <div className="relative z-10 max-w-6xl mx-auto pt-20">
-    <p className="text-[#9B8AFB] tracking-widest uppercase text-sm mb-4">EL KAID-B1</p>
+<section className="relative py-16 sm:py-20 md:py-24 lg:py-32 px-4 sm:px-6 md:px-8 overflow-hidden bg-black flex flex-col items-center text-center scroll-animate">
+  <div className="relative z-10 max-w-6xl mx-auto pt-8 sm:pt-12 md:pt-16 lg:pt-20">
+    <p className="text-[#9B8AFB] tracking-widest uppercase text-xs sm:text-sm mb-3 sm:mb-4">EL KAID-B1</p>
     <h2
-      className="text-4xl md:text-6xl font-bold mb-8"
+      className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 px-2"
       style={{
         background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
         WebkitBackgroundClip: 'text',
@@ -330,16 +330,16 @@ const OurWork = () => {
       Bridging Silicon and Software
     </h2>
 
-    <p className="text-gray-400 max-w-3xl mx-auto leading-relaxed text-lg mb-16">
+    <p className="text-gray-400 max-w-3xl mx-auto leading-relaxed text-sm sm:text-base md:text-lg mb-10 sm:mb-12 md:mb-16 px-4">
       At <span className="text-white font-semibold">EL KAID-B1</span>, innovation doesn’t stop at code — it extends to the circuits beneath it. 
       We design <span className="text-white font-semibold">intelligent systems</span> that merge smart software with adaptive hardware, 
       creating an ecosystem where data, design, and devices evolve together.
     </p>
 
     {/* Split Grid */}
-    <div className="grid md:grid-cols-2 gap-10 text-left">
+    <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 text-left">
       {/* SOFTWARE INTELLIGENCE */}
-      <div className="bg-gradient-to-br from-purple-900/10 to-slate-800/20 backdrop-blur-sm border border-purple-500/10 rounded-3xl p-8 hover:border-purple-500/30 transition-all duration-300">
+      <div className="bg-gradient-to-br from-purple-900/10 to-slate-800/20 backdrop-blur-sm border border-purple-500/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 hover:border-purple-500/30 transition-all duration-300">
         <div className="flex items-center mb-4 space-x-3">
           <Code className="w-8 h-8 text-purple-400" />
           <h3 className="text-2xl font-bold text-white">Software Intelligence</h3>
@@ -399,9 +399,9 @@ const OurWork = () => {
 
 
       {/* Key Features */}
-      <section className="py-20 px-4 bg-black scroll-animate">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 bg-black scroll-animate">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <div className="grid md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-10 sm:mb-12 md:mb-16">
             <div className="bg-slate-800/30 backdrop-blur-sm border border-purple-500/10 rounded-xl p-6 hover:bg-slate-800/50 transition-all duration-300 group">
               <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-500/30 transition-colors duration-300">
                 <Globe className="w-6 h-6 text-purple-400" />
@@ -431,12 +431,12 @@ const OurWork = () => {
 
       
       {/* Blog Section */}
-      <section className="py-20 px-4 bg-black scroll-animate">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 bg-black scroll-animate">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-[#9B8AFB] tracking-widest uppercase text-sm mb-4">Company</p>
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <p className="text-[#9B8AFB] tracking-widest uppercase text-xs sm:text-sm mb-3 sm:mb-4">Company</p>
             <h2
-              className="text-3xl md:text-5xl font-bold mb-4"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 px-2"
               style={{
                 background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
                 WebkitBackgroundClip: 'text',
@@ -445,10 +445,10 @@ const OurWork = () => {
             >
               Blog & Updates
             </h2>
-            <p className="text-gray-400 max-w-3xl mx-auto">What we're building, learning and shipping at EL KAID-B1.</p>
+            <p className="text-gray-400 max-w-3xl mx-auto text-sm sm:text-base px-4">What we're building, learning and shipping at EL KAID-B1.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {[ 
               {
                 title: 'Scaling our OCR to millions of documents',
@@ -541,25 +541,25 @@ const OurWork = () => {
       
 
       {/* CTA Section */}
-      <section className="py-20 px-4 relative overflow-hidden bg-black scroll-animate">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 relative overflow-hidden bg-black scroll-animate">
         <div className="absolute inset-0">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[750px] lg:w-[1000px] h-[300px] sm:h-[450px] lg:h-[600px] bg-gradient-radial from-purple-500/40 via-purple-600/25 to-transparent rounded-full blur-3xl"></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[525px] lg:w-[700px] h-[200px] sm:h-[300px] lg:h-[400px] bg-gradient-radial from-purple-500/50 via-purple-600/30 to-transparent rounded-full blur-2xl"></div>
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 px-2">
             Experience
             <br />
             <span className="bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 bg-clip-text text-transparent">
               EL KAID-B1
             </span>
           </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
             Ready to experience the future of innovation? Join us in revolutionizing how technology transforms business operations.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <button className="bg-white text-black px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-200 transition-all duration-300 flex items-center gap-2">
               <Rocket className="w-5 h-5" />
               Request Demo

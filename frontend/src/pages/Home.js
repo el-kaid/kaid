@@ -336,39 +336,39 @@ const FeatureBoxWithGradient = ({ title, description, delay = "" }) => {
       />
 
       {/* Box with animated border */}
-      <div
-        onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className="relative h-full"
-      >
-        {/* Animated border that appears only on hover and follows cursor */}
         <div
-          className="absolute inset-0 rounded-2xl pointer-events-none"
-          style={{
-            background: isHovered
-              ? `radial-gradient(150px circle at ${position.x}px ${position.y}px, 
-                  rgba(139, 92, 246, 1) 0%, 
-                  rgba(124, 58, 237, 0.7) 25%, 
-                  rgba(139, 92, 246, 0.4) 50%, 
-                  transparent 75%)`
-              : 'transparent',
-            padding: '2px',
-            opacity: isHovered ? 1 : 0,
-            transition: 'opacity 0.3s ease',
-          }}
-        />
-
-        <div
-          className="bg-black backdrop-blur-sm p-16 rounded-2xl transition-all duration-300 h-full min-h-[280px] feature-box-glow relative z-10 flex flex-col"
-          style={{
-            border: 'none',
-          }}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="relative h-full"
         >
-          <h3 className="text-xl font-bold text-white mb-6 text-center">{title}</h3>
-          <p className="text-gray-300 leading-relaxed text-justify flex-grow">{description}</p>
+          {/* Animated border that appears only on hover and follows cursor */}
+          <div
+            className="absolute inset-0 rounded-2xl pointer-events-none"
+            style={{
+              background: isHovered
+                ? `radial-gradient(150px circle at ${position.x}px ${position.y}px, 
+                    rgba(139, 92, 246, 1) 0%, 
+                    rgba(124, 58, 237, 0.7) 25%, 
+                    rgba(139, 92, 246, 0.4) 50%, 
+                    transparent 75%)`
+                : 'transparent',
+              padding: '2px',
+              opacity: isHovered ? 1 : 0,
+              transition: 'opacity 0.3s ease',
+            }}
+          />
+
+          <div
+            className="bg-black backdrop-blur-sm p-6 sm:p-8 md:p-12 lg:p-16 rounded-2xl transition-all duration-300 h-full min-h-[200px] sm:min-h-[240px] md:min-h-[280px] feature-box-glow relative z-10 flex flex-col"
+            style={{
+              border: 'none',
+            }}
+          >
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6 text-center">{title}</h3>
+            <p className="text-gray-300 text-sm sm:text-base leading-relaxed text-justify flex-grow">{description}</p>
+          </div>
         </div>
-      </div>
     </div>
   );
 };
@@ -780,12 +780,12 @@ const Home = () => {
         </svg>
 
         {/* === Main Heading - Centered === */}
-        <div className="absolute inset-0 flex items-center justify-center z-10">
+        <div className="absolute inset-0 flex items-center justify-center z-10 px-4">
           <div className="relative z-10 text-center">
             {/* Subtle glow effect behind text (match OurWork) */}
             <div className="absolute inset-0 flex items-center justify-center" style={{ transform: 'translateY(-10px)' }}>
               <div
-                className="text-6xl md:text-8xl font-bold uppercase tracking-wide opacity-10 blur-md"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase tracking-wide opacity-10 blur-md"
                 style={{
                   fontFamily: "Montserrat, sans-serif",
                   fontWeight: 600,
@@ -798,7 +798,7 @@ const Home = () => {
               </div>
             </div>
             <h1
-              className="text-6xl md:text-8xl font-bold uppercase relative text-white mb-6"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase relative text-white mb-4 sm:mb-6"
               style={{
                 fontFamily: "Montserrat, sans-serif",
                 fontWeight: 600,
@@ -808,13 +808,13 @@ const Home = () => {
             >
               EL KAID
             </h1>
-            <p className="text-xl md:text-2xl mt-4 whitespace-nowrap uppercase font-semibold" style={{ 
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mt-2 sm:mt-4 uppercase font-semibold px-2" style={{ 
               color: 'rgba(255, 255, 255, 0.6)',
               fontFamily: "Montserrat, sans-serif",
               fontWeight: 600,
               letterSpacing: '0.02em'
             }}>
-              The Next Era of Financial System is Here
+              The Next Era of Financial System is Here
             </p>
           </div>
         </div>
@@ -863,13 +863,13 @@ const Home = () => {
 
 
       {/* ================= OVERVIEW SECTION ================= */}
-      <section className="relative py-32 px-4 overflow-hidden bg-black flex flex-col items-center text-center scroll-animate">
+      <section className="relative py-16 sm:py-20 md:py-24 lg:py-32 px-4 sm:px-6 md:px-8 overflow-hidden bg-black flex flex-col items-center text-center scroll-animate">
 
         {/* 🟣 Section content */}
-        <div className="relative z-10 max-w-4xl mx-auto pt-20">
-          <p className="text-[#9B8AFB] tracking-widest uppercase text-sm mb-4">Overview</p>
+        <div className="relative z-10 max-w-4xl mx-auto pt-8 sm:pt-12 md:pt-16 lg:pt-20">
+          <p className="text-[#9B8AFB] tracking-widest uppercase text-xs sm:text-sm mb-3 sm:mb-4">Overview</p>
           <h2
-            className="text-4xl md:text-6xl font-bold mb-8"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 px-2"
             style={{
               background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
               WebkitBackgroundClip: 'text',
@@ -879,11 +879,11 @@ const Home = () => {
           >
             What is EL&nbsp;Kaid?
           </h2>
-          <p className="text-gray-400 max-w-[95vw] mx-auto leading-normal text-lg mb-12 px-8 text-justify" style={{ maxWidth: '1400px', lineHeight: '1.6' }}>
+          <p className="text-gray-400 max-w-full mx-auto leading-normal text-sm sm:text-base md:text-lg mb-8 sm:mb-10 md:mb-12 px-4 sm:px-6 md:px-8 text-justify" style={{ maxWidth: '1400px', lineHeight: '1.6' }}>
             EL KAID is the next evolution of financial intelligence — a revolutionary system that blends AI-driven automation and manual precision to simplify and empower modern business management. From billing, bookkeeping, taxation, banking, asset tracking, and B1M (Business 1 Messenger), everything you need to run your business flows seamlessly through one unified fingertip access. With cutting-edge technology and globally connected financial data, EL KAID transforms the way businesses operate — creating a virtual office ecosystem that's accessible anytime, anywhere. We're redefining the fintech landscape by giving individuals and businesses the power to manage their finances effortlessly — without the need for consultants. EL KAID isn't just a platform it's the new era of business and financial management.
           </p>
 
-          <div className="flex justify-center mt-12">
+          <div className="flex justify-center mt-8 sm:mt-10 md:mt-12">
             <ButtonAnimatedGradient onClick={() => navigate('/buy-software')} />
           </div>
 
@@ -895,14 +895,14 @@ const Home = () => {
       </section>
 
       {/* ================= WHAT MAKES EL KAID UNIQUE SECTION ================= */}
-      <section className="relative py-32 px-4 overflow-hidden bg-black scroll-animate">
+      <section className="relative py-16 sm:py-20 md:py-24 lg:py-32 px-4 sm:px-6 md:px-8 overflow-hidden bg-black scroll-animate">
 
         <div className="max-w-6xl mx-auto relative z-10">
           {/* Section Header */}
-          <div className="text-center mb-20">
-            <p className="text-[#9B8AFB] tracking-widest uppercase text-sm mb-4">Why Choose Us</p>
+          <div className="text-center mb-12 sm:mb-16 md:mb-20">
+            <p className="text-[#9B8AFB] tracking-widest uppercase text-xs sm:text-sm mb-3 sm:mb-4">Why Choose Us</p>
             <h2
-              className="text-4xl md:text-6xl font-bold mb-8"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 px-2"
               style={{
                 background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
                 WebkitBackgroundClip: 'text',
@@ -915,7 +915,7 @@ const Home = () => {
           </div>
 
           {/* Unique Features Grid */}
-          <div className="grid md:grid-cols-2 gap-8 items-stretch">
+          <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 items-stretch">
             {/* Feature 1 */}
             <FeatureBoxWithGradient
               title="Next-Era Financial System"
@@ -1222,6 +1222,8 @@ const Home = () => {
     `}</style>
         </div>
       </section>
+
+
     </div>
   );
 };

@@ -62,10 +62,10 @@ const Navbar = () => {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-700 ease-in-out ${
       isVisible ? 'translate-y-0' : '-translate-y-full'
     }`}>
-      <div className="relative w-full px-4 py-3 sm:px-8 sm:py-5">
+      <div className="relative w-full px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3 md:py-4 lg:py-5">
         <div className="flex items-center justify-center relative">
           {/* Navigation Items - Center */}
-          <div className="hidden lg:flex items-center space-x-2">
+          <div className="hidden lg:flex items-center space-x-1 md:space-x-2">
             {navItems.map((item) => {
               const isHovered = hoveredItem === item.path;
               const position = itemPositions[item.path] || { x: 0, y: 0 };
@@ -109,7 +109,7 @@ const Navbar = () => {
                       setItemPositions(prev => ({ ...prev, [item.path]: { x: 0, y: 0 } }));
                     }}
                     className={`
-                      relative px-4 py-2 text-sm font-semibold transition-all duration-300 ease-out rounded-xl group overflow-hidden z-10
+                      relative px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-semibold transition-all duration-300 ease-out rounded-xl group overflow-hidden z-10
                       ${isActive
                         ? 'text-white bg-black shadow-lg shadow-purple-500/20'
                         : 'text-gray-300 hover:text-white bg-black'
@@ -144,14 +144,14 @@ const Navbar = () => {
         </div>
 
         {/* Enhanced Mobile Navigation Menu */}
-        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${isMobileMenuOpen ? 'max-h-96 mt-4 pt-4 border-t border-white/20' : 'max-h-0'}`}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${isMobileMenuOpen ? 'max-h-96 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-white/20' : 'max-h-0'}`}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 className={`
-                  relative px-4 py-3 text-sm font-semibold transition-all duration-300 rounded-xl group overflow-hidden text-center
+                  relative px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold transition-all duration-300 rounded-xl group overflow-hidden text-center
                   ${activeItem === item.path
                     ? 'text-white bg-gradient-to-r from-cyan-500/20 to-purple-500/20 shadow-lg shadow-purple-500/20'
                     : 'text-gray-300 hover:text-white hover:bg-white/10'

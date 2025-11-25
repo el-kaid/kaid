@@ -227,17 +227,17 @@ const BuySoftware = () => {
   };
 
   const renderStep1 = () => (
-    <div className="max-w-6xl mx-auto">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-          Choose Your Product
-        </h2>
-        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-          Select the product that best fits your business needs
-        </p>
-      </div>
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 px-2">
+            Choose Your Product
+          </h2>
+          <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-4">
+            Select the product that best fits your business needs
+          </p>
+        </div>
 
-      <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
         <div
           onClick={() => handleProductSelect('B1')}
           className="glass-effect rounded-3xl p-8 cursor-pointer hover:bg-white/10 transition-all duration-300 border-2 border-transparent hover:border-purple-500/50"
@@ -297,10 +297,10 @@ const BuySoftware = () => {
             <ArrowLeft className="w-5 h-5" />
             <span>Back</span>
           </button>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 px-2">
             Choose Your Plan
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-6 sm:mb-8 px-4">
             {selectedProduct} • {selectedStorage === 'drive' ? 'Drive Storage' : 'Cloud Storage'} • {billingCycle === 'lifetime' ? 'Lifetime' : 'Monthly'}
           </p>
           
@@ -363,7 +363,7 @@ const BuySoftware = () => {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {planKeys.map((planKey, index) => {
             const plan = plans[planKey];
             const isPopular = planKey === 'plus';
@@ -483,7 +483,7 @@ const BuySoftware = () => {
           </div>
           
           <h1 
-            className="text-6xl md:text-8xl font-bold uppercase tracking-wide mb-8 relative text-white" 
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold uppercase tracking-wide mb-6 sm:mb-8 relative text-white px-4" 
             style={{ 
               fontFamily: 'Montserrat, sans-serif', 
               fontWeight: 100, 
@@ -494,7 +494,7 @@ const BuySoftware = () => {
             Buy Software
           </h1>
           
-          <p className="text-gray-400 max-w-3xl mx-auto leading-relaxed text-lg mb-12">
+          <p className="text-gray-400 max-w-3xl mx-auto leading-relaxed text-sm sm:text-base md:text-lg mb-8 sm:mb-10 md:mb-12 px-4">
             Choose the perfect plan for your business needs
           </p>
         </div>
@@ -506,7 +506,7 @@ const BuySoftware = () => {
       </section>
 
       {/* Main Content Section */}
-      <section className="py-20 px-4 bg-black">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 bg-black">
         {step === 1 && renderStep1()}
         {step === 2 && renderStep2()}
       </section>
