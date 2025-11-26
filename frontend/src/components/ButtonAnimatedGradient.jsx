@@ -63,7 +63,7 @@ const ButtonAnimatedGradient = ({ text = "Get Started", onClick }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={onClick}
-        className="group relative inline-flex h-12 items-center justify-center rounded-md bg-black px-8 font-medium text-white shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-gray-950 z-10"
+        className="group relative inline-flex h-10 sm:h-12 items-center justify-center rounded-md bg-black px-4 sm:px-6 md:px-8 font-medium text-white shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-gray-950 z-10 text-sm sm:text-base"
       >
         <span className="relative z-20 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent font-semibold">
           {text}

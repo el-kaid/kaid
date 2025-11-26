@@ -225,3 +225,59 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Global Responsive Utilities */
+@media (max-width: 640px) {
+  /* Prevent horizontal overflow on mobile */
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Ensure containers don't exceed viewport */
+  .container,
+  .max-w-7xl,
+  .max-w-6xl,
+  .max-w-4xl {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Responsive text scaling */
+@media (max-width: 480px) {
+  h1 {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+  }
+  
+  h2 {
+    font-size: clamp(1.25rem, 7vw, 2rem);
+  }
+  
+  h3 {
+    font-size: clamp(1rem, 6vw, 1.5rem);
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent text overflow */
+p, span, div {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive iframes and embeds */
+iframe, embed, object, video {
+  max-width: 100%;
+  height: auto;
+}
