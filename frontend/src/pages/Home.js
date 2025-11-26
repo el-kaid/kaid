@@ -814,7 +814,7 @@ const Home = () => {
               fontWeight: 600,
               letterSpacing: '0.02em'
             }}>
-              The Next Era of Financial System is Here
+              The Next Era of the Financial System is Here
             </p>
           </div>
         </div>
@@ -880,7 +880,7 @@ const Home = () => {
             What is EL&nbsp;Kaid?
           </h2>
           <p className="text-gray-400 max-w-full mx-auto leading-normal text-sm sm:text-base md:text-lg mb-8 sm:mb-10 md:mb-12 px-4 sm:px-6 md:px-8 text-justify" style={{ maxWidth: '1400px', lineHeight: '1.6' }}>
-            EL KAID is the next evolution of financial intelligence — a revolutionary system that blends AI-driven automation and manual precision to simplify and empower modern business management. From billing, bookkeeping, taxation, banking, asset tracking, and B1M (Business 1 Messenger), everything you need to run your business flows seamlessly through one unified fingertip access. With cutting-edge technology and globally connected financial data, EL KAID transforms the way businesses operate — creating a virtual office ecosystem that's accessible anytime, anywhere. We're redefining the fintech landscape by giving individuals and businesses the power to manage their finances effortlessly — without the need for consultants. EL KAID isn't just a platform it's the new era of business and financial management.
+            EL KAID is the next evolution of financial intelligence — a revolutionary system that blends AI-driven automation and manual precision to simplify and empower modern business management. From billing, bookkeeping, taxation, banking, asset tracking, and B1M (Business 1 Messenger), everything you need to run your business flows seamlessly through one unified fingertip access. With cutting-edge technology and globally connected financial data, EL KAID transforms the way businesses operate — creating a virtual office ecosystem that's accessible anytime, anywhere. We're redefining the fintech landscape by giving individuals and businesses the power to manage their finances effortlessly — without the need for consultants. EL KAID isn't just a platform, it's the new era of business and financial management.
           </p>
 
           <div className="flex justify-center mt-8 sm:mt-10 md:mt-12">
@@ -1091,7 +1091,7 @@ const Home = () => {
               </h2>
               <p className="text-transparent bg-clip-text bg-gradient-to-b from-white/50 to-white max-w-[35rem] text-sm md:text-lg mt-1">
                 With the technology of B1 and B2, everyone<br />
-                will be able to get what suits them best.
+                can find what suits them best.
               </p>
             </div>
           </div>
@@ -1162,7 +1162,7 @@ const Home = () => {
                       WebkitTextFillColor: 'transparent',
                     }}
                   >
-                    Flow unites B1 and B2 for instant clarity and confident decisions
+                    Flow seamlessly connects B1 and B2, delivering instant clarity for confident decisions
                   </p>
                 </div>
               </div>
