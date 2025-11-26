@@ -106,24 +106,22 @@ const HowToStartBitcoin = () => {
 
   const steps = [
     {
-      title: "Inform yourself",
+      title: "Manage Capital in One Space",
       description:
-        "Bitcoin is different than what you know and use every day. Before you start using Bitcoin, there are a few things that you need to know in order to use it securely and avoid common pitfalls.",
+        "B1 allows users to handle all financial operations from one dashboard.Track cash flow, revenue, and transactions in real time. No manual entries — your data syncs automatically with every action.",
     },
     {
-      title: "Choose your wallet",
+      title: "Secure Smart Payments",
       description:
-        "You can install an app on your mobile device for everyday use or you can have a wallet only for online payments on your computer. In any case, choosing a wallet is easy and can be done in minutes.",
-    },
+        "Send, receive, and record payments instantly. AI verifies, records, and reconciles each transaction with full transparency. You can customize approval limits, roles, and permissions for your team."    },
     {
-      title: "Spend Bitcoin",
+      title: "Build & Collaborate",
       description:
-        "There are a growing number of services and merchants accepting Bitcoin all over the world. Use Bitcoin to pay them and rate your experience to help them gain more visibility.",
-    },
+        "B2 is where finance meets productivity. Teams can create workspaces for projects, budgeting, and performance tracking. Each workspace connects directly with B1’s financial data. Automate reporting from one place."    },
     {
-      title: "Get Bitcoin",
+      title: "Sync Everything",
       description:
-        "You can get Bitcoin by accepting it as a payment for goods and services. There are also several ways you can buy Bitcoin.",
+        "Flow bridges B1 and B2, making every decision connected. When a transaction happens in B1, B2 instantly updates your workspace insights. You work smarter, faster, and with full clarity."
     },
   ];
 
@@ -131,7 +129,7 @@ const HowToStartBitcoin = () => {
     <div className="bg-black text-white">
       <section className="horizontal-scroll-wrapper relative bg-black min-h-screen md:h-screen overflow-hidden">
         {/* Title */}
-        <div className="absolute top-8 sm:top-12 md:top-16 left-0 right-0 z-20 px-4 sm:px-6 md:px-8 lg:px-[10vw] text-center pointer-events-none">
+        <div className="absolute top-24 sm:top-32 md:top-40 lg:top-44 left-0 right-0 z-20 px-4 sm:px-6 md:px-8 lg:px-[10vw] text-center pointer-events-none">
           <p className="text-[#9B8AFB] text-xs sm:text-sm uppercase tracking-wider mb-2 sm:mb-4">
             Guide
           </p>

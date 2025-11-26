@@ -59,7 +59,7 @@ const ElKaidVsTraditionalFinances = () => {
   const traditionalPoints = [
     'Operate within certain hours',
     'Evolved Finance Rooted in vision. Designed for growth',
-    'Seamless Transactions flowing beyond boundaries',
+    'Seamless transactions flowing beyond boundaries',
     'Built to think, designed to evolve',
     'Adaptive Flow Powering motion with precision'
   ];
@@ -67,7 +67,7 @@ const ElKaidVsTraditionalFinances = () => {
   const bitcoinPoints = [
     'Operate 24/7 without interruption',
     '⁠Crafted for stability. Driven by intelligence',
-    'Speed with purpose. Trust in every move',
+    'Purposeful speed. Trust in every move',
     'Intelligent Workspace where clarity meets creation',
     '⁠Dynamic flow Connecting finance to intelligence'
   ];
@@ -145,7 +145,7 @@ const ElKaidVsTraditionalFinances = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const labels = ['Accessibility', 'Finance', 'Transcation', 'Workspace', 'Flow'];
+  const labels = ['Accessibility', 'Finance', 'Transaction', 'Workspace', 'Flow'];
 
   return (
     <>
@@ -170,7 +170,7 @@ const ElKaidVsTraditionalFinances = () => {
                 letterSpacing: '0.05em',
               }}
             >
-              EL&nbsp;KAID Designed Different<br className="hidden sm:block" />{' '}
+              EL&nbsp;KAID: Designed Differently<br className="hidden sm:block" />{' '}
               <span className="sm:hidden"> </span>Built for Progress
             </h2>
           </div>
@@ -186,7 +186,7 @@ const ElKaidVsTraditionalFinances = () => {
                   B1
                 </h3>
                 <p className="text-white/60 uppercase tracking-wider text-[9px] sm:text-[10px] md:text-xs mb-1 sm:mb-2">
-                Build For Business
+                Built for Business
                 </p>
               </div>
 
@@ -196,7 +196,7 @@ const ElKaidVsTraditionalFinances = () => {
                   B2
                 </h3>
                 <p className="text-white/60 uppercase tracking-wider text-[9px] sm:text-[10px] md:text-xs mb-1 sm:mb-2">
-                  Build For Smart Workspace
+                  Built for Smart Workspaces
                 </p>
 
               </div>
