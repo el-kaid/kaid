@@ -63,9 +63,9 @@ const Navbar = () => {
       isVisible ? 'translate-y-0' : '-translate-y-full'
     }`}>
       <div className="relative w-full px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3 md:py-4 lg:py-5">
-        <div className="flex items-center justify-center relative">
-          {/* Navigation Items - Center */}
-          <div className="hidden lg:flex items-center space-x-1 md:space-x-2">
+        <div className="flex items-center justify-between relative">
+          {/* Navigation Items - Center (Desktop) */}
+          <div className="hidden lg:flex items-center space-x-1 md:space-x-2 flex-1 justify-center">
             {navItems.map((item) => {
               const isHovered = hoveredItem === item.path;
               const position = itemPositions[item.path] || { x: 0, y: 0 };
@@ -130,21 +130,22 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* Mobile menu button */}
-          <div className="absolute right-0 flex items-center space-x-2 sm:space-x-4">
+          {/* Mobile menu button - properly positioned */}
+          <div className="lg:hidden flex items-center justify-end">
             <button 
-              className="lg:hidden p-2 sm:p-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 group"
+              className="p-2 sm:p-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300 group"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle mobile menu"
             >
-              <svg className={`w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 ${isMobileMenuOpen ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className={`w-6 h-6 sm:w-7 sm:h-7 transition-transform duration-300 ${isMobileMenuOpen ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
               </svg>
             </button>
           </div>
         </div>
 
-        {/* Enhanced Mobile Navigation Menu */}
-        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${isMobileMenuOpen ? 'max-h-96 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-white/20' : 'max-h-0'}`}>
+        {/* Enhanced Mobile Navigation Menu - properly positioned below */}
+        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${isMobileMenuOpen ? 'max-h-96 mt-4 sm:mt-5 pt-4 sm:pt-5 border-t border-white/20' : 'max-h-0 mt-0 pt-0'}`}>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
             {navItems.map((item) => (
               <Link
