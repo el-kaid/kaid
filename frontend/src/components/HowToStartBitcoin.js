@@ -108,7 +108,7 @@ const HowToStartBitcoin = () => {
     {
       title: "Manage Capital in One Space",
       description:
-        "B1 allows users to handle all financial operations from one dashboard.Track cash flow, revenue, and transactions in real time. No manual entries — your data syncs automatically with every action.",
+        "B1 allows you to manage all financial operations from one dashboard. Track cash flow, revenue, and transactions in real time. No manual entries — your data syncs automatically with every action.",
     },
     {
       title: "Secure Smart Payments",
@@ -121,7 +121,7 @@ const HowToStartBitcoin = () => {
     {
       title: "Sync Everything",
       description:
-        "Flow bridges B1 and B2, making every decision connected. When a transaction happens in B1, B2 instantly updates your workspace insights. You work smarter, faster, and with full clarity."
+        "Flow connects B1 and B2, ensuring every decision is fully synchronized. When a transaction happens in B1, B2 instantly updates your workspace insights. You work smarter, faster, and with full clarity."
     },
   ];
 
@@ -134,7 +134,7 @@ const HowToStartBitcoin = () => {
             Guide
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
-            How to start using bitcoin
+            How to Start Using Bitcoin
           </h2>
         </div>
 

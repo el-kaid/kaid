@@ -57,19 +57,12 @@ export default function HomeFooter() {
 
           {/* Main heading */}
           <h1 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-medium tracking-tight mb-6 sm:mb-8 md:mb-12 leading-tight">
-            START YOUR JOURNEY
+            Start Your Journey Now
           </h1>
-
-          {/* Large NOW text with gradient */}
-          <div className="mb-8 sm:mb-12 md:mb-16 -ml-0.5 sm:-ml-1 md:-ml-2 lg:-ml-3 -mt-2 sm:-mt-4 md:-mt-6 lg:-mt-8">
-            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[12rem] font-semibold leading-none bg-gradient-to-r from-purple-400 via-purple-300 to-purple-500 bg-clip-text text-transparent tracking-tighter">
-              NOW!
-            </h2>
-          </div>
 
           {/* Description text */}
           <p className="text-gray-300 text-xs sm:text-sm md:text-base max-w-full sm:max-w-xl mb-6 sm:mb-8 leading-relaxed -mt-4 sm:-mt-6 md:-mt-8 lg:-mt-10">
-            Where vision meets intelligence, and finance evolves beyond limits.
+            Where vision meets intelligence, and finance evolves without limits.
             Join the ecosystem that empowers thinkers, builders, and leaders of tomorrow.
             Enter EL KAID — Built for Progress.
           </p>

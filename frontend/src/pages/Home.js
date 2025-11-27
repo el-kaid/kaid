@@ -814,7 +814,7 @@ const Home = () => {
               fontWeight: 600,
               letterSpacing: '0.02em'
             }}>
-              The Next Era of the Financial System is Here
+              The Next Era of the Financial System Is Here
             </p>
           </div>
         </div>
@@ -880,7 +880,9 @@ const Home = () => {
             What is EL&nbsp;Kaid?
           </h2>
           <p className="text-gray-400 max-w-full mx-auto leading-normal text-sm sm:text-base md:text-lg mb-8 sm:mb-10 md:mb-12 px-4 sm:px-6 md:px-8 text-justify" style={{ maxWidth: '1400px', lineHeight: '1.6' }}>
-            EL KAID is the next evolution of financial intelligence — a revolutionary system that blends AI-driven automation and manual precision to simplify and empower modern business management. From billing, bookkeeping, taxation, banking, asset tracking, and B1M (Business 1 Messenger), everything you need to run your business flows seamlessly through one unified fingertip access. With cutting-edge technology and globally connected financial data, EL KAID transforms the way businesses operate — creating a virtual office ecosystem that's accessible anytime, anywhere. We're redefining the fintech landscape by giving individuals and businesses the power to manage their finances effortlessly — without the need for consultants. EL KAID isn't just a platform, it's the new era of business and financial management.
+            EL KAID is the next evolution of financial intelligence — a unified platform that blends AI-powered automation with precise manual control to simplify modern business management. From billing, bookkeeping, taxation, banking, asset tracking, and B1M (Business-1 Messenger), everything flows seamlessly through a single, integrated system.
+
+With globally connected financial data and cutting-edge automation, EL KAID transforms the way businesses operate — creating a virtual office ecosystem that works anytime, anywhere. We're redefining the fintech landscape by giving individuals and businesses the power to manage their finances effortlessly — without relying on consultants. EL KAID isn't just a platform, it's the new era of business and financial management.
           </p>
 
           <div className="flex justify-center mt-8 sm:mt-10 md:mt-12">
@@ -919,28 +921,28 @@ const Home = () => {
             {/* Feature 1 */}
             <FeatureBoxWithGradient
               title="Next-Era Financial System"
-              description="EL KAID redefines how businesses handle money — merging automation, intelligence, and real-time connectivity into one seamless platform. It’s not just finance management; it’s the future of digital finance in motion."
+              description="EL KAID redefines how businesses handle money — merging automation, intelligence, and real-time connectivity into one seamless platform. It's not just finance management — it's the future of digital finance."
               delay="scroll-animate-delay-1"
             />
 
             {/* Feature 2 */}
             <FeatureBoxWithGradient
               title="AI-Driven Insights"
-              description="Powered by advanced AI, EL KAID transforms raw financial data into clear, actionable insights. Make smarter decisions, faster — with predictive analytics guiding every transaction and trend."
+              description="Powered by advanced AI, EL KAID transforms raw financial data into clear, actionable insights. Make smarter decisions faster, with predictive analytics guiding every transaction and trend."
               delay="scroll-animate-delay-2"
             />
 
             {/* Feature 3 */}
             <FeatureBoxWithGradient
               title="Universal Access"
-              description="Your entire financial ecosystem — from billing to banking — available anytime, anywhere. Whether you're in the office or on the move, EL KAID keeps your business in sync across the globe."
+              description="Your entire financial ecosystem — from billing to banking — accessible anytime, anywhere. Whether you're in the office or on the move, EL KAID keeps your business in sync across the globe."
               delay="scroll-animate-delay-1"
             />
 
             {/* Feature 4 */}
             <FeatureBoxWithGradient
               title="Trust and Security"
-              description="Built on bank-grade encryption and verified protocols, EL KAID ensures your data remains safe, private, and tamper-proof. Transparency and trust are at the core of every transaction."
+              description="Built on bank-grade encryption and validated security protocols, EL KAID ensures your data remains safe, private, and tamper-proof. Transparency and trust are at the core of every transaction."
               delay="scroll-animate-delay-2"
             />
 
@@ -1070,16 +1072,16 @@ const Home = () => {
 
 
       {/* ================= WHO CAN USE BITCOIN SECTION ================= */}
-      <section className="relative py-32 px-4 overflow-hidden bg-black scroll-animate">
+      <section className="relative py-12 sm:py-20 md:py-32 px-4 sm:px-6 overflow-hidden bg-black scroll-animate">
         <div className="max-w-7xl mx-auto relative z-10">
           {/* Section Header */}
-          <div className="text-right mb-4 w-full">
-            <div className="ml-auto max-w-[45rem] flex flex-col items-end gap-1">
-              <p className="text-transparent bg-clip-text bg-gradient-to-r from-[#4c45a5] to-[#e0cbe0] uppercase text-sm md:text-base tracking-widest">
+          <div className="text-center md:text-right mb-6 sm:mb-8 md:mb-4 w-full">
+            <div className="md:ml-auto max-w-full md:max-w-[45rem] flex flex-col items-center md:items-end gap-2 sm:gap-1">
+              <p className="text-transparent bg-clip-text bg-gradient-to-r from-[#4c45a5] to-[#e0cbe0] uppercase text-xs sm:text-sm md:text-base tracking-widest">
                 Options
               </p>
               <h2
-                className="text-4xl md:text-6xl font-bold uppercase whitespace-nowrap"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold uppercase break-words md:whitespace-nowrap px-2"
                 style={{
                   background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
                   WebkitBackgroundClip: 'text',
@@ -1089,27 +1091,27 @@ const Home = () => {
               >
                 Who can use B1 & B2
               </h2>
-              <p className="text-transparent bg-clip-text bg-gradient-to-b from-white/50 to-white max-w-[35rem] text-sm md:text-lg mt-1">
-                With the technology of B1 and B2, everyone<br />
-                can find what suits them best.
+              <p className="text-transparent bg-clip-text bg-gradient-to-b from-white/50 to-white max-w-full md:max-w-[35rem] text-xs sm:text-sm md:text-lg mt-1 px-2 text-center md:text-right">
+                With the technology of B1 and B2, every user<br className="hidden md:block" />
+                can choose what fits their workflow best.
               </p>
             </div>
           </div>
 
           {/* Three Card Grid - Staircase Layout */}
-          <div className="grid md:grid-cols-3 gap-0 relative" style={{ minHeight: '58rem' }}>
+          <div className="grid md:grid-cols-3 gap-4 sm:gap-6 md:gap-0 relative" style={{ minHeight: 'auto' }}>
 
             {/* Card 1 - Businesses */}
-            <div className="relative group self-start">
+            <div className="relative group self-start w-full">
               <div
-                className="absolute inset-0 rounded-tr-[7rem] rounded-bl-[7rem] p-[2px]"
+                className="absolute inset-0 rounded-tr-[3rem] sm:rounded-tr-[5rem] md:rounded-tr-[7rem] rounded-bl-[3rem] sm:rounded-bl-[5rem] md:rounded-bl-[7rem] p-[2px]"
                 style={{
                   background: 'linear-gradient(130deg, black, #e0cbe0 54%, #4c45a5)',
                 }}
               >
-                <div className="bg-black rounded-tr-[7rem] rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-20">
+                <div className="bg-black rounded-tr-[3rem] sm:rounded-tr-[5rem] md:rounded-tr-[7rem] rounded-bl-[3rem] sm:rounded-bl-[5rem] md:rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-6 sm:p-12 md:p-20 min-h-[200px] sm:min-h-[250px]">
                   <h3
-                    className="text-3xl font-bold mb-6 scroll-animate scroll-animate-delay-1"
+                    className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 scroll-animate scroll-animate-delay-1"
                     style={{
                       background: 'linear-gradient(360deg, rgba(255,255,255,0.4), #FFFFFF 45%)',
                       WebkitBackgroundClip: 'text',
@@ -1120,7 +1122,7 @@ const Home = () => {
 
                   </h3>
                   <p
-                    className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
+                    className="text-sm sm:text-base md:text-lg leading-relaxed scroll-animate scroll-animate-delay-2 px-2"
                     style={{
                       background: 'linear-gradient(360deg, rgba(255,255,255,0.5), #FFFFFF 50%, #FFFFFF)',
                       WebkitBackgroundClip: 'text',
@@ -1131,20 +1133,20 @@ const Home = () => {
                   </p>
                 </div>
               </div>
-              <div style={{ height: '20rem' }}></div>
+              <div className="hidden md:block" style={{ height: '20rem' }}></div>
             </div>
 
             {/* Card 2 - Individuals */}
-            <div className="relative group self-center md:w-[96%] md:-ml-[0.1rem] md:mt-8">
+            <div className="relative group self-center w-full md:w-[96%] md:-ml-[0.1rem] md:mt-8">
               <div
-                className="absolute inset-0 rounded-tr-[7rem] rounded-bl-[7rem] p-[2px]"
+                className="absolute inset-0 rounded-tr-[3rem] sm:rounded-tr-[5rem] md:rounded-tr-[7rem] rounded-bl-[3rem] sm:rounded-bl-[5rem] md:rounded-bl-[7rem] p-[2px]"
                 style={{
                   background: 'linear-gradient(180deg, #5850aa, #4c45a5)',
                 }}
               >
-                <div className="bg-black rounded-tr-[7rem] rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-20">
+                <div className="bg-black rounded-tr-[3rem] sm:rounded-tr-[5rem] md:rounded-tr-[7rem] rounded-bl-[3rem] sm:rounded-bl-[5rem] md:rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-6 sm:p-12 md:p-20 min-h-[200px] sm:min-h-[250px]">
                   <h3
-                    className="text-3xl font-bold mb-6 scroll-animate scroll-animate-delay-1"
+                    className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 scroll-animate scroll-animate-delay-1 px-2"
                     style={{
                       background: 'linear-gradient(360deg, rgba(255,255,255,0.4), #FFFFFF 45%)',
                       WebkitBackgroundClip: 'text',
@@ -1155,7 +1157,7 @@ const Home = () => {
 
                   </h3>
                   <p
-                    className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
+                    className="text-sm sm:text-base md:text-lg leading-relaxed scroll-animate scroll-animate-delay-2 px-2"
                     style={{
                       background: 'linear-gradient(360deg, rgba(255,255,255,0.5), #FFFFFF 50%, #FFFFFF)',
                       WebkitBackgroundClip: 'text',
@@ -1166,21 +1168,21 @@ const Home = () => {
                   </p>
                 </div>
               </div>
-              <div style={{ height: '20rem' }}></div>
+              <div className="hidden md:block" style={{ height: '20rem' }}></div>
             </div>
 
             {/* Card 3 - Developers (touching Individuals, no overlap) */}
-            <div className="relative group self-end md:-ml-[1.1rem] md:w-[97%] md:mt-[10rem] md:translate-y-[2rem]">
+            <div className="relative group self-end w-full md:-ml-[1.1rem] md:w-[97%] md:mt-[10rem] md:translate-y-[2rem]">
 
               <div
-                className="absolute inset-0 rounded-tr-[7rem] rounded-bl-[7rem] p-[2px]"
+                className="absolute inset-0 rounded-tr-[3rem] sm:rounded-tr-[5rem] md:rounded-tr-[7rem] rounded-bl-[3rem] sm:rounded-bl-[5rem] md:rounded-bl-[7rem] p-[2px]"
                 style={{
                   background: 'linear-gradient(130deg, #4d46a5, #e0cbe0 54%, black)',
                 }}
               >
-                <div className="bg-black rounded-tr-[7rem] rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-20">
+                <div className="bg-black rounded-tr-[3rem] sm:rounded-tr-[5rem] md:rounded-tr-[7rem] rounded-bl-[3rem] sm:rounded-bl-[5rem] md:rounded-bl-[7rem] h-full w-full flex flex-col justify-center items-center text-center p-6 sm:p-12 md:p-20 min-h-[200px] sm:min-h-[250px]">
                   <h3
-                    className="text-3xl font-bold mb-6 scroll-animate scroll-animate-delay-1"
+                    className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 scroll-animate scroll-animate-delay-1 px-2"
                     style={{
                       background: 'linear-gradient(360deg, rgba(255,255,255,0.4), #FFFFFF 45%)',
                       WebkitBackgroundClip: 'text',
@@ -1190,7 +1192,7 @@ const Home = () => {
                     Teams & Departments
                   </h3>
                   <p
-                    className="text-lg leading-relaxed scroll-animate scroll-animate-delay-2"
+                    className="text-sm sm:text-base md:text-lg leading-relaxed scroll-animate scroll-animate-delay-2 px-2"
                     style={{
                       background: 'linear-gradient(360deg, rgba(255,255,255,0.5), #FFFFFF 50%, #FFFFFF)',
                       WebkitBackgroundClip: 'text',
@@ -1202,7 +1204,7 @@ const Home = () => {
                   </p>
                 </div>
               </div>
-              <div style={{ height: '20rem' }}></div>
+              <div className="hidden md:block" style={{ height: '20rem' }}></div>
             </div>
 
           </div>
@@ -1213,10 +1215,10 @@ const Home = () => {
         .grid.md\\:grid-cols-3 {
           grid-template-columns: 1fr;
           height: auto;
-          gap: 1rem;
+          gap: 1.5rem;
         }
         .self-start, .self-center, .self-end {
-          align-self: start;
+          align-self: stretch;
         }
       }
     `}</style>
