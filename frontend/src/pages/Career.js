@@ -910,7 +910,6 @@ const Career = () => {
                         onClick={(e) => {
                           e.stopPropagation();
                           setSelectedJob(job);
-                          setShowApplicationForm(true);
                         }}
                       >
                         Apply Now
@@ -1232,7 +1231,7 @@ const Career = () => {
       {/* Job Detail Modal */}
       {selectedJob && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-purple-500/20 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-slate-900 border border-purple-500/20 rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-8">
               <div className="flex items-start justify-between mb-6">
                 <div className="flex items-center space-x-4">
@@ -1345,7 +1344,7 @@ const Career = () => {
       {/* Application Form Modal */}
       {showApplicationForm && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-purple-500/20 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-slate-900 border border-purple-500/20 rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-8">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-3xl font-bold text-white">Apply to EL KAID</h2>

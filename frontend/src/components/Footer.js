@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Rss, MoreHorizontal } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -67,7 +67,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/" className="text-sm sm:text-base text-gray-300 hover:text-purple-400 transition-colors uppercase">
+                <Link to="/home" className="text-sm sm:text-base text-gray-300 hover:text-purple-400 transition-colors uppercase">
                   ABOUT US
                 </Link>
               </li>
@@ -89,7 +89,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm sm:text-base text-gray-300 hover:text-purple-400 transition-colors uppercase">
+                <a href="#updates" className="text-sm sm:text-base text-gray-300 hover:text-purple-400 transition-colors uppercase">
                   CONTACT US
                 </a>
               </li>
@@ -101,7 +101,7 @@ const Footer = () => {
             <h4 className="text-sm sm:text-base font-semibold mb-3 sm:mb-4 uppercase tracking-wide text-[#9B8AFB]">RESOURCES</h4>
             <ul className="space-y-2 sm:space-y-3">
               <li>
-                <a href="#" className="text-sm sm:text-base text-gray-300 hover:text-purple-400 transition-colors uppercase">
+                <a href="our-work" className="text-sm sm:text-base text-gray-300 hover:text-purple-400 transition-colors uppercase">
                   BLOG
                 </a>
               </li>
@@ -145,24 +145,17 @@ const Footer = () => {
           </a>
           <a 
             href="#" 
-            className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-gray-700 rounded-full flex items-center justify-center text-gray-300 hover:border-purple-500 hover:text-purple-400 hover:bg-purple-500/10 transition-all duration-300 group"
-            aria-label="RSS Feed"
+            className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-gray-700 rounded-full flex items-center justify-center text-gray-300 hover:border-pink-500 hover:text-pink-400 hover:bg-pink-500/10 transition-all duration-300 group"
+            aria-label="Instagram"
           >
-            <Rss className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
+            <Instagram className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
           </a>
           <a 
             href="#" 
-            className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-gray-700 rounded-full flex items-center justify-center text-gray-300 hover:border-cyan-500 hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-300 group"
-            aria-label="Google Plus"
+            className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-gray-700 rounded-full flex items-center justify-center text-gray-300 hover:border-blue-500 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-300 group"
+            aria-label="LinkedIn"
           >
-            <span className="text-lg sm:text-xl font-bold group-hover:scale-110 transition-transform">G+</span>
-          </a>
-          <a 
-            href="#" 
-            className="w-10 h-10 sm:w-12 sm:h-12 border-2 border-gray-700 rounded-full flex items-center justify-center text-gray-300 hover:border-purple-500 hover:text-purple-400 hover:bg-purple-500/10 transition-all duration-300 group"
-            aria-label="More"
-          >
-            <MoreHorizontal className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
+            <Linkedin className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
           </a>
         </div>
 

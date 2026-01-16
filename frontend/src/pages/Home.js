@@ -775,8 +775,15 @@ const Home = () => {
         <div className="hero_aurora absolute inset-1/2 w-[160vw] aspect-square rounded-full blur-[4rem] opacity-20 bg-[radial-gradient(circle_at_50%_20%,rgba(224,203,224,0.15),rgba(76,69,165,0.1),rgba(76,69,165,0))] animate-[heroAurora_14s_ease-in-out_infinite_reverse]"></div>
 
         {/* === Triangular Light Overlay === */}
-        <svg viewBox="0 0 622 705" className="absolute w-full h-[80vh] text-white opacity-[0.02] blur-[9vw] animate-[pulse_6s_infinite_ease-in-out]">
-          <path d="M311 0L621.037 704.25H0.962891L311 0Z" fill="currentColor" />
+        <svg viewBox="0 0 622 705" className="absolute w-full h-[80vh] blur-[9vw] animate-[pulse_6s_infinite_ease-in-out]">
+          <defs>
+            <linearGradient id="triangleGradient" x1="50%" y1="0%" x2="50%" y2="100%">
+              <stop offset="0%" stopColor="white" stopOpacity="0.001" />
+              <stop offset="50%" stopColor="white" stopOpacity="0.003" />
+              <stop offset="100%" stopColor="white" stopOpacity="0.005" />
+            </linearGradient>
+          </defs>
+          <path d="M311 0L621.037 704.25H0.962891L311 0Z" fill="url(#triangleGradient)" />
         </svg>
 
         {/* === Main Heading - Centered === */}

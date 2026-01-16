@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Mail, Phone, MapPin, Clock, Send, MessageSquare, 
+  Mail, Phone, MapPin, Clock, Send, 
   Headphones, Users, Building2, Globe, CheckCircle,
   ArrowRight, Calendar, FileText, HelpCircle,
   Zap, Shield, Rocket, Code, Smartphone, Database, Brain,
@@ -229,9 +229,10 @@ useEffect(() => {
       icon: <Phone className="w-6 h-6" />,
       title: 'Phone Support',
       description: 'Speak directly with our support team',
-      contact: '+1 (555) 123-4567',
+      contact: '+91 81484 12764',
       availability: '24/7 for Enterprise customers',
-      action: 'Call Now'
+      action: 'Call Anytime',
+      showArrow: false
     },
     {
       icon: <Mail className="w-6 h-6" />,
@@ -239,15 +240,8 @@ useEffect(() => {
       description: 'Get detailed help via email',
       contact: 'support@elkaid.com',
       availability: 'Response within 2 hours',
-      action: 'Send Email'
-    },
-    {
-      icon: <MessageSquare className="w-6 h-6" />,
-      title: 'Live Chat',
-      description: 'Chat with our team in real-time',
-      contact: 'Available on website',
-      availability: 'Mon-Fri: 9 AM - 6 PM EST',
-      action: 'Start Chat'
+      action: 'Email Anytime',
+      showArrow: false
     }
   ];
 
@@ -429,7 +423,7 @@ useEffect(() => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 justify-items-center max-w-4xl mx-auto">
             {contactMethods.map((method, index) => (
               <div key={index} className="group cursor-pointer project-card-hover w-full max-w-sm">
                 <div className="bg-slate-800/30 backdrop-blur-sm border border-purple-500/10 rounded-2xl p-6 h-full hover:bg-slate-800/50 transition-all duration-300 group-hover:border-purple-500/30">
@@ -444,7 +438,7 @@ useEffect(() => {
                   </div>
                   <button className="w-full py-2 rounded-full text-sm font-medium flex items-center justify-center space-x-2 bg-purple-500/10 border border-purple-500/20 text-purple-300 hover:bg-purple-500/20 transition-colors">
                     <span>{method.action}</span>
-                    <ArrowRight className="w-4 h-4" />
+                    {method.showArrow !== false && <ArrowRight className="w-4 h-4" />}
                   </button>
                 </div>
               </div>

@@ -237,36 +237,70 @@ const BuySoftware = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+        <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-10">
         <div
           onClick={() => handleProductSelect('B1')}
-          className="glass-effect rounded-3xl p-8 cursor-pointer hover:bg-white/10 transition-all duration-300 border-2 border-transparent hover:border-purple-500/50"
+          className="glass-effect rounded-3xl p-8 sm:p-10 cursor-pointer hover:bg-white/10 transition-all duration-300 border-2 border-transparent hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/20 group"
         >
           <div className="flex items-center justify-center mb-6">
-            <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
-              <Building2 className="w-10 h-10 text-white" />
+            <div className="w-24 h-24 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-purple-500/30">
+              <Building2 className="w-12 h-12 text-white" />
             </div>
           </div>
-          <h3 className="text-3xl font-bold text-white mb-4 text-center">B1</h3>
-          <p className="text-xl text-gray-300 mb-6 text-center">Built for business</p>
-          <div className="flex items-center justify-center">
-            <ArrowRight className="w-6 h-6 text-purple-400" />
+          <h3 className="text-4xl font-bold text-white mb-3 text-center">B1</h3>
+          <p className="text-xl font-semibold text-purple-300 mb-6 text-center">Built for Business</p>
+          
+          <div className="space-y-3 mb-8">
+            <div className="flex items-start space-x-3">
+              <CheckCircle className="w-5 h-5 text-purple-400 flex-shrink-0 mt-1" />
+              <span className="text-gray-300 text-sm sm:text-base">Comprehensive business management solution</span>
+            </div>
+            <div className="flex items-start space-x-3">
+              <CheckCircle className="w-5 h-5 text-purple-400 flex-shrink-0 mt-1" />
+              <span className="text-gray-300 text-sm sm:text-base">Billing, bookkeeping & taxation tools</span>
+            </div>
+            <div className="flex items-start space-x-3">
+              <CheckCircle className="w-5 h-5 text-purple-400 flex-shrink-0 mt-1" />
+              <span className="text-gray-300 text-sm sm:text-base">Perfect for growing businesses</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center space-x-2 text-purple-400 group-hover:text-purple-300 transition-colors">
+            <span className="font-medium">View Plans</span>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
 
         <div
           onClick={() => handleProductSelect('B2')}
-          className="glass-effect rounded-3xl p-8 cursor-pointer hover:bg-white/10 transition-all duration-300 border-2 border-transparent hover:border-purple-500/50"
+          className="glass-effect rounded-3xl p-8 sm:p-10 cursor-pointer hover:bg-white/10 transition-all duration-300 border-2 border-transparent hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/20 group"
         >
           <div className="flex items-center justify-center mb-6">
-            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
-              <Briefcase className="w-10 h-10 text-white" />
+            <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/30">
+              <Briefcase className="w-12 h-12 text-white" />
             </div>
           </div>
-          <h3 className="text-3xl font-bold text-white mb-4 text-center">B2</h3>
-          <p className="text-xl text-gray-300 mb-6 text-center">Built for smart workspace</p>
-          <div className="flex items-center justify-center">
-            <ArrowRight className="w-6 h-6 text-blue-400" />
+          <h3 className="text-4xl font-bold text-white mb-3 text-center">B2</h3>
+          <p className="text-xl font-semibold text-blue-300 mb-6 text-center">Built for Smart Workspace</p>
+          
+          <div className="space-y-3 mb-8">
+            <div className="flex items-start space-x-3">
+              <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0 mt-1" />
+              <span className="text-gray-300 text-sm sm:text-base">Advanced workspace management platform</span>
+            </div>
+            <div className="flex items-start space-x-3">
+              <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0 mt-1" />
+              <span className="text-gray-300 text-sm sm:text-base">Enhanced collaboration & productivity</span>
+            </div>
+            <div className="flex items-start space-x-3">
+              <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0 mt-1" />
+              <span className="text-gray-300 text-sm sm:text-base">Ideal for modern teams</span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center space-x-2 text-blue-400 group-hover:text-blue-300 transition-colors">
+            <span className="font-medium">View Plans</span>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
       </div>

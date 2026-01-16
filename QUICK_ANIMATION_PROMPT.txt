@@ -1,0 +1,23 @@
+PROMPT: Implement a scroll-triggered fade-up animation on my website
+
+I want to add a scroll reveal animation where elements fade in and slide up when they enter the viewport. Use the following specifications:
+
+CSS CLASSES NEEDED:
+- `.scroll-animate` - Base class for animated elements
+- `.animate-in` - State class added when element is visible
+- `.scroll-animate-delay-1`, `.scroll-animate-delay-2`, `.scroll-animate-delay-3` - For staggered animations
+
+ANIMATION BEHAVIOR:
+- Initial state: opacity: 0, transform: translateY(50px)
+- Animated state: opacity: 1, transform: translateY(0)
+- Transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1)
+- Trigger: IntersectionObserver with threshold: 0.15
+
+IMPLEMENTATION:
+1. Add the CSS styles for scroll-animate classes
+2. Add JavaScript using IntersectionObserver to toggle 'animate-in' class
+3. Apply 'scroll-animate' class to elements that should animate
+4. Optionally add delay classes for staggered effects
+
+The animation should work when scrolling both up and down (reversible).
+
