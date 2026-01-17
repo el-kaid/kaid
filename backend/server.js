@@ -10,6 +10,9 @@ const app = express();
 /* ===========================
   🔒 Security & Middleware
 =========================== */
+// Essential for Render/Vercel proxies to ensure rate limiting uses real user IP
+app.set('trust proxy', 1);
+
 app.use(helmet());
 app.use(morgan("combined"));
 app.use("/uploads", express.static("uploads"));
@@ -34,7 +37,7 @@ app.use(
 );
 
 // ✅ Explicit preflight
-app.options(/^\/.*$/, cors());
+app.options('*', cors());
 
 /* ===========================
   📦 Body Parsing
