@@ -336,39 +336,39 @@ const FeatureBoxWithGradient = ({ title, description, delay = "" }) => {
       />
 
       {/* Box with animated border */}
+      <div
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className="relative h-full"
+      >
+        {/* Animated border that appears only on hover and follows cursor */}
         <div
-          onMouseMove={handleMouseMove}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          className="relative h-full"
-        >
-          {/* Animated border that appears only on hover and follows cursor */}
-          <div
-            className="absolute inset-0 rounded-2xl pointer-events-none"
-            style={{
-              background: isHovered
-                ? `radial-gradient(150px circle at ${position.x}px ${position.y}px, 
+          className="absolute inset-0 rounded-2xl pointer-events-none"
+          style={{
+            background: isHovered
+              ? `radial-gradient(150px circle at ${position.x}px ${position.y}px, 
                     rgba(139, 92, 246, 1) 0%, 
                     rgba(124, 58, 237, 0.7) 25%, 
                     rgba(139, 92, 246, 0.4) 50%, 
                     transparent 75%)`
-                : 'transparent',
-              padding: '2px',
-              opacity: isHovered ? 1 : 0,
-              transition: 'opacity 0.3s ease',
-            }}
-          />
+              : 'transparent',
+            padding: '2px',
+            opacity: isHovered ? 1 : 0,
+            transition: 'opacity 0.3s ease',
+          }}
+        />
 
-          <div
-            className="bg-black backdrop-blur-sm p-6 sm:p-8 md:p-12 lg:p-16 rounded-2xl transition-all duration-300 h-full min-h-[200px] sm:min-h-[240px] md:min-h-[280px] feature-box-glow relative z-10 flex flex-col"
-            style={{
-              border: 'none',
-            }}
-          >
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6 text-center">{title}</h3>
-            <p className="text-gray-300 text-sm sm:text-base leading-relaxed text-justify flex-grow">{description}</p>
-          </div>
+        <div
+          className="bg-black backdrop-blur-sm p-6 sm:p-8 md:p-12 lg:p-16 rounded-2xl transition-all duration-300 h-full min-h-[200px] sm:min-h-[240px] md:min-h-[280px] feature-box-glow relative z-10 flex flex-col"
+          style={{
+            border: 'none',
+          }}
+        >
+          <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6 text-center">{title}</h3>
+          <p className="text-gray-300 text-sm sm:text-base leading-relaxed text-justify flex-grow">{description}</p>
         </div>
+      </div>
     </div>
   );
 };
@@ -423,27 +423,7 @@ const ComparisonText = ({ texts = [] }) => {
 
 const Home = () => {
   const navigate = useNavigate();
-  const [isVisible, setIsVisible] = useState({});
 
-  // Scroll animation effect (your original)
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(prev => ({ ...prev, [entry.target.id]: true }));
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    // Observe all sections with scroll-animate class
-    const sections = document.querySelectorAll('.scroll-animate');
-    sections.forEach(section => observer.observe(section));
-
-    return () => observer.disconnect();
-  }, []);
 
   // ✅ Additional reveal effect that directly toggles the class (no IDs required)
   useEffect(() => {
@@ -815,7 +795,7 @@ const Home = () => {
             >
               EL KAID
             </h1>
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mt-2 sm:mt-4 uppercase font-semibold px-2" style={{ 
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mt-2 sm:mt-4 uppercase font-semibold px-2" style={{
               color: 'rgba(255, 255, 255, 0.6)',
               fontFamily: "Montserrat, sans-serif",
               fontWeight: 600,
@@ -889,7 +869,7 @@ const Home = () => {
           <p className="text-gray-400 max-w-full mx-auto leading-normal text-sm sm:text-base md:text-lg mb-8 sm:mb-10 md:mb-12 px-4 sm:px-6 md:px-8 text-justify" style={{ maxWidth: '1400px', lineHeight: '1.6' }}>
             EL KAID is the next evolution of financial intelligence — a unified platform that blends AI-powered automation with precise manual control to simplify modern business management. From billing, bookkeeping, taxation, banking, asset tracking, and B1M (Business-1 Messenger), everything flows seamlessly through a single, integrated system.
 
-With globally connected financial data and cutting-edge automation, EL KAID transforms the way businesses operate — creating a virtual office ecosystem that works anytime, anywhere. We're redefining the fintech landscape by giving individuals and businesses the power to manage their finances effortlessly — without relying on consultants. EL KAID isn't just a platform, it's the new era of business and financial management.
+            With globally connected financial data and cutting-edge automation, EL KAID transforms the way businesses operate — creating a virtual office ecosystem that works anytime, anywhere. We're redefining the fintech landscape by giving individuals and businesses the power to manage their finances effortlessly — without relying on consultants. EL KAID isn't just a platform, it's the new era of business and financial management.
           </p>
 
           <div className="flex justify-center mt-8 sm:mt-10 md:mt-12">
@@ -1125,7 +1105,7 @@ With globally connected financial data and cutting-edge automation, EL KAID tran
                       WebkitTextFillColor: 'transparent',
                     }}
                   >
-                    Businesses 
+                    Businesses
 
                   </h3>
                   <p
