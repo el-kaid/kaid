@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  MapPin, 
-  Clock, 
-  DollarSign, 
-  Users as UsersIcon, 
-  Heart, 
-  Zap, 
-  Award, 
-  Coffee, 
-  Laptop, 
-  Globe, 
-  TrendingUp, 
-  Shield, 
+import {
+  MapPin,
+  Clock,
+  DollarSign,
+  Users as UsersIcon,
+  Heart,
+  Zap,
+  Award,
+  Coffee,
+  Laptop,
+  Globe,
+  TrendingUp,
+  Shield,
   Star,
   ArrowRight,
   CheckCircle,
@@ -40,6 +40,7 @@ import {
   Calculator
 } from 'lucide-react';
 import ScrollDown from "../components/ScrollDown";
+import { API_ENDPOINTS } from '../config/api';
 
 // Custom CSS matching Home.js theme
 const customStyles = `
@@ -193,7 +194,7 @@ const AnimatedBoxWithGradient = ({ children, delay = "" }) => {
       />
 
       {/* Box with animated border */}
-      <div 
+      <div
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -203,7 +204,7 @@ const AnimatedBoxWithGradient = ({ children, delay = "" }) => {
         <div
           className="absolute inset-0 rounded-2xl pointer-events-none"
           style={{
-            background: isHovered 
+            background: isHovered
               ? `radial-gradient(150px circle at ${position.x}px ${position.y}px, 
                   rgba(139, 92, 246, 1) 0%, 
                   rgba(124, 58, 237, 0.7) 25%, 
@@ -216,7 +217,7 @@ const AnimatedBoxWithGradient = ({ children, delay = "" }) => {
           }}
         />
 
-        <div 
+        <div
           className="bg-slate-800/30 backdrop-blur-sm rounded-2xl transition-all duration-300 relative z-10 feature-box-glow h-full flex flex-col"
           style={{
             border: 'none',
@@ -295,16 +296,16 @@ const Career = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
-      const response = await fetch("http://localhost:8080/api/sellers", {
+      const response = await fetch(API_ENDPOINTS.SELLERS, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-  
+
       const data = await response.json();
-  
+
       if (data.success) {
         setToast({ visible: true, message: 'Application submitted successfully!', type: 'success' });
         setTimeout(() => setToast((t) => ({ ...t, visible: false })), 2500);
@@ -330,7 +331,7 @@ const Career = () => {
       setTimeout(() => setToast((t) => ({ ...t, visible: false })), 3000);
     }
   };
-  
+
 
   // Initialize phone code when country is set
   useEffect(() => {
@@ -622,7 +623,7 @@ const Career = () => {
   const filteredJobs = jobs.filter(job => {
     const matchesDepartment = selectedDepartment === 'All' || job.department === selectedDepartment;
     const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         job.description.toLowerCase().includes(searchTerm.toLowerCase());
+      job.description.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesDepartment && matchesSearch;
   });
 
@@ -644,16 +645,14 @@ const Career = () => {
     <div className="min-h-screen bg-black">
       {/* Toast Notification */}
       <div
-        className={`fixed top-6 right-6 z-[100] transform transition-all duration-500 ${
-          toast.visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-3 pointer-events-none'
-        }`}
+        className={`fixed top-6 right-6 z-[100] transform transition-all duration-500 ${toast.visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-3 pointer-events-none'
+          }`}
       >
         <div
-          className={`flex items-center gap-3 px-5 py-4 rounded-2xl shadow-2xl backdrop-blur-sm border ${
-            toast.type === 'success'
-              ? 'bg-green-500/15 border-green-400/30 text-green-100'
-              : 'bg-red-500/15 border-red-400/30 text-red-100'
-          }`}
+          className={`flex items-center gap-3 px-5 py-4 rounded-2xl shadow-2xl backdrop-blur-sm border ${toast.type === 'success'
+            ? 'bg-green-500/15 border-green-400/30 text-green-100'
+            : 'bg-red-500/15 border-red-400/30 text-red-100'
+            }`}
         >
           {toast.type === 'success' ? (
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -704,7 +703,7 @@ const Career = () => {
           >
             Join Us
           </h1>
-          
+
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
             Join our mission to revolutionize business finance with cutting-edge technology
           </p>
@@ -735,7 +734,7 @@ const Career = () => {
           </div>
         </div>
       </section>
-     
+
 
       {/* Featured Jobs */}
       <section className="py-20 px-4 bg-black scroll-animate">
@@ -755,11 +754,11 @@ const Career = () => {
               Join our team and help build the future of business accounting software
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-8">
             {featuredJobs.slice(0, 2).map((job) => (
-              <div 
-                key={job.id} 
+              <div
+                key={job.id}
                 className="bg-slate-800/30 backdrop-blur-sm rounded-2xl p-8 border border-purple-500/10 hover:bg-slate-800/50 transition-all duration-300 group project-card-hover cursor-pointer"
                 onClick={() => setSelectedJob(job)}
               >
@@ -774,10 +773,10 @@ const Career = () => {
                   </div>
                   <Star className="w-6 h-6 text-yellow-400" />
                 </div>
-                
+
                 <h3 className="text-2xl font-bold text-white mb-3">{job.title}</h3>
                 <p className="text-gray-300 mb-6 leading-relaxed">{job.description}</p>
-                
+
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div className="flex items-center space-x-2 text-gray-400">
                     <MapPin className="w-4 h-4" />
@@ -847,11 +846,10 @@ const Career = () => {
                 <button
                   key={dept}
                   onClick={() => setSelectedDepartment(dept)}
-                  className={`flex items-center space-x-2 px-6 py-3 rounded-full transition-all ${
-                    selectedDepartment === dept
-                      ? 'bg-white text-black'
-                      : 'bg-slate-800/50 border border-purple-500/20 text-gray-300 hover:bg-slate-800/70'
-                  }`}
+                  className={`flex items-center space-x-2 px-6 py-3 rounded-full transition-all ${selectedDepartment === dept
+                    ? 'bg-white text-black'
+                    : 'bg-slate-800/50 border border-purple-500/20 text-gray-300 hover:bg-slate-800/70'
+                    }`}
                 >
                   {dept !== 'All' && getDepartmentIcon(dept)}
                   <span>{dept}</span>
@@ -862,8 +860,8 @@ const Career = () => {
 
           <div className="space-y-6">
             {filteredJobs.map((job) => (
-              <div 
-                key={job.id} 
+              <div
+                key={job.id}
                 className="bg-slate-800/30 backdrop-blur-sm rounded-2xl overflow-hidden border border-purple-500/10 project-card-hover hover:border-purple-500/30 transition-all duration-300 cursor-pointer"
                 onClick={() => setSelectedJob(job)}
               >
@@ -905,7 +903,7 @@ const Career = () => {
                       </div>
                     </div>
                     <div className="mt-4 lg:mt-0 lg:ml-6">
-                      <button 
+                      <button
                         className="bg-white text-black px-6 py-3 rounded-full font-medium hover:bg-gray-200 transition-colors"
                         onClick={(e) => {
                           e.stopPropagation();
@@ -924,7 +922,7 @@ const Career = () => {
           {filteredJobs.length === 0 && (
             <div className="text-center py-12">
               <div className="text-gray-400 mb-4">No positions found matching your criteria.</div>
-              <button 
+              <button
                 onClick={() => {
                   setSelectedDepartment('All');
                   setSearchTerm('');
@@ -939,188 +937,188 @@ const Career = () => {
       </section>
 
 
-       {/* Application Form Section */}
-{/* Application Form Section */}
-<section className="py-20 px-4 bg-black scroll-animate">
-  <div className="max-w-6xl mx-auto">
-    <div className="text-center mb-12">
-      <p className="text-purple-400 tracking-widest uppercase text-sm mb-4">Apply Now</p>
-      <h2 className="text-4xl md:text-5xl font-bold mb-6"
-        style={{
-          background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
-          WebkitBackgroundClip: 'text',
-          color: 'transparent',
-        }}
-      >
-        Become a Seller
-      </h2>
-      <p className="text-gray-400 max-w-3xl mx-auto leading-relaxed">
-        Fill out the form below 
-      </p>
-    </div>
-
-    <div className="grid md:grid-cols-2 gap-8 items-start">
-      {/* Terms & Conditions - Left */}
-      <div className="bg-slate-800/30 backdrop-blur-sm rounded-3xl p-8 md:p-10 border border-purple-500/20">
-        <h3 className="text-2xl font-bold text-white mb-4">Terms & Conditions</h3>
-        <p className="text-gray-300 mb-4">Please read these important points before submitting your seller application:</p>
-        <ul className="list-disc list-inside space-y-3 text-gray-300">
-          <li>Provide accurate and verifiable personal and business information.</li>
-          <li>Agree to comply with local regulations and tax requirements.</li>
-          <li>Transactions and payouts are subject to verification and review.</li>
-          <li>Any misuse or fraudulent activities may result in account suspension.</li>
-          <li>Data will be handled according to our privacy policy.</li>
-        </ul>
-        <div className="mt-6 text-sm text-gray-400">
-          By submitting the application, you agree to our <span className="text-purple-300">Terms of Service</span> and <span className="text-purple-300">Privacy Policy</span>.
-        </div>
-      </div>
-
-      {/* Seller Form - Right */}
-      <div className="bg-slate-800/30 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-purple-500/20">
-        <form onSubmit={handleFormSubmit} className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Full Name *
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleFormChange}
-              required
-              className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
-              placeholder="John Doe"
-            />
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Date of Birth *
-              </label>
-              <input
-                type="date"
-                name="dob"
-                value={formData.dob}
-                onChange={handleFormChange}
-                required
-                className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Phone Number *
-            </label>
-            <div className="flex">
-              <div className="flex items-center px-4 py-3 bg-slate-700/50 border border-purple-500/20 border-r-0 rounded-l-xl text-white font-medium">
-                {phoneCode}
-              </div>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleFormChange}
-                required
-                className="flex-1 px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-r-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
-                placeholder="234 567 8900"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Email *
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleFormChange}
-              required
-              className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
-              placeholder="john@example.com"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Address *
-            </label>
-            <textarea
-              name="address"
-              value={formData.address}
-              onChange={handleFormChange}
-              required
-              rows={3}
-              className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 resize-none"
-              placeholder="Street Address, City, State, ZIP Code"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Country *
-            </label>
-            <select
-              name="country"
-              value={formData.country}
-              onChange={handleFormChange}
-              required
-              className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white focus:outline-none focus:border-purple-500/50 hover:border-purple-500/40 transition-colors cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27rgb(168,85,247)%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e')] bg-[length:1.5rem] bg-[right_0.75rem_center] bg-no-repeat"
+      {/* Application Form Section */}
+      {/* Application Form Section */}
+      <section className="py-20 px-4 bg-black scroll-animate">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-purple-400 tracking-widest uppercase text-sm mb-4">Apply Now</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6"
               style={{
-                backgroundPositionX: 'calc(100% - 0.75rem)',
+                background: 'linear-gradient(to bottom, #FFFFFF, #AAAAAA)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
               }}
             >
-              <option value="" disabled className="bg-slate-800 text-gray-400">Select your country</option>
-              <option value="Australia" className="bg-slate-800 text-white py-2">Australia</option>
-              <option value="Bangladesh" className="bg-slate-800 text-white py-2">Bangladesh</option>
-              <option value="Dubai" className="bg-slate-800 text-white py-2">Dubai</option>
-              <option value="India" className="bg-slate-800 text-white py-2">India</option>
-              <option value="Kuwait" className="bg-slate-800 text-white py-2">Kuwait</option>
-              <option value="Malaysia" className="bg-slate-800 text-white py-2">Malaysia</option>
-              <option value="New Zealand" className="bg-slate-800 text-white py-2">New Zealand</option>
-              <option value="Oman" className="bg-slate-800 text-white py-2">Oman</option>
-              <option value="Qatar" className="bg-slate-800 text-white py-2">Qatar</option>
-              <option value="Saudi Arabia" className="bg-slate-800 text-white py-2">Saudi Arabia</option>
-              <option value="Singapore" className="bg-slate-800 text-white py-2">Singapore</option>
-              <option value="Sri Lanka" className="bg-slate-800 text-white py-2">Sri Lanka</option>
-            </select>
+              Become a Seller
+            </h2>
+            <p className="text-gray-400 max-w-3xl mx-auto leading-relaxed">
+              Fill out the form below
+            </p>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              PAN Card Number *
-            </label>
-            <input
-              type="text"
-              name="pancard"
-              value={formData.pancard}
-              onChange={handleFormChange}
-              required
-              maxLength="10"
-              className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 uppercase"
-              placeholder="ABCDE1234F"
-              pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
-              title="Enter valid PAN card number (e.g., ABCDE1234F)"
-            />
-            <p className="text-xs text-gray-500 mt-1">Format: ABCDE1234F (5 letters, 4 digits, 1 letter)</p>
-          </div>
+          <div className="grid md:grid-cols-2 gap-8 items-start">
+            {/* Terms & Conditions - Left */}
+            <div className="bg-slate-800/30 backdrop-blur-sm rounded-3xl p-8 md:p-10 border border-purple-500/20">
+              <h3 className="text-2xl font-bold text-white mb-4">Terms & Conditions</h3>
+              <p className="text-gray-300 mb-4">Please read these important points before submitting your seller application:</p>
+              <ul className="list-disc list-inside space-y-3 text-gray-300">
+                <li>Provide accurate and verifiable personal and business information.</li>
+                <li>Agree to comply with local regulations and tax requirements.</li>
+                <li>Transactions and payouts are subject to verification and review.</li>
+                <li>Any misuse or fraudulent activities may result in account suspension.</li>
+                <li>Data will be handled according to our privacy policy.</li>
+              </ul>
+              <div className="mt-6 text-sm text-gray-400">
+                By submitting the application, you agree to our <span className="text-purple-300">Terms of Service</span> and <span className="text-purple-300">Privacy Policy</span>.
+              </div>
+            </div>
 
-          <button
-            type="submit"
-            className="w-full bg-white text-black py-4 rounded-full text-lg font-semibold hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center justify-center space-x-2"
-          >
-            <Send className="w-5 h-5" />
-            <span>Submit Application</span>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
+            {/* Seller Form - Right */}
+            <div className="bg-slate-800/30 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-purple-500/20">
+              <form onSubmit={handleFormSubmit} className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleFormChange}
+                    required
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
+                    placeholder="John Doe"
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Date of Birth *
+                    </label>
+                    <input
+                      type="date"
+                      name="dob"
+                      value={formData.dob}
+                      onChange={handleFormChange}
+                      required
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Phone Number *
+                  </label>
+                  <div className="flex">
+                    <div className="flex items-center px-4 py-3 bg-slate-700/50 border border-purple-500/20 border-r-0 rounded-l-xl text-white font-medium">
+                      {phoneCode}
+                    </div>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleFormChange}
+                      required
+                      className="flex-1 px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-r-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
+                      placeholder="234 567 8900"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleFormChange}
+                    required
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
+                    placeholder="john@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Address *
+                  </label>
+                  <textarea
+                    name="address"
+                    value={formData.address}
+                    onChange={handleFormChange}
+                    required
+                    rows={3}
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 resize-none"
+                    placeholder="Street Address, City, State, ZIP Code"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    Country *
+                  </label>
+                  <select
+                    name="country"
+                    value={formData.country}
+                    onChange={handleFormChange}
+                    required
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white focus:outline-none focus:border-purple-500/50 hover:border-purple-500/40 transition-colors cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27rgb(168,85,247)%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e')] bg-[length:1.5rem] bg-[right_0.75rem_center] bg-no-repeat"
+                    style={{
+                      backgroundPositionX: 'calc(100% - 0.75rem)',
+                    }}
+                  >
+                    <option value="" disabled className="bg-slate-800 text-gray-400">Select your country</option>
+                    <option value="Australia" className="bg-slate-800 text-white py-2">Australia</option>
+                    <option value="Bangladesh" className="bg-slate-800 text-white py-2">Bangladesh</option>
+                    <option value="Dubai" className="bg-slate-800 text-white py-2">Dubai</option>
+                    <option value="India" className="bg-slate-800 text-white py-2">India</option>
+                    <option value="Kuwait" className="bg-slate-800 text-white py-2">Kuwait</option>
+                    <option value="Malaysia" className="bg-slate-800 text-white py-2">Malaysia</option>
+                    <option value="New Zealand" className="bg-slate-800 text-white py-2">New Zealand</option>
+                    <option value="Oman" className="bg-slate-800 text-white py-2">Oman</option>
+                    <option value="Qatar" className="bg-slate-800 text-white py-2">Qatar</option>
+                    <option value="Saudi Arabia" className="bg-slate-800 text-white py-2">Saudi Arabia</option>
+                    <option value="Singapore" className="bg-slate-800 text-white py-2">Singapore</option>
+                    <option value="Sri Lanka" className="bg-slate-800 text-white py-2">Sri Lanka</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                    PAN Card Number *
+                  </label>
+                  <input
+                    type="text"
+                    name="pancard"
+                    value={formData.pancard}
+                    onChange={handleFormChange}
+                    required
+                    maxLength="10"
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50 uppercase"
+                    placeholder="ABCDE1234F"
+                    pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
+                    title="Enter valid PAN card number (e.g., ABCDE1234F)"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Format: ABCDE1234F (5 letters, 4 digits, 1 letter)</p>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-white text-black py-4 rounded-full text-lg font-semibold hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center justify-center space-x-2"
+                >
+                  <Send className="w-5 h-5" />
+                  <span>Submit Application</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Benefits */}
       <section className="py-20 px-4 bg-black scroll-animate">
@@ -1209,12 +1207,12 @@ const Career = () => {
             </span>
           </h2>
           <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Don't see the perfect role? We're always looking for talented people. 
+            Don't see the perfect role? We're always looking for talented people.
             Send us your resume and let's start a conversation.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <button 
+            <button
               type="button"
               onClick={() => setShowApplicationForm(true)}
               className="bg-white text-black px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-200 transition-all duration-300"
@@ -1249,7 +1247,7 @@ const Career = () => {
                     </div>
                   </div>
                 </div>
-                <button 
+                <button
                   onClick={() => setSelectedJob(null)}
                   className="text-gray-400 hover:text-white transition-colors text-2xl"
                 >
@@ -1324,7 +1322,7 @@ const Career = () => {
                     </div>
                   </div>
 
-                  <button 
+                  <button
                     onClick={() => {
                       setSelectedJob(null);
                       setShowApplicationForm(true);
@@ -1348,7 +1346,7 @@ const Career = () => {
             <div className="p-8">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-3xl font-bold text-white">Apply to EL KAID</h2>
-                <button 
+                <button
                   onClick={() => setShowApplicationForm(false)}
                   className="text-gray-400 hover:text-white transition-colors text-2xl"
                 >
@@ -1357,20 +1355,20 @@ const Career = () => {
               </div>
 
               <form onSubmit={handleFormSubmit} className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
                     Full Name *
-                    </label>
-                    <input
-                      type="text"
+                  </label>
+                  <input
+                    type="text"
                     name="name"
-                      value={formData.name}
-                      onChange={handleFormChange}
-                      required
-                      className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
+                    value={formData.name}
+                    onChange={handleFormChange}
+                    required
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-purple-500/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500/50"
                     placeholder="John Doe"
-                    />
-                  </div>
+                  />
+                </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>

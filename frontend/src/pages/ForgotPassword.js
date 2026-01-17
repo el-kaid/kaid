@@ -14,6 +14,7 @@ import {
   Mail
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { API_ENDPOINTS } from '../config/api';
 
 const customStyles = `
 .bg-gradient-radial {
@@ -164,7 +165,7 @@ const ForgotPasswordPage = () => {
       }
 
       // API call to verify if email and document exist in database
-      const response = await fetch('http://localhost:8080/api/auth/verify-user-details', {
+      const response = await fetch(API_ENDPOINTS.AUTH.VERIFY_USER_DETAILS, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -229,7 +230,7 @@ const ForgotPasswordPage = () => {
       }
 
       // API call to reset password with OTP
-      const response = await fetch('http://localhost:8080/api/auth/reset-password-with-otp', {
+      const response = await fetch(API_ENDPOINTS.AUTH.RESET_PASSWORD_WITH_OTP, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -248,7 +249,7 @@ const ForgotPasswordPage = () => {
       if (response.ok && data.success) {
         setSuccess('Password reset successfully! Redirecting to login...');
         setTimeout(() => {
-           navigate('/login');
+          navigate('/login');
           console.log('Redirecting to login...');
         }, 2000);
       } else {
@@ -361,13 +362,12 @@ const ForgotPasswordPage = () => {
                   const isCompleted = currentStep > step.number;
                   return (
                     <div key={step.number} className={`flex flex-col items-center step-indicator ${isActive ? 'active' : ''}`}>
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 mb-2 transition-all duration-300 ${
-                        isCompleted
-                          ? 'bg-green-500 border-green-500'
-                          : isActive
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 mb-2 transition-all duration-300 ${isCompleted
+                        ? 'bg-green-500 border-green-500'
+                        : isActive
                           ? 'bg-purple-500 border-purple-500'
                           : 'border-gray-600'
-                      }`}>
+                        }`}>
                         {isCompleted ? (
                           <CheckCircle className="w-5 h-5 text-white" />
                         ) : (
