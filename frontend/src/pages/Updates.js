@@ -7,6 +7,7 @@ import {
   AlertCircle, X
 } from 'lucide-react';
 import { API_ENDPOINTS } from '../config/api';
+import ScrollDown from "../components/ScrollDown";
 
 // Custom CSS for radial gradients and animations
 const customStyles = `
