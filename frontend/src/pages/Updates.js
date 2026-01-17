@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Mail, Phone, MapPin, Clock, Send, 
+import {
+  Mail, Phone, MapPin, Clock, Send,
   Headphones, Users, Building2, Globe, CheckCircle,
   ArrowRight, Calendar, FileText, HelpCircle,
   Zap, Shield, Rocket, Code, Smartphone, Database, Brain,
   AlertCircle, X
 } from 'lucide-react';
-import ScrollDown from "../components/ScrollDown";
+import { API_ENDPOINTS } from '../config/api';
 
 // Custom CSS for radial gradients and animations
 const customStyles = `
@@ -140,12 +140,12 @@ const Updates = () => {
 
   const [successMessage, setSuccessMessage] = useState('');
 
-useEffect(() => {
-  if (successMessage) {
-    const timer = setTimeout(() => setSuccessMessage(''), 4000);
-    return () => clearTimeout(timer);
-  }
-}, [successMessage]);
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => setSuccessMessage(''), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage]);
 
 
   // Scroll animation effect
@@ -287,19 +287,19 @@ useEffect(() => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError(null);
-    
+
     try {
-      const response = await fetch('http://localhost:8080/api/contact', {
+      const response = await fetch(API_ENDPOINTS.CONTACT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData)
       });
-  
-      
+
+
       const data = await response.json();
-  
+
       if (response.ok && data.success) {
         setSuccessMessage('✅ Message sent successfully! We’ll get back to you soon.');
         setFormData({
@@ -324,7 +324,7 @@ useEffect(() => {
       setIsSubmitting(false);
     }
   };
-  
+
 
   if (isSubmitted) {
     return (
@@ -332,7 +332,7 @@ useEffect(() => {
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:200px_200px] opacity-20" />
         </div>
-        
+
         <div className="max-w-2xl mx-auto text-center relative z-10">
           <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-8">
             <CheckCircle className="w-10 h-10 text-white" />
@@ -343,13 +343,13 @@ useEffect(() => {
             </span>
           </h1>
           <p className="text-xl text-gray-300 mb-4 leading-relaxed">
-            We've received your message and will get back to you within {estimatedResponseTime}. 
+            We've received your message and will get back to you within {estimatedResponseTime}.
             Our team is already reviewing your inquiry.
           </p>
           <p className="text-gray-400 mb-8">
             You'll receive a confirmation email shortly with your inquiry details.
           </p>
-          <button 
+          <button
             onClick={() => setIsSubmitted(false)}
             className="border-2 border-purple-400/50 text-purple-300 px-8 py-3 rounded-full font-semibold hover:bg-purple-400/10 transition-all duration-300 flex items-center justify-center gap-2"
           >
@@ -369,7 +369,7 @@ useEffect(() => {
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:200px_200px] opacity-20" />
         </div>
-        
+
         {/* Centered Title */}
         <div className="relative z-10 text-center">
           {/* Subtle glow effect behind text (match Home/Career) */}
@@ -401,7 +401,7 @@ useEffect(() => {
             Get In Touch
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-             Need help getting started? Our expert team is here to help you succeed.
+            Need help getting started? Our expert team is here to help you succeed.
           </p>
         </div>
 
@@ -457,13 +457,13 @@ useEffect(() => {
               <p className="text-gray-300 mb-8">
                 Fill out the form below and we'll get back to you as soon as possible.
               </p>
-               {/* ✅ Success Popup */}
+              {/* ✅ Success Popup */}
               {successMessage && (
                 <div className="success-popup mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-xl flex items-start space-x-3">
-                <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-    <div className="text-green-300 text-sm">{successMessage}</div>
-  </div>
-)}
+                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                  <div className="text-green-300 text-sm">{successMessage}</div>
+                </div>
+              )}
 
               {submitError && (
                 <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-start space-x-3">
