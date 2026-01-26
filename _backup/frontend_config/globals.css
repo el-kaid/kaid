@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+/* Import Montserrat Font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+@config "../../tailwind.config.js";
+
+/* Tailwind 4 Theme Configuration */
+@theme {
+  --font-montserrat: 'Montserrat', sans-serif;
+  --color-darkBackground: #000000;
+  --color-lightBackground: #FFFFFF;
+  --color-onyx: #191C1F;
+  --color-slate-grey: #505A63;
+  --color-soft-white: #F2F2F2;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white font-montserrat antialiased overflow-x-hidden;
+  }
+
+  /* Selection color */
+  ::selection {
+    @apply bg-white text-black;
+  }
+}
+
+@layer components {
+
+  /* Modern Monochrome Button */
+  .btn-monochrome {
+    @apply relative overflow-hidden border border-white/20 bg-transparent text-white transition-all duration-300 px-6 py-3 rounded-none uppercase tracking-widest text-sm font-semibold hover:border-white hover:text-black hover:bg-white;
+  }
+
+  /* Inverted Button (White bg, Black text -> Black bg, White text) */
+  .btn-monochrome-invert {
+    @apply relative overflow-hidden border border-white bg-white text-black transition-all duration-300 px-6 py-3 rounded-none uppercase tracking-widest text-sm font-semibold hover:bg-black hover:text-white hover:border-white;
+  }
+
+  /* Glass Card - Monochrome */
+  .glass-card {
+    @apply bg-black/40 backdrop-blur-md border border-white/10 transition-all duration-500 hover:border-white/30;
+  }
+}
+
+@layer utilities {
+  .text-glow-white {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  }
+
+  .text-stroke-white {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+  }
+
+  .mask-gradient-b {
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  }
+}
+
+/* Global Scrollbar Hide */
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}

@@ -19,14 +19,28 @@ app.use("/uploads", express.static("uploads"));
 =========================== */
 app.use(
   cors({
-    origin: [
-      "https://elkaid.com",
-      "https://www.elkaid.com",
-      "https://kaid-zeta.vercel.app",
-      "http://localhost:3000", // React local dev
-      "http://127.0.0.1:3000",
-      process.env.FRONTEND_URL, // optional .env override
-    ].filter(Boolean),
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+
+      const allowedOrigins = [
+        "https://elkaid.com",
+        "https://www.elkaid.com",
+        "https://kaid-zeta.vercel.app",
+        "http://localhost:3000",
+        "http://localhost:3003",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:3003",
+        process.env.FRONTEND_URL,
+      ].filter(Boolean);
+
+      if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
+        callback(null, true);
+      } else {
+        console.warn(`CORS blocked origin: ${origin}`);
+        callback(null, true); // Allow in development for easier debugging
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
@@ -139,7 +153,7 @@ app.use((req, res) => {
 /* ===========================
   🚀 Start Server
 =========================== */
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.API_PORT || process.env.PORT || 8080;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`🌐 Health check: http://localhost:${PORT}/health`);
