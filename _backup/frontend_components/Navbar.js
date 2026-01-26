@@ -35,8 +35,9 @@ const Navbar = () => {
     const navItems = [
         { path: '/', label: 'Home' },
         { path: '/our-work', label: 'Innovation' },
+        { path: '/buy-software', label: 'Buy Software' },
         { path: '/career', label: 'Work With Us' },
-        { path: '/updates', label: 'Support Hub' }
+        { path: '/contacts', label: 'Support Hub' }
     ];
 
     const isActive = (path) => pathname === path;
@@ -88,7 +89,7 @@ const Navbar = () => {
                 </div>
 
                 {/* Mobile Navigation Menu */}
-                <div className={`lg:hidden overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isMobileMenuOpen ? 'max-h-[80vh] opacity-100 mt-4 bg-black/95 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl' : 'max-h-0 opacity-0 mt-0'}`}>
+                <div className={`lg:hidden overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isMobileMenuOpen ? 'max-h-[80vh] opacity-100 mt-8' : 'max-h-0 opacity-0 mt-0'}`}>
                     <div className="flex flex-col gap-6 pb-8 pl-4 border-l border-white/20 ml-2">
                         {navItems.map((item, i) => (
                             <Link

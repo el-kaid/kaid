@@ -39,7 +39,7 @@ const ContactSchema = new mongoose.Schema({
   inquiryType: {
     type: String,
     required: true,
-    enum: ['general', 'technical', 'sales', 'enterprise', 'billing', 'partnership'],
+    enum: ['general', 'technical', 'sales', 'enterprise', 'billing', 'partnership', 'bookkeeping', 'taxation', 'banking', 'B1M', 'asset management'],
     default: 'general'
   },
   status: {

@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "prestart": "kill -9 $(lsof -t -i:3110 -i:8080) 2>/dev/null || true",
+    "start": "concurrently \"pnpm run server\" \"pnpm run client\"",
     "server": "cd backend && node server.js",
-    "client": "cd frontend && npm start"
+    "client": "cd frontend && pnpm dev"
   },
   "keywords": [],
   "author": "",
