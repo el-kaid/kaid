@@ -18,13 +18,16 @@ export const metadata = {
   description: "The next evolution of financial intelligence.",
 };
 
+import AnnouncementBar from "../components/AnnouncementBar";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased pt-12`}
         suppressHydrationWarning
       >
+        <AnnouncementBar />
         {children}
         <ClientFooterWrapper />
       </body>
