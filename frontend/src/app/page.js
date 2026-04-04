@@ -32,7 +32,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black font-montserrat">
+    <main className="min-h-screen -mt-8 pt-8 bg-onyx text-white selection:bg-white selection:text-black font-montserrat">
       <Navbar />
 
       <Hero />
