@@ -12,7 +12,17 @@ import {
     Users,
     Smartphone,
     Rocket,
-    ArrowRight
+    ArrowRight,
+    Building2,
+    Database,
+    BarChart3,
+    Server,
+    Lock,
+    RefreshCw,
+    Cloud,
+    Link2,
+    GitBranch,
+    Briefcase,
 } from 'lucide-react';
 
 const InnovationPage = () => {
@@ -35,6 +45,160 @@ const InnovationPage = () => {
             date: 'Aug 2025',
             tag: 'Product',
             excerpt: 'Lessons learned while hardening EL KAID-B1 for larger orgs.',
+        },
+    ];
+
+    const enterpriseErpExpertise = [
+        {
+            id: 'overview',
+            label: 'Strategic positioning',
+            title: 'Overview',
+            icon: Building2,
+            paragraphs: [
+                'EL KAID Software & Tech Innovation delivers next-generation digital platforms through advanced ERP, resilient data centre infrastructure, and mission-critical disaster recovery—built for organizations that require operational excellence and digital maturity at scale.',
+                'Our engineering practice pairs modern software delivery with cloud-driven architecture so clients gain intelligent, scalable systems without sacrificing security or long-term sustainability.',
+            ],
+            bullets: [
+                'End-to-end ownership from architecture through operations support',
+                'Structured for complex, regulated, and high-throughput environments',
+            ],
+            proof: 'Designed for high availability environments.',
+        },
+        {
+            id: 'erp',
+            label: 'Unified operations',
+            title: 'ERP Capabilities',
+            icon: Database,
+            paragraphs: [
+                'We design and deploy ERP ecosystems that connect finance, operations, and service workflows into one coherent system—so every transaction, process, and data point stays synchronized.',
+                'Fragmented tools become a centralized architecture with clear ownership, auditability, and control across departments.',
+            ],
+            bullets: [
+                'Single source of truth for planning, execution, and reporting',
+                'Workflow automation that reduces rework and manual reconciliation',
+                'Executive visibility from line-level detail to portfolio roll-ups',
+            ],
+            proof: 'Built to handle enterprise-scale operations.',
+        },
+        {
+            id: 'ai',
+            label: 'Decision intelligence',
+            title: 'AI & Analytics Integration',
+            icon: BarChart3,
+            paragraphs: [
+                'Analytics and AI are embedded in the ERP layer—not bolted on—so leaders move from reactive reporting to proactive steering.',
+            ],
+            bullets: [
+                'Predictive modeling and pattern recognition on operational data',
+                'Real-time dashboards with alerts tuned to risk and performance',
+                'Continuous learning loops that refine recommendations as volumes grow',
+            ],
+            proof: 'Aligned with industry best practices for model governance and data quality.',
+        },
+        {
+            id: 'datacentre',
+            label: 'Infrastructure backbone',
+            title: 'Data Centre Infrastructure',
+            icon: Server,
+            paragraphs: [
+                'Enterprise-grade data centre design underpins every critical workload, with redundancy across power, networking, and storage to protect uptime.',
+            ],
+            bullets: [
+                'High-availability topologies with layered failover paths',
+                'Performance monitoring with rapid anomaly response',
+                'Capacity planning aligned to seasonal and growth trajectories',
+            ],
+            proof: 'Designed for high availability environments.',
+        },
+        {
+            id: 'security',
+            label: 'Trust & governance',
+            title: 'Security & Compliance',
+            icon: Lock,
+            paragraphs: [
+                'Security is enforced at every layer: encryption in transit and at rest, hardened perimeters, and strict identity controls for privileged access.',
+            ],
+            bullets: [
+                'Intrusion detection, firewall policies, and least-privilege access models',
+                'Multi-factor authentication and centralized identity management',
+                'Compliance-oriented controls mapped to recognized frameworks',
+            ],
+            proof: 'Aligned with industry best practices for confidentiality and regulatory adherence.',
+        },
+        {
+            id: 'dr',
+            label: 'Resilience',
+            title: 'Disaster Recovery & Business Continuity',
+            icon: RefreshCw,
+            paragraphs: [
+                'Business continuity plans combine real-time replication, automated failover, and geographically distributed backups so recovery is measured in minutes—not days.',
+            ],
+            bullets: [
+                'RTO/RPO targets negotiated per workload criticality',
+                'Runbooks and testing cadence to validate failover readiness',
+                'Cyber and natural-event scenarios covered in recovery design',
+            ],
+            proof: 'Built to handle enterprise-scale operations under stress.',
+        },
+        {
+            id: 'cloud',
+            label: 'Elastic delivery',
+            title: 'Cloud & Scalability',
+            icon: Cloud,
+            paragraphs: [
+                'Cloud-native patterns unlock elastic scale for peak loads while keeping remote and global teams connected to the same secure platform.',
+            ],
+            bullets: [
+                'Autoscaling compute and storage without large upfront capital cycles',
+                'Secure remote access for distributed operations',
+                'Faster rollout of new modules and environments',
+            ],
+            proof: 'Designed for high availability environments across regions.',
+        },
+        {
+            id: 'integration',
+            label: 'Connected ecosystem',
+            title: 'Integration & Interoperability',
+            icon: Link2,
+            paragraphs: [
+                'Interoperability is a first-class requirement: banks, payment gateways, logistics, HRIS, and industry-specific systems sync in near real time.',
+            ],
+            bullets: [
+                'API-first connectors and event-driven interfaces',
+                'Reduced duplicate entry through validated data pipelines',
+                'Operational automation spanning internal and partner systems',
+            ],
+            proof: 'Built to handle enterprise-scale transaction volumes.',
+        },
+        {
+            id: 'delivery',
+            label: 'Engineering discipline',
+            title: 'Development Approach',
+            icon: GitBranch,
+            paragraphs: [
+                'Delivery follows a disciplined lifecycle—from discovery and architecture through build, test, deployment, and long-term support—with agile iteration where it accelerates outcomes.',
+            ],
+            bullets: [
+                'Requirements traceability and architecture decision records',
+                'Automated testing and staged releases to de-risk go-live',
+                'Post-launch observability and continuous improvement programs',
+            ],
+            proof: 'Aligned with industry best practices for secure SDLC.',
+        },
+        {
+            id: 'industries',
+            label: 'Sector fit',
+            title: 'Industry Applications',
+            icon: Briefcase,
+            paragraphs: [
+                'Modular ERP building blocks adapt to retail, manufacturing, financial services, healthcare, and professional services without forcing a one-size template.',
+            ],
+            bullets: [
+                'Supply chain, treasury, workforce, and customer operations on one spine',
+                'Configurable policies for sector-specific compliance and reporting',
+                'Forward R&D across blockchain, IoT, and advanced ML to extend the roadmap',
+            ],
+            proof: 'Built to handle enterprise-scale operations across diverse portfolios.',
         },
     ];
 
@@ -158,6 +322,64 @@ const InnovationPage = () => {
                             </div>
                         ))}
                     </div>
+                </div>
+            </section>
+
+            {/* === ENTERPRISE ERP & INFRASTRUCTURE === */}
+            <section className="py-24 px-6 md:px-12 bg-onyx border-t border-white/10">
+                <div className="max-w-7xl mx-auto mb-16 md:mb-20">
+                    <span className="text-xs font-mono text-gray-500 tracking-widest uppercase">Enterprise delivery</span>
+                    <h2 className="text-4xl md:text-6xl font-bold mt-3 mb-6">
+                        Enterprise ERP &amp; Data Infrastructure Expertise
+                    </h2>
+                    <p className="text-gray-400 text-lg md:text-xl max-w-3xl leading-relaxed">
+                        A client-ready view of how EL KAID engineers large-scale ERP platforms, resilient infrastructure, and continuity programs—positioned for bids that demand depth, clarity, and enterprise rigor.
+                    </p>
+                </div>
+
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {enterpriseErpExpertise.map((block, i) => {
+                        const Icon = block.icon;
+                        return (
+                            <article
+                                key={block.id}
+                                className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-8 md:p-10 hover:border-white/15 transition-all duration-300 flex flex-col gap-6"
+                            >
+                                <div className="flex items-start gap-5">
+                                    <div className="shrink-0 w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center border border-white/5">
+                                        <Icon className="w-6 h-6 text-white" aria-hidden />
+                                    </div>
+                                    <div className="min-w-0 flex-1">
+                                        <span className="text-xs font-mono text-gray-500 tracking-widest uppercase block mb-2">
+                                            / {String(i + 1).padStart(2, '0')} — {block.label}
+                                        </span>
+                                        <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight">
+                                            {block.title}
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4 text-gray-400 text-sm md:text-base leading-relaxed">
+                                    {block.paragraphs.map((p, j) => (
+                                        <p key={j}>{p}</p>
+                                    ))}
+                                </div>
+
+                                <ul className="space-y-2.5 text-sm md:text-base text-gray-300">
+                                    {block.bullets.map((item, j) => (
+                                        <li key={j} className="flex gap-3">
+                                            <span className="text-white/40 shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full bg-white/30" aria-hidden />
+                                            <span>{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                <p className="text-xs md:text-sm text-gray-500 border-t border-white/10 pt-5 font-medium tracking-wide">
+                                    {block.proof}
+                                </p>
+                            </article>
+                        );
+                    })}
                 </div>
             </section>
 
