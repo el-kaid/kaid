@@ -8,7 +8,6 @@ import { usePathname } from 'next/navigation';
 const SCROLL_TOP_THRESHOLD = 50;
 
 const Navbar = () => {
-    const [isScrolled, setIsScrolled] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
@@ -26,13 +25,10 @@ const Navbar = () => {
             const currentScrollY = window.scrollY;
 
             if (mobileMenuOpenRef.current) {
-                setIsScrolled(currentScrollY > SCROLL_TOP_THRESHOLD);
                 setIsVisible(true);
                 lastScrollY.current = currentScrollY;
                 return;
             }
-
-            setIsScrolled(currentScrollY > SCROLL_TOP_THRESHOLD);
 
             if (currentScrollY < lastScrollY.current || currentScrollY < SCROLL_TOP_THRESHOLD) {
                 setIsVisible(true);
@@ -70,7 +66,7 @@ const Navbar = () => {
         >
             {/* mix-blend only on the top bar — avoids the mobile panel blending with the page (unreadable text) */}
             <div
-                className={`w-full px-4 md:px-8 pt-0 pb-2 md:pb-2.5 mix-blend-difference text-white transition-all duration-300 ${isScrolled ? 'bg-black/80 backdrop-blur-md' : 'bg-transparent'}`}
+                className="w-full px-4 md:px-8 pt-0 pb-2 md:pb-2.5 mix-blend-difference text-white transition-all duration-300 bg-transparent"
             >
                 <div className="flex items-center justify-between max-w-7xl mx-auto">
                     {/* Logo */}
