@@ -186,6 +186,22 @@ const InnovationPage = () => {
             proof: 'Aligned with industry best practices for secure SDLC.',
         },
         {
+            id: 'web',
+            label: 'Digital presence',
+            title: 'Business Website Development',
+            icon: Globe,
+            paragraphs: [
+                'Beyond ERP and infrastructure, EL KAID builds conversion-focused business websites that communicate your value clearly and generate qualified inbound leads.',
+                'From corporate websites and product landing pages to scalable web applications, we combine strong UX, technical SEO, and performance-first engineering.',
+            ],
+            bullets: [
+                'SEO-ready architecture with fast, mobile-first page experiences',
+                'Landing pages optimized for lead capture and conversion intent',
+                'Integration with CRM, analytics, forms, and marketing workflows',
+            ],
+            proof: 'Built for growth, discoverability, and measurable business outcomes.',
+        },
+        {
             id: 'industries',
             label: 'Sector fit',
             title: 'Industry Applications',
@@ -256,7 +272,7 @@ const InnovationPage = () => {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.8, duration: 1 }}
                         >
-                            Building the next generation of intelligent software solutions.
+                            Building the next generation of intelligent ERP systems, business websites, and software solutions.
                         </motion.p>
                     </div>
                 </div>
