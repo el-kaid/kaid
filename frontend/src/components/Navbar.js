@@ -53,6 +53,8 @@ const Navbar = () => {
     const navItems = [
         { path: '/', label: 'Home' },
         { path: '/our-work', label: 'Innovation' },
+        { path: '/why-elkaid', label: 'Why EL KAID' },
+        { path: '/blog', label: 'Blog' },
         { path: '/career', label: 'Work With Us' },
         { path: '/updates', label: 'Support Hub' }
     ];
@@ -80,6 +82,8 @@ const Navbar = () => {
                             <Link
                                 key={item.path}
                                 href={item.path}
+                                aria-current={isActive(item.path) ? 'page' : undefined}
+                                title={item.label}
                                 className="group relative px-2 pt-0 pb-2 text-xs font-semibold tracking-widest uppercase transition-colors leading-none"
                             >
                                 <span className={`relative z-10 transition-colors duration-300 ${isActive(item.path) ? 'text-white' : 'text-gray-400 group-hover:text-white'}`}>
@@ -121,6 +125,8 @@ const Navbar = () => {
                             <Link
                                 key={item.path}
                                 href={item.path}
+                                aria-current={isActive(item.path) ? 'page' : undefined}
+                                title={item.label}
                                 className="text-2xl font-light tracking-wider hover:pl-4 transition-all duration-300"
                                 style={{ transitionDelay: `${i * 50}ms` }}
                             >

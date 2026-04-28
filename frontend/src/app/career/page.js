@@ -138,24 +138,6 @@ const CareerPage = () => {
         }
     ];
 
-    const teamMembers = [
-        {
-            name: "Sarah Chen",
-            position: "Senior Software Engineer",
-            quote: "The technical challenges here are incredible, and the team support is unmatched. I've grown more in 2 years here than in my previous 5 years combined."
-        },
-        {
-            name: "Marcus Johnson",
-            position: "Product Designer",
-            quote: "EL KAID gives me the freedom to create user experiences that truly matter. Our design system is world-class, and the impact is visible."
-        },
-        {
-            name: "Emily Rodriguez",
-            position: "Customer Success Lead",
-            quote: "Every day I help businesses transform their operations. The satisfaction of seeing customers succeed with our platform is incredibly rewarding."
-        }
-    ];
-
     const jobs = [
         {
             id: 1,
@@ -418,38 +400,68 @@ const CareerPage = () => {
                 </div>
             </section>
 
-            {/* === TESTIMONIALS === */}
+            {/* === OUR TEAM === */}
             <section className="py-24 px-6 md:px-12 bg-onyx border-t border-white/10">
                 <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {teamMembers.map((member, i) => (
+                    <div className="mb-16 text-center">
+                        <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Team</h2>
+                        <p className="text-gray-400 text-lg">Leadership driving EL KAID forward.</p>
+                    </div>
+                    <div className="grid grid-cols-1 gap-8 max-w-2xl mx-auto">
+                        {[
+                            {
+                                role: "CEO",
+                                name: "Muhammed Idris Bin Yacoob",
+                                linkedin: "https://www.linkedin.com/in/muhammed-idris-bin-yacoob-16703788/"
+                            },
+                            {
+                                role: "CTO",
+                                name: "Kaif Kirmani",
+                                linkedin: ""
+                            },
+                            {
+                                role: "CIO",
+                                name: "R Mohammed Basil",
+                                image: "/assets/linkdin-profile.png",
+                                linkedin: "https://www.linkedin.com/in/mdbasil07"
+                            },
+                        ].map((member, i) => (
                             <motion.div
-                                key={i}
+                                key={member.role}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: i * 0.2 }}
-                                className="relative bg-black p-8 rounded-2xl border border-white/5"
+                                transition={{ delay: i * 0.1 }}
+                                className="bg-black/40 border border-white/10 rounded-2xl p-8 text-center"
                             >
-                                <div className="text-4xl text-white/20 font-serif mb-6">"</div>
-                                <p className="text-gray-300 mb-8 italic relative z-10 leading-relaxed min-h-[80px]">
-                                    {member.quote}
-                                </p>
-                                <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white text-sm font-bold">
+                                {member.image ? (
+                                    <img
+                                        src={member.image}
+                                        alt={member.name}
+                                        className="w-40 h-40 md:w-44 md:h-44 object-cover mx-auto mb-5 rounded-xl"
+                                    />
+                                ) : (
+                                    <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-white text-lg font-bold mx-auto mb-5 overflow-hidden">
                                         {member.name.charAt(0)}
                                     </div>
-                                    <div>
-                                        <h4 className="text-white font-bold text-sm">{member.name}</h4>
-                                        <p className="text-white/40 text-xs uppercase tracking-wider">{member.position}</p>
-                                    </div>
-                                </div>
+                                )}
+                                <p className="text-xs uppercase tracking-[0.2em] text-gray-400 mb-2">{member.role}</p>
+                                <h3 className="text-2xl font-bold text-white">{member.name}</h3>
+                                {member.linkedin && (
+                                    <a
+                                        href={member.linkedin}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-block mt-3 text-sm text-blue-300 hover:text-blue-200 underline"
+                                    >
+                                        LinkedIn
+                                    </a>
+                                )}
                             </motion.div>
                         ))}
                     </div>
                 </div>
             </section>
-
 
             {/* === OPEN ROLES === */}
             <section className="py-24 px-6 md:px-12 bg-black border-t border-white/10" id="roles">

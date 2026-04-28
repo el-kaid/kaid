@@ -15,14 +15,6 @@ const Footer = () => {
               Architecting the future of intelligent financial systems.
               Bridging the gap between silicon and software.
             </p>
-            <div className="flex gap-4">
-              {/* Social Placeholders */}
-              {['Twitter', 'LinkedIn', 'GitHub'].map((social) => (
-                <a key={social} href="#" className="text-xs uppercase tracking-widest text-gray-500 hover:text-white transition-colors">
-                  {social}
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Navigation */}
@@ -32,8 +24,8 @@ const Footer = () => {
               {[
                 { label: 'Home', href: '/' },
                 { label: 'Innovation', href: '/our-work' },
-                { label: 'Capabilities', href: '/our-work#capabilities' },
-                { label: 'Contact', href: '#' },
+                { label: 'Blog', href: '/blog' },
+                { label: 'Support Hub', href: '/updates' },
               ].map((link) => (
                 <li key={link.label}>
                   <Link href={link.href} className="text-gray-400 hover:text-white transition-colors">
@@ -48,11 +40,15 @@ const Footer = () => {
           <div>
             <h3 className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-6">Legal</h3>
             <ul className="space-y-4">
-              {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (
-                <li key={item}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    {item}
-                  </a>
+              {[
+                { label: 'Book Demo', href: '/book-demo' },
+                { label: 'Why EL KAID', href: '/why-elkaid' },
+                { label: 'Contact', href: '/updates' },
+              ].map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href} className="text-gray-400 hover:text-white transition-colors">
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>

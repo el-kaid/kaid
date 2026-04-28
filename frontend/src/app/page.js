@@ -1,17 +1,39 @@
-'use client';
-
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import dynamic from "next/dynamic";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
-import HowToStartBitcoinBW from "../components/HowToStartBitcoinBW";
-import ButtonAnimatedGradient from "../components/ButtonAnimatedGradient";
+import Link from "next/link";
+import LeadCtaSection from "../components/LeadCtaSection";
 
-import ElKaidVsTraditionalFinancesBW from "../components/ElKaidVsTraditionalFinancesBW";
+const HowToStartBitcoinBW = dynamic(
+  () => import("../components/HowToStartBitcoinBW")
+);
+const ElKaidVsTraditionalFinancesBW = dynamic(
+  () => import("../components/ElKaidVsTraditionalFinancesBW")
+);
+
+export const metadata = {
+  title: "ERP, Business Websites and Financial Intelligence Platform",
+  description:
+    "EL KAID delivers ERP systems, business website development, financial automation, and AI-powered decision support for modern businesses.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "EL KAID ERP and Business Website Platform",
+    description:
+      "Unified ERP, business websites, financial intelligence, and automation to run modern operations.",
+    url: "/",
+    images: ["/assets/hero-real.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "EL KAID ERP and Business Website Platform",
+    description:
+      "Unified ERP, business websites, financial intelligence, and automation to run modern operations.",
+    images: ["/assets/hero-real.png"],
+  },
+};
 
 export default function Home() {
-  const router = useRouter();
-
   const uniqueFeatures = [
     {
       title: "Global Connectivity",
@@ -50,11 +72,17 @@ export default function Home() {
           <p className="text-gray-400 max-w-full mx-auto leading-normal text-sm sm:text-base md:text-lg mb-8 sm:mb-10 md:mb-12 px-4 sm:px-6 md:px-8 text-justify" style={{ maxWidth: '1400px', lineHeight: '1.6' }}>
             EL KAID is the next evolution of financial intelligence — a unified platform that blends AI-powered automation with precise manual control to simplify modern business management. From billing, bookkeeping, taxation, banking, asset tracking, and B1M (Business-1 Messenger), everything flows seamlessly through a single, integrated system.
             <br /><br />
-            With globally connected financial data and cutting-edge automation, EL KAID transforms the way businesses operate — creating a virtual office ecosystem that works anytime, anywhere. We're redefining the fintech landscape by giving individuals and businesses the power to manage their finances effortlessly — without relying on consultants. EL KAID isn't just a platform, it's the new era of business and financial management.
+            Along with ERP and financial workflows, EL KAID also designs and develops modern business websites — from high-conversion company sites to custom web platforms that help brands generate leads and operate digitally. With globally connected financial data and cutting-edge automation, EL KAID transforms the way businesses operate — creating a virtual office ecosystem that works anytime, anywhere. We're redefining the fintech landscape by giving individuals and businesses the power to manage their finances effortlessly — without relying on consultants. EL KAID isn't just a platform, it's the new era of business and financial management.
           </p>
 
           <div className="flex justify-center mt-8 sm:mt-10 md:mt-12">
-            <ButtonAnimatedGradient text="Buy Software" onClick={() => router.push('/buy-software')} />
+            <Link
+              href="/updates"
+              aria-label="Go to support hub to contact EL KAID"
+              className="relative group overflow-hidden px-10 py-5 bg-onyx border border-white/50 text-white uppercase tracking-[0.2em] font-bold text-sm transition-all duration-300 rounded-full hover:border-white"
+            >
+              Talk to Sales
+            </Link>
           </div>
         </div>
       </section>
@@ -86,6 +114,11 @@ export default function Home() {
       {/* === SCROLL SECTIONS === */}
       <HowToStartBitcoinBW />
       <ElKaidVsTraditionalFinancesBW />
+      <section className="px-4 sm:px-6 md:px-8 pb-20">
+        <div className="max-w-6xl mx-auto">
+          <LeadCtaSection title="Start with a tailored EL KAID walkthrough" />
+        </div>
+      </section>
 
     </main>
   );
