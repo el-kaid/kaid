@@ -411,11 +411,6 @@ const CareerPage = () => {
                         {[
                             {
                                 role: "CEO",
-                                name: "Muhammed Idris Bin Yacoob",
-                                linkedin: "https://www.linkedin.com/in/muhammed-idris-bin-yacoob-16703788/"
-                            },
-                            {
-                                role: "CTO",
                                 name: "Kaif Kirmani",
                                 linkedin: ""
                             },
