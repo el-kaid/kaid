@@ -52,7 +52,7 @@ const TiltCard = ({ children, className = "" }) => {
 };
 
 // --- Main Component ---
-const ElKaidVsTraditionalFinancesBW = () => {
+const ElKaidVsTraditionalContrast = () => {
     const sectionRef = useRef(null);
     const [activePointIndex, setActivePointIndex] = useState(0);
 
@@ -81,79 +81,73 @@ const ElKaidVsTraditionalFinancesBW = () => {
     }, []);
 
     const traditionalPoints = [
-        'Limited Operating Hours',
-        'Rooted in legacy.',
-        'Restricted boundaries.',
-        'Built to maintain.',
-        'Static motion.'
+        'Segmented legacy tools',
+        'Offline & geo-restricted',
+        'High manual reconciliation',
+        'Slow batch reporting',
+        'Fragmented paper trails'
     ];
 
-    const bitcoinPoints = [
-        '24/7 Uninterrupted Access',
-        'Driven by intelligence.',
-        'Global flow.',
-        'Built to evolve.',
-        'Dynamic precision.'
+    const elkaidPoints = [
+        'Unified monolithic suite',
+        'High-availability cloud access',
+        'AI-driven auto matching',
+        'Real-time data studio insights',
+        'Immutable digital compliance'
     ];
 
-    const labels = ['Accessibility', 'Vision', 'Reach', 'Evolution', 'Flow'];
+    const labels = ['Architecture', 'Reach', 'Automation', 'Analytics', 'Compliance'];
 
     return (
         <section
             ref={sectionRef}
             className="relative bg-white text-onyx"
-            style={{ height: '300vh' }} // Reduced height for better feel
+            style={{ height: '240vh' }} // Sleek, slightly shorter height for perfect scrolling feel
         >
             <div className="sticky top-0 h-screen flex flex-col justify-center items-center overflow-hidden px-4 md:px-6">
 
                 {/* Minimal Header */}
-                <div className="mb-12 md:mb-24 text-center relative z-10 shrink-0">
-                    <h2 className="text-[12vw] md:text-[12vw] leading-[0.8] font-bold tracking-tighter text-gray-100 select-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap z-0">
+                <div className="mb-12 md:mb-20 text-center relative z-10 shrink-0">
+                    <h2 className="text-[12vw] leading-[0.8] font-bold tracking-tighter text-gray-100/70 select-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap z-0 font-outfit">
                         DIFFERENT
                     </h2>
-                    <h2 className="relative z-10 text-4xl md:text-7xl font-bold tracking-tight text-onyx">
+                    <h2 className="relative z-10 text-4xl md:text-7xl font-bold tracking-tight text-onyx font-outfit">
                         Built Different.
                     </h2>
                 </div>
 
                 {/* Cards Container */}
-                <div className="relative z-10 w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center perspective-1000">
+                <div className="relative z-10 w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center perspective-1000">
 
-                    {/* Left: Traditional (Subtle, Light) */}
+                    {/* Left: Traditional (Subtle, Light Monochrome) */}
                     <div className="flex justify-center md:justify-end order-2 md:order-1">
-                        {/* Static but styled cleanly */}
-                        <div className="w-full max-w-xs md:max-w-md p-6 md:p-10 rounded-[2rem] bg-gray-50/50 border border-gray-100/50 backdrop-blur-sm flex flex-col items-center text-center min-h-[220px] md:min-h-[320px] justify-center transition-all duration-500 shadow-sm">
-                            <h3 className="text-[10px] md:text-xs font-bold text-gray-400 mb-4 md:mb-6 uppercase tracking-[0.2em]">Traditional</h3>
-                            <p className="text-xl md:text-3xl font-medium text-gray-300 leading-tight">
+                        <div className="w-full max-w-xs md:max-w-md p-8 md:p-12 rounded-[2rem] bg-gray-50 border border-gray-200/50 backdrop-blur-sm flex flex-col items-center text-center min-h-[220px] md:min-h-[320px] justify-center transition-all duration-500 shadow-sm">
+                            <h3 className="text-[10px] md:text-xs font-bold text-gray-400 mb-6 uppercase tracking-[0.2em] font-outfit">Traditional</h3>
+                            <p className="text-xl md:text-2xl font-bold text-gray-400 leading-tight">
                                 {traditionalPoints[activePointIndex]}
                             </p>
                         </div>
                     </div>
 
-                    {/* Right: El Kaid (3D, Premium, Dark) */}
+                    {/* Right: El Kaid (3D, Premium Glass-Black) */}
                     <div className="flex justify-center md:justify-start order-1 md:order-2">
-                        <TiltCard className="w-full max-w-xs md:max-w-md p-6 md:p-10 rounded-[2rem] bg-[#0A0A0A] text-white shadow-2xl shadow-black/20 flex flex-col items-center text-center min-h-[220px] md:min-h-[320px] justify-center relative overflow-hidden group border border-white/5">
-
-                            {/* Noise Texture Overlay */}
-                            <div className="absolute inset-0 opacity-20 pointer-events-none"
-                                style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}>
-                            </div>
+                        <TiltCard className="w-full max-w-xs md:max-w-md p-8 md:p-12 rounded-[2rem] bg-[#0A0B0D] text-white shadow-2xl shadow-black/30 flex flex-col items-center text-center min-h-[220px] md:min-h-[320px] justify-center relative overflow-hidden group border border-white/10">
 
                             {/* Lighting Effect */}
-                            <div className="absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-10 group-hover:animate-shine" />
+                            <div className="absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-5 group-hover:animate-shine" />
 
-                            <h3 className="text-[10px] md:text-xs font-bold text-white/40 mb-6 md:mb-8 uppercase tracking-[0.2em]">El Kaid</h3>
+                            <h3 className="text-[10px] md:text-xs font-bold text-white/40 mb-6 md:mb-8 uppercase tracking-[0.2em] font-outfit">El Kaid</h3>
 
                             <motion.p
                                 key={activePointIndex}
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="text-2xl md:text-5xl font-bold text-white leading-tight mb-6 md:mb-8"
+                                className="text-2xl md:text-3xl font-bold text-white leading-tight mb-8 font-outfit"
                             >
-                                {bitcoinPoints[activePointIndex]}
+                                {elkaidPoints[activePointIndex]}
                             </motion.p>
 
-                            <div className="px-4 py-1.5 md:px-5 rounded-full bg-white/10 border border-white/5 backdrop-blur-md text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-white/70">
+                            <div className="px-4 py-1.5 rounded-full bg-white/10 border border-white/5 backdrop-blur-md text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-white/70 font-mono">
                                 {labels[activePointIndex]}
                             </div>
                         </TiltCard>
@@ -165,4 +159,4 @@ const ElKaidVsTraditionalFinancesBW = () => {
     );
 };
 
-export default ElKaidVsTraditionalFinancesBW;
+export default ElKaidVsTraditionalContrast;
