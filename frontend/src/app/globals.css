@@ -1,18 +1,21 @@
-/* Import Montserrat Font */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+/* Import Outfit and Inter Google Fonts for high-end look */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
 @import "tailwindcss";
 
 /* Tailwind 4 Theme Configuration */
 @theme {
-  --font-montserrat: 'Montserrat', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+  --font-inter: 'Inter', sans-serif;
 
   /* Colors */
+  --color-gold: #D4AF37;
+  --color-gold-hover: #B89320;
   --color-darkBackground: #000000;
   --color-lightBackground: #FFFFFF;
-  --color-onyx: #191C1F;
-  --color-slate-grey: #505A63;
-  --color-soft-white: #F2F2F2;
+  --color-onyx: #0A0B0D;
+  --color-slate-grey: #6E7982;
+  --color-soft-white: #F8F9FA;
 
   /* Grays */
   --color-gray-50: #F9FAFB;
@@ -27,10 +30,6 @@
   --color-gray-900: #111827;
   --color-gray-950: #030712;
 
-  /* Gradients */
-  --image-gradient-bw: linear-gradient(to right, #000000, #FFFFFF);
-  --image-gradient-wb: linear-gradient(to right, #FFFFFF, #000000);
-
   /* Animations */
   --animate-fade-in: fadeIn 0.5s ease-out forwards;
   --animate-slide-up: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -39,7 +38,6 @@
     0% {
       opacity: 0;
     }
-
     100% {
       opacity: 1;
     }
@@ -50,7 +48,6 @@
       transform: translateY(20px);
       opacity: 0;
     }
-
     100% {
       transform: translateY(0);
       opacity: 1;
@@ -60,12 +57,16 @@
 
 @layer base {
   body {
-    @apply bg-black text-white font-montserrat antialiased overflow-x-hidden;
+    @apply bg-black text-white font-inter antialiased overflow-x-hidden;
   }
 
   /* Selection color */
   ::selection {
     @apply bg-white text-black;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-outfit tracking-tight;
   }
 }
 
@@ -73,27 +74,41 @@
 
   /* Modern Monochrome Button */
   .btn-monochrome {
-    @apply relative overflow-hidden border border-white/20 bg-transparent text-white transition-all duration-300 px-6 py-3 rounded-none uppercase tracking-widest text-sm font-semibold hover:border-white hover:text-black hover:bg-white;
+    @apply relative overflow-hidden border border-white/20 bg-transparent text-white transition-all duration-300 px-6 py-3 rounded-none uppercase tracking-widest text-xs font-semibold hover:border-white hover:text-black hover:bg-white;
   }
 
   /* Inverted Button */
   .btn-monochrome-invert {
-    @apply relative overflow-hidden border border-white bg-white text-black transition-all duration-300 px-6 py-3 rounded-none uppercase tracking-widest text-sm font-semibold hover:bg-black hover:text-white hover:border-white;
+    @apply relative overflow-hidden border border-white bg-white text-black transition-all duration-300 px-6 py-3 rounded-none uppercase tracking-widest text-xs font-semibold hover:bg-black hover:text-white hover:border-white;
+  }
+
+  /* Premium Gold Button */
+  .btn-gold-outline {
+    @apply relative overflow-hidden border border-gold/40 bg-transparent text-gold transition-all duration-300 px-6 py-3 rounded-none uppercase tracking-widest text-xs font-semibold hover:border-gold hover:text-black hover:bg-gold;
   }
 
   /* Glass Card - Monochrome */
   .glass-card {
-    @apply bg-black/40 backdrop-blur-md border border-white/10 transition-all duration-500 hover:border-white/30;
+    @apply bg-neutral-950/40 backdrop-blur-xl border border-white/10 transition-all duration-500 hover:border-white/25;
+  }
+
+  /* Glass Card - Gold Accent */
+  .glass-card-gold {
+    @apply bg-neutral-950/40 backdrop-blur-xl border border-gold/15 transition-all duration-500 hover:border-gold/30;
   }
 }
 
 @layer utilities {
   .text-glow-white {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  }
+
+  .text-glow-gold {
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
   }
 
   .text-stroke-white {
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
   }
 
   .mask-gradient-b {

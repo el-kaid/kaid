@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Navbar from "../../../components/Navbar";
+import { CheckCircle } from "lucide-react";
 
 const posts = {
   "what-is-erp-software": {
@@ -187,8 +188,9 @@ export default async function BlogPostPage({ params }) {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white pt-28 pb-20 px-6 md:px-12">
+    <main className="min-h-screen bg-black text-white pt-36 pb-20 px-6 md:px-12 font-inter">
       <Navbar />
+
       <article className="max-w-3xl mx-auto">
         <script
           type="application/ld+json"
@@ -200,61 +202,84 @@ export default async function BlogPostPage({ params }) {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
           />
         )}
-        <p className="text-xs uppercase tracking-widest text-gray-400 mb-3">
-          {post.category} - {post.datePublished}
-        </p>
-        <h1 className="text-3xl md:text-5xl font-bold mb-6">{post.title}</h1>
-        <div className="space-y-5 text-gray-300 text-lg leading-relaxed">
+
+        <header className="mb-10 pb-6 border-b border-white/10">
+          <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 mb-3">
+            {post.category} — {post.datePublished}
+          </p>
+          <h1 className="text-4xl md:text-6xl font-bold font-outfit tracking-tighter leading-none text-white">
+            {post.title}
+          </h1>
+        </header>
+
+        {/* Content Paragraphs */}
+        <div className="space-y-6 text-neutral-400 text-base sm:text-lg leading-relaxed">
           {post.content.map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
           ))}
         </div>
-        <section className="mt-10">
-          <h2 className="text-2xl font-semibold text-white mb-3">Real-world examples</h2>
-          <ul className="space-y-2 text-gray-300">
+
+        {/* Real-world examples */}
+        <section className="mt-12 glass-card p-8 md:p-10 rounded-[2rem]">
+          <h2 className="text-xl md:text-2xl font-bold text-white mb-6 font-outfit uppercase tracking-wider">
+            Real-world examples
+          </h2>
+          <ul className="space-y-4">
             {(post.examples || []).map((item, idx) => (
-              <li key={idx}>- {item}</li>
+              <li key={idx} className="flex items-start gap-3 text-neutral-400 text-sm leading-relaxed">
+                <CheckCircle className="w-5 h-5 text-white shrink-0 mt-0.5" />
+                <span>{item}</span>
+              </li>
             ))}
           </ul>
         </section>
-        <section className="mt-8">
-          <h2 className="text-2xl font-semibold text-white mb-3">Data points</h2>
-          <ul className="space-y-2 text-gray-300">
+
+        {/* Data points */}
+        <section className="mt-8 glass-card p-8 md:p-10 rounded-[2rem]">
+          <h2 className="text-xl md:text-2xl font-bold text-white mb-6 font-outfit uppercase tracking-wider">
+            Data points
+          </h2>
+          <ul className="space-y-4">
             {(post.stats || []).map((item, idx) => (
-              <li key={idx}>- {item}</li>
+              <li key={idx} className="flex items-start gap-3 text-neutral-400 text-sm leading-relaxed">
+                <CheckCircle className="w-5 h-5 text-white shrink-0 mt-0.5" />
+                <span>{item}</span>
+              </li>
             ))}
           </ul>
         </section>
+
+        {/* FAQs */}
         <section className="mt-8">
-          <h2 className="text-2xl font-semibold text-white mb-3">FAQs</h2>
-          <div className="space-y-3">
+          <h2 className="text-xl md:text-2xl font-bold text-white mb-6 font-outfit uppercase tracking-wider pl-2">
+            FAQs
+          </h2>
+          <div className="space-y-4">
             {(post.faqs || []).map((faq, idx) => (
-              <div key={idx} className="border border-white/10 rounded-xl p-4">
-                <h3 className="font-semibold text-white">{faq.q}</h3>
-                <p className="text-gray-300 mt-1">{faq.a}</p>
+              <div key={idx} className="glass-card p-6 rounded-2xl border border-white/5 hover:border-white/15 transition-all">
+                <h3 className="font-bold text-white text-base font-outfit">{faq.q}</h3>
+                <p className="text-neutral-400 text-sm leading-relaxed mt-2">{faq.a}</p>
               </div>
             ))}
           </div>
         </section>
-        <div className="border-t border-white/10 mt-10 pt-8 space-y-3">
-          <h2 className="text-2xl font-semibold text-white">Related Service Pages</h2>
-          <ul className="space-y-2">
-            <li>
-              <Link href="/erp-software" className="underline hover:text-gray-100">
-                ERP Software Services
-              </Link>
-            </li>
-            <li>
-              <Link href="/data-center-solutions" className="underline hover:text-gray-100">
-                Data Center Solutions
-              </Link>
-            </li>
-            <li>
-              <Link href="/disaster-recovery" className="underline hover:text-gray-100">
-                Disaster Recovery Services
-              </Link>
-            </li>
-          </ul>
+
+        {/* Related Service Pages */}
+        <div className="border-t border-white/10 mt-12 pt-8 space-y-4">
+          <h2 className="text-xl font-bold text-white font-outfit uppercase tracking-widest text-neutral-400">
+            Related Service Pages
+          </h2>
+          <div className="flex flex-wrap gap-3 text-xs font-bold uppercase tracking-widest pt-2">
+            <Link href="/erp-software" className="px-4 py-2 border border-white/15 text-neutral-400 hover:border-white hover:text-white rounded-full transition-all">
+              ERP Software Services
+            </Link>
+            <Link href="/data-center-solutions" className="px-4 py-2 border border-white/15 text-neutral-400 hover:border-white hover:text-white rounded-full transition-all">
+              Data Center Solutions
+            </Link>
+            <Link href="/disaster-recovery" className="px-4 py-2 border border-white/15 text-neutral-400 hover:border-white hover:text-white rounded-full transition-all">
+              Disaster Recovery Services
+            </Link>
+          </div>
         </div>
       </article>
     </main>

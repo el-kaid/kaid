@@ -3,79 +3,203 @@ import Navbar from "../../components/Navbar";
 import LeadCtaSection from "../../components/LeadCtaSection";
 
 export const metadata = {
-  title: "Why EL KAID | ERP, Business Website, Infrastructure and DR Partner",
+  title: "Why EL KAID | B1 Software and B2B Sourcing Partner",
   description:
-    "Why Indian businesses choose EL KAID for ERP delivery, business website development, infrastructure reliability, and disaster recovery execution.",
+    "Discover why enterprises choose EL KAID for smart B1 billing software, modern business website engineering, and secure India-to-GCC trade sourcing coordination.",
   alternates: { canonical: "/why-elkaid" },
 };
 
 export default function WhyElkaidPage() {
+  const stats = [
+    { value: "Offline-First", label: "B1 Core Architecture" },
+    { value: "India to GCC", label: "Trade Coordination Corridor" },
+    { value: "100%", label: "GST & Custom B2B Compliance" },
+    { value: "High-Availability", label: "Infrastructure & Uptime" },
+  ];
+
+  const softwarePillars = [
+    {
+      title: "B1 Software Ecosystem",
+      desc: "Smart, offline-first bookkeeping, billing, ERP, and CRM platform designed to reduce manual overhead. Hardened desktop (.exe) builds ensure zero friction, automated reconciliations, and absolute operational speed.",
+    },
+    {
+      title: "Custom Web Engineering",
+      desc: "High-performance, SEO-optimized business websites and custom web applications. Engineered for optimal loading speeds, technical SEO compliance, and direct CRM/lead capture integrations.",
+    },
+    {
+      title: "Infrastructure & Disaster Recovery",
+      desc: "Enterprise data center design with built-in high-availability redundancy, active anomaly monitoring, and rigorous RTO/RPO drill planning to keep mission-critical workflows secure.",
+    },
+  ];
+
+  const tradePillars = [
+    {
+      title: "transnational Sourcing Desk",
+      desc: "Supplier identification in India mapped precisely to GCC buyer specifications. Volume-focused B2B coordination with strict minimum order quantity (MOQ) parameters.",
+    },
+    {
+      title: "Documentation Coordination",
+      desc: "Review and alignment of commercial invoices, packing lists, product specifications, and shipping files across trading parties to prevent clearance bottlenecks.",
+    },
+    {
+      title: "Partner Logistics Channels",
+      desc: "Seamless communication bridge and status coordination via authorized customs brokers, licensed freight forwarders, and third-party quality inspection networks.",
+    },
+  ];
+
   return (
-    <main className="min-h-screen bg-black text-white pt-28 pb-20 px-6 md:px-12">
+    <main className="min-h-screen bg-black text-white pt-36 font-inter">
       <Navbar />
-      <article className="max-w-5xl mx-auto space-y-10">
-        <header>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">Why EL KAID</h1>
-          <p className="text-gray-300 text-lg leading-relaxed">
-            EL KAID combines ERP product thinking, business website development, engineering execution,
-            and infrastructure reliability to help Indian businesses scale with confidence.
+
+      {/* === HERO SECTION === */}
+      <section className="max-w-6xl mx-auto px-6 md:px-12 mb-20">
+        <header className="max-w-4xl">
+          <span className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-neutral-400 text-[10px] uppercase tracking-widest font-mono">
+            Value Proposition
+          </span>
+          <h1 className="text-5xl md:text-7xl font-bold mt-6 mb-8 font-outfit tracking-tighter leading-none">
+            Why EL KAID
+          </h1>
+          <p className="text-neutral-400 text-lg md:text-2xl leading-relaxed font-light">
+            EL KAID bridges modern technological innovation with global trade workflows. We operate as a unified corporate group, coordinating high-availability software platforms alongside trusted transnational sourcing networks from India to the GCC corridor.
           </p>
         </header>
+      </section>
 
-        <section className="space-y-4">
-          <h2 className="text-3xl font-bold">Built for execution, not presentations</h2>
-          <p className="text-gray-300 leading-relaxed">
-            Many teams promise transformation. We focus on practical outcomes: faster billing cycles,
-            cleaner reporting, better visibility for leadership, and uptime that supports daily
-            operations. Our approach connects software delivery with data center and disaster recovery
-            readiness so your critical workflows remain available.
-          </p>
-        </section>
-
-        <section className="grid md:grid-cols-2 gap-6">
-          {[
-            ["ERP Depth", "We design ERP workflows that reduce manual effort and improve control."],
-            ["Business Website Delivery", "We build high-performance, SEO-ready business websites focused on conversions."],
-            ["Infrastructure Discipline", "High-availability architecture and observability are built in."],
-            ["Continuity by Design", "RTO/RPO planning and drill-ready runbooks protect core operations."],
-            ["India Context", "Delivery is tuned for Indian operating realities and growth patterns."],
-          ].map(([title, text]) => (
-            <div key={title} className="p-6 rounded-2xl border border-white/10 bg-white/5">
-              <h3 className="text-xl font-semibold mb-2">{title}</h3>
-              <p className="text-gray-300">{text}</p>
+      {/* === STATS STRIP === */}
+      <section className="bg-neutral-950 border-y border-white/10 py-12 px-6 md:px-12 mb-24">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8">
+          {stats.map((stat, i) => (
+            <div key={i} className="text-center md:text-left">
+              <h4 className="text-xl md:text-2xl font-bold text-white font-outfit mb-1">{stat.value}</h4>
+              <p className="text-neutral-500 text-xs uppercase tracking-wider">{stat.label}</p>
             </div>
           ))}
-        </section>
+        </div>
+      </section>
 
-        <section className="space-y-4">
-          <h2 className="text-3xl font-bold">Proof-oriented delivery</h2>
-          <p className="text-gray-300 leading-relaxed">
-            Every engagement aligns technical changes with measurable business outcomes. Typical metrics
-            include reduction in reconciliation effort, improved response times, cleaner compliance trails,
-            and shorter resolution cycles during incidents.
-          </p>
-          <p className="text-gray-300 leading-relaxed">
-            Explore service pages:{" "}
-            <Link href="/erp-software" className="underline">
-              ERP Software
-            </Link>
-            ,{" "}
-            <Link href="/data-center-solutions" className="underline">
-              Data Center Solutions
-            </Link>
-            , and{" "}
-            <Link href="/disaster-recovery" className="underline">
-              Disaster Recovery
-            </Link>
-            .
-          </p>
-        </section>
+      {/* === THE CORE DIVISION PILLARS === */}
+      <section className="max-w-6xl mx-auto px-6 md:px-12 mb-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          
+          {/* Column 1: B1 Software & Digital Systems */}
+          <div className="glass-card p-8 md:p-12 rounded-[2rem] border border-white/10 hover:border-white/20 transition-all duration-300">
+            <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest block mb-4">/ PILLAR 01</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-outfit">Digital Systems & B1 Platform</h2>
+            <p className="text-neutral-400 text-sm leading-relaxed mb-8">
+              We design and deploy proprietary billing solutions, high-conversion brand sites, and hardened operational frameworks tailored for maximum data sovereignty and absolute uptime.
+            </p>
+            
+            <div className="space-y-8">
+              {softwarePillars.map((item, idx) => (
+                <div key={idx} className="border-l border-white/20 pl-5">
+                  <h4 className="text-white font-bold text-base font-outfit mb-2">{item.title}</h4>
+                  <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
 
+            <div className="mt-10 pt-8 border-t border-white/10 flex justify-between items-center text-xs">
+              <span className="text-neutral-500 font-mono">b1.elkaid.com</span>
+              <a
+                href="https://b1.elkaid.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2 bg-white text-black font-bold uppercase tracking-widest rounded-full hover:bg-neutral-200 transition-colors"
+              >
+                Launch Software Desk
+              </a>
+            </div>
+          </div>
+
+          {/* Column 2: ELKAID Trade & B2B Sourcing */}
+          <div className="glass-card-gold p-8 md:p-12 rounded-[2rem] border border-gold/15 hover:border-gold/30 transition-all duration-300 relative overflow-hidden">
+            <div className="absolute -right-32 -bottom-32 w-64 h-64 rounded-full bg-gold/5 blur-3xl pointer-events-none"></div>
+            
+            <span className="text-[10px] font-mono text-gold/60 uppercase tracking-widest block mb-4">/ PILLAR 02</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gold mb-6 font-outfit">ELKAID B2B Trade Sourcing</h2>
+            <p className="text-neutral-400 text-sm leading-relaxed mb-8">
+              We operate a structured, partner-supported coordination network connecting Indian export commodities with commercial buyers across GCC markets.
+            </p>
+
+            <div className="space-y-8">
+              {tradePillars.map((item, idx) => (
+                <div key={idx} className="border-l border-gold/30 pl-5">
+                  <h4 className="text-gold font-bold text-base font-outfit mb-2 uppercase">{item.title}</h4>
+                  <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-10 pt-8 border-t border-gold/15 flex justify-between items-center text-xs">
+              <span className="text-gold/60 font-mono">trade.elkaid.com</span>
+              <a
+                href="https://trade.elkaid.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2 bg-transparent border border-gold text-gold font-bold uppercase tracking-widest rounded-full hover:bg-gold hover:text-black transition-colors"
+              >
+                Access Sourcing Desk
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* === STRATEGIC OUTCOMES / COMPARISON === */}
+      <section className="max-w-6xl mx-auto px-6 md:px-12 mb-28 border-t border-white/10 pt-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="col-span-1">
+            <p className="text-gold tracking-widest uppercase text-xs font-semibold mb-3">Enterprise Standard</p>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white font-outfit leading-tight">
+              Practical Outcomes & Uptime
+            </h2>
+          </div>
+          <div className="col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="space-y-3">
+              <h4 className="text-lg font-bold text-white font-outfit">Proof-Oriented Alignment</h4>
+              <p className="text-neutral-400 text-sm leading-relaxed">
+                We tie software modules and commercial trade corridors directly to verifiable business KPIs: reduced cycle intervals, complete documentation trails, and real-time dashboard auditability.
+              </p>
+            </div>
+            <div className="space-y-3">
+              <h4 className="text-lg font-bold text-white font-outfit">Local Realities, Global Flow</h4>
+              <p className="text-neutral-400 text-sm leading-relaxed">
+                Our operations coordinate transnational parameters (India GST, GCC clearances, regional logistics routes) so that B2B commerce transitions seamlessly without regulatory bottlenecks.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* === SUBPAGES BACK NAVIGATION === */}
+      <section className="max-w-6xl mx-auto px-6 md:px-12 mb-28 text-center bg-neutral-950 border border-white/10 rounded-[2rem] p-12">
+        <h3 className="text-xl md:text-2xl font-bold text-white font-outfit mb-4">Explore our Engineering Depth</h3>
+        <p className="text-neutral-400 text-sm max-w-lg mx-auto mb-6">
+          Review details on our core technological infrastructure capabilities across ERP, storage, and disaster recovery profiles.
+        </p>
+        <div className="flex flex-wrap gap-4 justify-center text-xs font-semibold tracking-wider uppercase">
+          <Link href="/erp-software" className="px-4 py-2 border border-white/20 text-neutral-300 hover:border-white hover:text-white transition-all rounded-full">
+            ERP Software
+          </Link>
+          <Link href="/data-center-solutions" className="px-4 py-2 border border-white/20 text-neutral-300 hover:border-white hover:text-white transition-all rounded-full">
+            Data Center
+          </Link>
+          <Link href="/disaster-recovery" className="px-4 py-2 border border-white/20 text-neutral-300 hover:border-white hover:text-white transition-all rounded-full">
+            Disaster Recovery
+          </Link>
+        </div>
+      </section>
+
+      {/* === LEAD CTA & FOOTER === */}
+      <section className="max-w-6xl mx-auto px-6 md:px-12 mb-20 pt-12">
         <LeadCtaSection
           title="See EL KAID with your own workflows"
           description="Book a guided demo and we will walk through your current process, pain points, and a realistic implementation path."
         />
-      </article>
+      </section>
+
     </main>
   );
 }

@@ -1,21 +1,19 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit, Inter } from "next/font/google";
 import ClientFooterWrapper from "../components/ClientFooterWrapper";
 import "./globals.css";
 import Script from "next/script";
 import BreadcrumbJsonLd from "../components/BreadcrumbJsonLd";
-import GlobalCtaBar from "../components/GlobalCtaBar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
-  preload: false,
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.elkaid.com";
@@ -25,20 +23,23 @@ const gaId =
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "EL KAID | ERP, Data Center and Disaster Recovery Solutions",
+    default: "EL KAID | B1 Software, B2B Trade & Sourcing Coordination",
     template: "%s | EL KAID",
   },
   description:
-    "EL KAID builds enterprise ERP systems, resilient data center infrastructure, and disaster recovery solutions for modern businesses.",
+    "EL KAID delivers next-generation ERP systems, smart B1 billing software, custom business websites, and India-to-GCC B2B sourcing coordination services.",
   applicationName: "EL KAID",
   keywords: [
-    "ERP software",
-    "enterprise resource planning",
+    "B1 Software",
+    "billing software",
+    "bookkeeping software",
+    "B2B trade coordination",
+    "supplier sourcing India",
+    "trade coordination GCC",
+    "enterprise ERP software",
+    "disaster recovery",
     "data center solutions",
-    "disaster recovery services",
-    "business continuity planning",
-    "cloud ERP",
-    "financial automation platform",
+    "business website development"
   ],
   alternates: {
     canonical: "/",
@@ -48,9 +49,9 @@ export const metadata = {
     locale: "en_US",
     url: "/",
     siteName: "EL KAID",
-    title: "EL KAID | ERP, Data Center and Disaster Recovery Solutions",
+    title: "EL KAID | B1 Software, B2B Sourcing and Digital Systems",
     description:
-      "Enterprise ERP, data center infrastructure, and disaster recovery services designed for resilient operations.",
+      "Proprietary B1 billing ecosystems and India-to-GCC B2B sourcing coordination services designed for transnational enterprises.",
     images: [
       {
         url: "/assets/hero-real.png",
@@ -62,9 +63,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "EL KAID | ERP, Data Center and Disaster Recovery Solutions",
+    title: "EL KAID | B1 Software, B2B Sourcing and Digital Systems",
     description:
-      "Enterprise ERP, data center infrastructure, and disaster recovery services designed for resilient operations.",
+      "Proprietary B1 billing ecosystems and India-to-GCC B2B sourcing coordination services designed for transnational enterprises.",
     images: ["/assets/hero-real.png"],
   },
 };
@@ -100,7 +101,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased pt-8`}
+        className={`${outfit.variable} ${inter.variable} antialiased pt-8`}
         suppressHydrationWarning
       >
         {gaId && (
@@ -129,7 +130,6 @@ export default function RootLayout({ children }) {
         <AnnouncementBar />
         {children}
         <ClientFooterWrapper />
-        <GlobalCtaBar />
       </body>
     </html>
   );

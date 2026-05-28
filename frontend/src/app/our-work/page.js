@@ -240,7 +240,7 @@ const InnovationPage = () => {
     ];
 
     return (
-        <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black font-montserrat">
+        <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black font-inter">
             <Navbar />
 
             {/* === HERO SECTION === */}
@@ -359,7 +359,7 @@ const InnovationPage = () => {
                         return (
                             <article
                                 key={block.id}
-                                className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-8 md:p-10 hover:border-white/15 transition-all duration-300 flex flex-col gap-6"
+                                className="glass-card rounded-[2rem] p-8 md:p-10 flex flex-col gap-6"
                             >
                                 <div className="flex items-start gap-5">
                                     <div className="shrink-0 w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center border border-white/5">
@@ -462,7 +462,7 @@ const InnovationPage = () => {
 
                     <div className="grid md:grid-cols-3 gap-8">
                         {posts.map((post, i) => (
-                            <article key={i} className="bg-black/20 backdrop-blur-sm rounded-2xl border border-white/5 hover:border-white/20 transition-all duration-300 p-8 flex flex-col gap-6 group">
+                            <article key={i} className="glass-card rounded-[2rem] p-8 md:p-10 flex flex-col gap-6 group">
                                 <div className="flex items-center justify-between text-xs uppercase tracking-wider">
                                     <span className="px-3 py-1 bg-white/5 rounded-full text-gray-300">{post.tag}</span>
                                     <span className="text-gray-500">{post.date}</span>
@@ -491,7 +491,7 @@ const InnovationPage = () => {
 
                     <div className="grid md:grid-cols-3 gap-8">
                         {roadmap.map((item, i) => (
-                            <div key={i} className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/5 hover:border-white/20 transition-all duration-300 p-8">
+                            <div key={i} className="glass-card rounded-[2rem] p-8">
                                 <div className="flex items-center justify-between mb-4">
                                     <h3 className="text-white font-bold text-lg">{item.name}</h3>
                                     <span className="text-xs text-gray-400 bg-black/50 px-2 py-1 rounded">{item.eta}</span>

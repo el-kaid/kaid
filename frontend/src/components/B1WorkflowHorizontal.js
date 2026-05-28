@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const HowToStartBitcoinBW = () => {
+const B1WorkflowHorizontal = () => {
     useEffect(() => {
         const ctx = gsap.context(() => {
             const container = document.querySelector(".horizontal-container");
@@ -104,16 +104,16 @@ const HowToStartBitcoinBW = () => {
     ];
 
     return (
-        <div className="bg-onyx text-soft-white font-montserrat">
+        <div className="bg-onyx text-soft-white font-inter">
             <section className="horizontal-scroll-wrapper relative bg-onyx min-h-screen md:h-screen overflow-hidden">
                 {/* Title */}
                 <div className="absolute top-16 sm:top-24 left-0 right-0 z-20 px-6 md:px-[10vw] pointer-events-none">
-                    <h2 className="text-5xl sm:text-6xl md:text-8xl font-medium tracking-tight">
-                        How to Start.
+                    <h2 className="text-5xl sm:text-6xl md:text-8xl font-bold tracking-tighter text-white font-outfit">
+                        Ecosystem Sync.
                     </h2>
                 </div>
 
-                {/* Progress bar - Moved down to 40% to give more space from title */}
+                {/* Progress bar */}
                 <div className="absolute top-[40%] left-0 right-0 w-full z-30 pointer-events-none px-6 md:px-[10vw]">
                     <div className="relative w-full h-[2px] overflow-visible">
                         {/* Background line */}
@@ -149,11 +149,11 @@ const HowToStartBitcoinBW = () => {
                             key={index}
                             className="horizontal-section w-screen h-full flex-shrink-0 px-6 md:px-[10vw] flex items-center justify-start"
                         >
-                            <div className="max-w-2xl mt-[50vh] sm:mt-[45vh]"> {/* Pushed content down relative to viewport height */}
-                                <h3 className="text-4xl sm:text-5xl md:text-6xl font-medium mb-8 text-white tracking-tight">
+                            <div className="max-w-2xl mt-[50vh] sm:mt-[45vh]">
+                                <h3 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 text-white tracking-tight font-outfit">
                                     {step.title}
                                 </h3>
-                                <p className="text-slate-grey text-lg sm:text-xl md:text-2xl leading-relaxed max-w-[45ch]">
+                                <p className="text-neutral-400 text-base sm:text-lg md:text-xl leading-relaxed max-w-[45ch]">
                                     {step.description}
                                 </p>
                             </div>
@@ -165,4 +165,4 @@ const HowToStartBitcoinBW = () => {
     );
 };
 
-export default HowToStartBitcoinBW;
+export default B1WorkflowHorizontal;

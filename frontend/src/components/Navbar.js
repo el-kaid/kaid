@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-/** ~50px dead zone at top so small jitter does not hide the bar */
 const SCROLL_TOP_THRESHOLD = 50;
 
 const Navbar = () => {
@@ -44,7 +43,6 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handler);
     }, []);
 
-    // New page: show navbar and close mobile menu
     useEffect(() => {
         setIsMobileMenuOpen(false);
         setIsVisible(true);
@@ -52,6 +50,8 @@ const Navbar = () => {
 
     const navItems = [
         { path: '/', label: 'Home' },
+        { path: 'https://b1.elkaid.com', label: 'B1 Software', isExternal: true },
+        { path: 'https://trade.elkaid.com', label: 'B2B Trade', isExternal: true },
         { path: '/our-work', label: 'Innovation' },
         { path: '/why-elkaid', label: 'Why EL KAID' },
         { path: '/blog', label: 'Blog' },
@@ -63,39 +63,55 @@ const Navbar = () => {
 
     return (
         <nav
-            className={`fixed top-8 left-0 right-0 z-50 transition-all duration-300 ease-out will-change-transform ${isVisible ? 'translate-y-0 opacity-100 pointer-events-auto' : '-translate-y-20 opacity-0 pointer-events-none'}`}
+            className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl transition-all duration-300 ease-out will-change-transform ${isVisible ? 'translate-y-0 opacity-100 pointer-events-auto' : '-translate-y-24 opacity-0 pointer-events-none'}`}
             aria-hidden={!isVisible}
         >
-            {/* mix-blend only on the top bar — avoids the mobile panel blending with the page (unreadable text) */}
+            {/* Pill shaped glassmorphic top navigation */}
             <div
-                className="w-full px-4 md:px-8 pt-0 pb-2 md:pb-2.5 mix-blend-difference text-white transition-all duration-300 bg-transparent"
+                className="w-full px-6 py-3 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl transition-all duration-300 text-white"
             >
-                <div className="flex items-center justify-between max-w-7xl mx-auto">
+                <div className="flex items-center justify-between">
                     {/* Logo */}
-                    <Link href="/" className="text-xl font-bold tracking-[0.2em] hover:opacity-70 transition-opacity leading-none">
+                    <Link href="/" className="text-lg font-bold tracking-[0.2em] hover:opacity-80 transition-opacity leading-none font-outfit">
                         EL KAID
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden lg:flex items-center gap-8">
-                        {navItems.map((item) => (
-                            <Link
-                                key={item.path}
-                                href={item.path}
-                                aria-current={isActive(item.path) ? 'page' : undefined}
-                                title={item.label}
-                                className="group relative px-2 pt-0 pb-2 text-xs font-semibold tracking-widest uppercase transition-colors leading-none"
-                            >
-                                <span className={`relative z-10 transition-colors duration-300 ${isActive(item.path) ? 'text-white' : 'text-gray-400 group-hover:text-white'}`}>
-                                    {item.label}
-                                </span>
+                    <div className="hidden lg:flex items-center gap-6">
+                        {navItems.map((item) => {
+                            const linkProps = item.isExternal
+                                ? { href: item.path, target: "_blank", rel: "noopener noreferrer" }
+                                : { href: item.path };
 
-                                {/* Minimal Underline Animation */}
-                                <span className={`absolute left-0 bottom-0 h-[1px] bg-white transition-all duration-300 ease-out 
-                  ${isActive(item.path) ? 'w-full' : 'w-0 group-hover:w-full'}
-                `} />
-                            </Link>
-                        ))}
+                            const Component = item.isExternal ? 'a' : Link;
+
+                            return (
+                                <Component
+                                    key={item.path}
+                                    {...linkProps}
+                                    aria-current={isActive(item.path) ? 'page' : undefined}
+                                    title={item.label}
+                                    className="group relative px-2 py-1 text-[10px] font-bold tracking-widest uppercase transition-colors leading-none"
+                                >
+                                    <span className={`relative z-10 transition-colors duration-300 ${
+                                        item.isExternal
+                                            ? item.label === 'B2B Trade'
+                                                ? 'text-gold hover:text-gold-hover'
+                                                : 'text-neutral-300 hover:text-white'
+                                            : isActive(item.path)
+                                                ? 'text-white'
+                                                : 'text-neutral-400 group-hover:text-white'
+                                    }`}>
+                                        {item.label}
+                                    </span>
+
+                                    {/* Minimal Underline Animation */}
+                                    <span className={`absolute left-0 bottom-0 h-[1.5px] bg-white transition-all duration-300 ease-out 
+                                        ${isActive(item.path) ? 'w-full' : 'w-0 group-hover:w-full'}
+                                    `} />
+                                </Component>
+                            );
+                        })}
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -115,26 +131,42 @@ const Navbar = () => {
                 </div>
             </div>
 
-            {/* Mobile menu: outside mix-blend + solid bg so labels stay readable on any page background */}
-            <div className="w-full px-4 md:px-8 lg:hidden">
+            {/* Mobile menu: pill-fitting drop drawer */}
+            <div className="w-full lg:hidden">
                 <div
-                    className={`max-w-7xl mx-auto overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] mix-blend-normal text-white ${isMobileMenuOpen ? 'max-h-[80vh] opacity-100 mt-2 rounded-2xl border border-white/15 bg-neutral-950 shadow-2xl backdrop-blur-sm' : 'max-h-0 opacity-0 mt-0 border-transparent bg-transparent'}`}
+                    className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] text-white ${isMobileMenuOpen ? 'max-h-[85vh] opacity-100 mt-3 rounded-3xl border border-white/10 bg-black/95 shadow-2xl backdrop-blur-xl' : 'max-h-0 opacity-0 mt-0 border-transparent bg-transparent'}`}
                 >
-                    <div className="flex flex-col gap-6 py-6 pb-8 pl-4 border-l border-white/25 ml-2">
-                        {navItems.map((item, i) => (
-                            <Link
-                                key={item.path}
-                                href={item.path}
-                                aria-current={isActive(item.path) ? 'page' : undefined}
-                                title={item.label}
-                                className="text-2xl font-light tracking-wider hover:pl-4 transition-all duration-300"
-                                style={{ transitionDelay: `${i * 50}ms` }}
-                            >
-                                <span className={isActive(item.path) ? 'text-white' : 'text-zinc-400'}>
-                                    {item.label}
-                                </span>
-                            </Link>
-                        ))}
+                    <div className="flex flex-col gap-6 py-8 px-6 border-l border-white/15 ml-4 my-2">
+                        {navItems.map((item, i) => {
+                            const linkProps = item.isExternal
+                                ? { href: item.path, target: "_blank", rel: "noopener noreferrer" }
+                                : { href: item.path };
+
+                            const Component = item.isExternal ? 'a' : Link;
+
+                            return (
+                                <Component
+                                    key={item.path}
+                                    {...linkProps}
+                                    aria-current={isActive(item.path) ? 'page' : undefined}
+                                    title={item.label}
+                                    className="text-xl font-light tracking-widest uppercase hover:pl-4 transition-all duration-300"
+                                    style={{ transitionDelay: `${i * 40}ms` }}
+                                >
+                                    <span className={
+                                        item.isExternal
+                                            ? item.label === 'B2B Trade'
+                                                ? 'text-gold font-semibold'
+                                                : 'text-neutral-300'
+                                            : isActive(item.path)
+                                                ? 'text-white font-medium'
+                                                : 'text-neutral-500'
+                                    }>
+                                        {item.label}
+                                    </span>
+                                </Component>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
