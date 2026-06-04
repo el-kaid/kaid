@@ -12,10 +12,10 @@ const Footer = () => {
           <div className="md:col-span-2">
             <h2 className="text-2xl font-bold tracking-[0.2em] mb-6 font-outfit">EL KAID</h2>
             <p className="text-neutral-400 text-sm leading-relaxed max-w-sm mb-6">
-              EL KAID Software & Tech Innovation Private Limited. Architecting next-generation digital ecosystems, intelligent ERP software, and global B2B sourcing networks.
+              EL KAID Software & Tech Innovation Private Limited. Architecting next-generation digital ecosystems, intelligent ERP software, and bespoke business websites.
             </p>
             <p className="text-neutral-500 text-xs tracking-wider">
-              Chennai, India. Sourcing India to GCC
+              Chennai, India. Digital Systems & ERP Platforms
             </p>
           </div>
 
@@ -26,11 +26,6 @@ const Footer = () => {
               <li>
                 <a href="https://b1.elkaid.com" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors">
                   B1 Software
-                </a>
-              </li>
-              <li>
-                <a href="https://trade.elkaid.com" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold-hover transition-colors font-medium">
-                  B2B Trade Desk
                 </a>
               </li>
               <li>

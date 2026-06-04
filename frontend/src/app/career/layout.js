@@ -1,12 +1,12 @@
 export const metadata = {
-  title: "Careers at EL KAID | B1 Software and B2B Trade Sourcing",
+  title: "Careers at EL KAID | Software & Technical Teams",
   description:
-    "Join EL KAID to engineer smart B1 billing software, custom business websites, and coordinate India-to-GCC B2B trade sourcing networks.",
+    "Join EL KAID to engineer smart B1 billing software, custom enterprise platforms, and secure transaction sync database engines.",
   alternates: { canonical: "/career" },
   openGraph: {
     title: "EL KAID Careers",
     description:
-      "Explore full-stack engineering, UI/UX product design, and transnational B2B trade operations careers at EL KAID.",
+      "Explore full-stack engineering, DevOps infrastructure, and UI/UX product design careers at EL KAID.",
     url: "/career",
     images: ["/assets/hero-real.png"],
   },
@@ -14,7 +14,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "EL KAID Careers",
     description:
-      "Engineer B1 software platforms and transnational trade coordination networks with EL KAID.",
+      "Engineer B1 software platforms and high-availability enterprise backend systems with EL KAID.",
     images: ["/assets/hero-real.png"],
   },
 };

@@ -14,22 +14,22 @@ const ElKaidVsTraditionalContrast = dynamic(
 );
 
 export const metadata = {
-  title: "ERP, B2B Sourcing and Business Website Platform | EL KAID",
+  title: "ERP & Business Website Platform | EL KAID",
   description:
-    "EL KAID delivers next-generation ERP systems, secure B1 billing software, high-performance business websites, and India-to-GCC B2B sourcing coordination.",
+    "EL KAID delivers next-generation ERP systems, secure B1 billing software, high-performance business websites, and tailored cloud topologies.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "EL KAID | Enterprise Software and Trade Coordination",
+    title: "EL KAID | Enterprise Software and Technological Innovation",
     description:
-      "Seamless ERP systems, B1 billing software, lead-conversion business websites, and India-to-GCC B2B sourcing coordination.",
+      "Seamless ERP systems, B1 billing software, lead-conversion business websites, and high-performance cloud topologies.",
     url: "/",
     images: ["/assets/hero-real.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "EL KAID | Enterprise Software and Trade Coordination",
+    title: "EL KAID | Enterprise Software and Technological Innovation",
     description:
-      "Seamless ERP systems, B1 billing software, lead-conversion business websites, and India-to-GCC B2B sourcing coordination.",
+      "Seamless ERP systems, B1 billing software, lead-conversion business websites, and high-performance cloud topologies.",
     images: ["/assets/hero-real.png"],
   },
 };
@@ -37,8 +37,8 @@ export const metadata = {
 export default function Home() {
   const uniqueFeatures = [
     {
-      title: "Global Connectivity",
-      description: "Access your software and trade analytics from anywhere in the world. EL KAID bridges operational gaps across borders, allowing seamless international oversight."
+      title: "Cloud Topologies",
+      description: "Access your billing, inventory, and bookkeeping ledgers from anywhere. High-availability server node clusters guarantee 99.9% uptime for scaling entities."
     },
     {
       title: "AI-Driven Insights",
@@ -50,7 +50,7 @@ export default function Home() {
     },
     {
       title: "Unified Ecosystem",
-      description: "Stop juggling fragmented utilities. We integrate strategy, software development, documentation coordination, and infrastructure support into one cohesive platform."
+      description: "Stop juggling fragmented utilities. We integrate strategy, software development, CRM integrations, and infrastructure support into one cohesive platform."
     }
   ];
 
@@ -70,8 +70,8 @@ export default function Home() {
               <p className="text-neutral-500 tracking-widest uppercase text-xs font-semibold mb-3">Overview</p>
               <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight font-outfit">
                 Architecting the <br />
-                Future of B2B <br />
-                Commerce & <br />
+                Future of Digital <br />
+                Systems & <br />
                 Intelligence.
               </h2>
               <div className="flex justify-start mt-8 sm:mt-10 md:mt-12">
@@ -88,19 +88,13 @@ export default function Home() {
             {/* Right Column: Copy & Division Details */}
             <div className="text-left flex flex-col justify-center gap-8">
               <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
-                EL KAID Software & Tech Innovation Private Limited is a unified enterprise bridging high-availability software platforms with international B2B commerce. We structure operations around two core pillars designed for modular scaling and absolute reliability.
+                EL KAID Software & Tech Innovation Private Limited is a unified enterprise bridging next-generation high-availability software platforms with custom business architectures. We structure operations around core digital systems designed for modular scaling and absolute reliability.
               </p>
               <div className="space-y-6">
                 <div className="border-l-2 border-white pl-4">
-                  <h4 className="text-white font-bold text-base font-outfit mb-1">I. Digital Systems & B1 Platform</h4>
+                  <h4 className="text-white font-bold text-base font-outfit mb-1">Digital Systems & B1 Platform</h4>
                   <p className="text-neutral-400 text-xs sm:text-sm">
                     Next-generation ERP software, smart bookkeeping, analytics, and business website engineering focused on automated precision, robust compliance, and custom lead generation.
-                  </p>
-                </div>
-                <div className="border-l-2 border-gold pl-4">
-                  <h4 className="text-gold font-bold text-base font-outfit mb-1">II. B2B Trade & Sourcing Coordination</h4>
-                  <p className="text-neutral-400 text-xs sm:text-sm">
-                    India-to-GCC product sourcing coordination, commercial documentation structuring, and supplier alignment through licensed partner networks (UAE, Saudi Arabia, Qatar, Oman, Kuwait, Bahrain).
                   </p>
                 </div>
               </div>
@@ -117,17 +111,17 @@ export default function Home() {
           <div className="max-w-6xl mx-auto relative z-10">
             <div className="text-center mb-20">
               <span className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-neutral-500 text-[10px] uppercase tracking-widest font-mono">
-                Enterprise Pillars
+                Enterprise Platform
               </span>
               <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white font-outfit mt-4 leading-none">
-                Flagship Core Divisions
+                B1 System Architecture
               </h2>
               <p className="text-neutral-400 text-sm sm:text-base mt-4 max-w-xl mx-auto font-light leading-relaxed">
-                EL KAID operates two distinct modular business arms, engineered to standardise transaction ledgers and coordinate transnational trade corridors.
+                A secure, unified desktop application engineered to standardize accounting ledgers, automate invoicing workflows, and deliver live analytics.
               </p>
             </div>
 
-            {/* Click-Interactive Spec Bento Grid (B1 Software Dashboard and Trade Route Simulator) */}
+            {/* Click-Interactive Spec Bento Grid (B1 Software Dashboard and Tech Showcase) */}
             <SpecBentoGrid />
           </div>
         </section>
@@ -147,31 +141,31 @@ export default function Home() {
               Engineered Differently
             </h2>
             <p className="text-neutral-400 text-sm sm:text-base mt-4 max-w-xl mx-auto font-light leading-relaxed">
-              We design our products around speed, robust security guarantees, and seamless multi-branch visibility.
+              We design our platforms around speed, robust ledger security, and instant multi-branch data visibility.
             </p>
           </div>
 
           {/* Asymmetric Apple-style Bento Grid Matrix */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             
-            {/* Bento Card 1: Global Connectivity (Spans 2 columns on desktop for wide visual impact) */}
+            {/* Bento Card 1: ERP & Billing (Spans 2 columns on desktop for wide visual impact) */}
             <div className="md:col-span-2 glass-card p-8 md:p-10 rounded-[2.5rem] min-h-[300px] relative overflow-hidden group hover:scale-[1.01] duration-500 ease-out flex flex-col justify-between">
-              {/* Background glowing CSS world coordinate layout */}
+              {/* Background glowing layout */}
               <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none z-0"></div>
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white/5 rounded-full blur-[80px] pointer-events-none z-0"></div>
               
               <div className="relative z-10 max-w-md">
                 <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4 font-outfit tracking-tight">
-                  Global Sourcing Connectivity
+                  High-Performance Billing & ERP
                 </h3>
                 <p className="text-neutral-400 text-sm leading-relaxed font-light">
-                  Coordinate international supplier channels and monitor shipping milestones in real time. EL KAID provides a transnational bridge ensuring your accounting registers sync perfectly with physical commercial corridors across India and the GCC countries.
+                  Standardize financial entries and monitor inventory movements across departments without the latency of cloud-dependent tools. B1 Software operates natively to secure local processing buffers, syncing bookkeeping logs securely when connected.
                 </p>
               </div>
 
               <div className="relative z-10 pt-8 border-t border-white/5 flex justify-between items-center text-[10px] font-mono uppercase tracking-widest text-neutral-500">
-                <span>Transnational Network</span>
-                <span>Active Channels UAE / KSA</span>
+                <span>Hardened Native Software</span>
+                <span>Audit-Ready Ledger Systems</span>
               </div>
             </div>
 
@@ -190,7 +184,7 @@ export default function Home() {
                   AI-Driven Ledger Insights
                 </h3>
                 <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed font-light">
-                  Process billing ledgers and export documents to highlight margin bottlenecks and automatically flags transnational compliance anomalies.
+                  Process billing data locally to highlight margin changes, identify collection delays, and automatically flag accounting entry anomalies.
                 </p>
               </div>
 
@@ -221,23 +215,22 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Bento Card 4: Unified Ecosystem (1 column, accented with Gold outlines) */}
-            <div className="md:col-span-2 glass-card-gold p-8 md:p-10 rounded-[2.5rem] min-h-[300px] relative overflow-hidden group hover:scale-[1.01] duration-500 ease-out flex flex-col justify-between">
-              {/* Glowing coordinates lines backdrop */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-full blur-[40px] pointer-events-none" />
+            {/* Bento Card 4: Unified Ecosystem (1 column, Monochrome Styling) */}
+            <div className="md:col-span-2 glass-card p-8 md:p-10 rounded-[2.5rem] min-h-[300px] relative overflow-hidden group hover:scale-[1.01] duration-500 ease-out flex flex-col justify-between border-white/10">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-[40px] pointer-events-none" />
               
               <div className="relative z-10">
-                <h3 className="text-2xl sm:text-3xl font-bold text-gold mb-4 font-outfit tracking-tight text-glow-gold">
-                  Unified Transnational Ecosystem
+                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4 font-outfit tracking-tight">
+                  Unified Digital Systems
                 </h3>
                 <p className="text-neutral-400 text-sm leading-relaxed font-light">
-                  Why settle for fragmented components? Under EL KAID, we weave strategy, localized software engineering, secure bookkeeping databases, custom conversion-optimized business web design, and India-to-GCC sourcing coordinates into one monolithic corporate ecosystem.
+                  We integrate software architecture development, CRM integrations, secure bookkeeping databases, custom conversion-focused web engineering, and active infrastructure setups into one cohesive technical ecosystem.
                 </p>
               </div>
 
-              <div className="relative z-10 pt-8 border-t border-gold/10 flex justify-between items-center text-[10px] font-mono uppercase tracking-widest text-gold/60 text-glow-gold">
-                <span>Modular Architecture</span>
-                <span>Audit-Ready Standardisation</span>
+              <div className="relative z-10 pt-8 border-t border-white/5 flex justify-between items-center text-[10px] font-mono uppercase tracking-widest text-neutral-400">
+                <span>Monolithic Architecture</span>
+                <span>System Integration</span>
               </div>
             </div>
 

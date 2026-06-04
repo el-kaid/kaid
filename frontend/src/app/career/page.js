@@ -69,7 +69,7 @@ const CareerPage = () => {
         {
             icon: <Target className="w-10 h-10 text-white" />,
             title: "Result-Driven Excellence",
-            description: "We bypass standard presentations. We measure our engineering and trade systems solely by operational KPIs, uptime, and concrete value generated for users."
+            description: "We bypass standard presentations. We measure our engineering and platform systems solely by operational KPIs, uptime, and concrete value generated for users."
         },
         {
             icon: <Lightbulb className="w-10 h-10 text-white" />,
@@ -78,13 +78,13 @@ const CareerPage = () => {
         },
         {
             icon: <UsersIcon className="w-10 h-10 text-white" />,
-            title: "Transnational Alignment",
-            description: "We foster team collaboration across divisions. From backend engineers to logistics desk operators, diverse perspectives work in complete harmony."
+            title: "Collaborative Synergy",
+            description: "We foster team collaboration across divisions. From backend engineers to UI/UX designers, diverse perspectives work in complete harmony."
         },
         {
             icon: <Shield className="w-10 h-10 text-white" />,
             title: "Absolute Transparency",
-            description: "We coordinate complicated logistics and secure transaction workflows with complete honesty, strict compliance, and high ethical standars."
+            description: "We coordinate complicated backend architectures and secure transaction workflows with complete honesty, strict compliance, and high ethical standards."
         }
     ];
 
@@ -102,7 +102,7 @@ const CareerPage = () => {
         {
             icon: <TrendingUp className="w-6 h-6 text-white" />,
             title: "Growth Pathways",
-            description: "Dedicated learning budget, international trade exposure, and career growth tracks."
+            description: "Dedicated learning budget, complex system exposure, and career growth tracks."
         },
         {
             icon: <Coffee className="w-6 h-6 text-white" />,
@@ -126,8 +126,8 @@ const CareerPage = () => {
         },
         {
             icon: <Globe className="w-6 h-6 text-white" />,
-            title: "Transnational Impact",
-            description: "Coordinate platforms and workflows serving commerce corridors across regions."
+            title: "Global Reach",
+            description: "Build platforms and workflows serving distributed enterprises across regions."
         }
     ];
 
@@ -182,30 +182,6 @@ const CareerPage = () => {
         },
         {
             id: 3,
-            title: "B2B Trade Coordinator",
-            department: "Operations",
-            location: "Hybrid (Chennai)",
-            type: "Full-time",
-            experience: "2+ years",
-            salary: "Competitive",
-            description: "Coordinate supplier sourcing requests, invoice checks, packing list alignments, and partner logistics status (freight, custom brokers) across our India-to-GCC corridor.",
-            requirements: [
-                "2+ years in international B2B trade coordination or export documentation support",
-                "Familiarity with India-GCC import/export parameters and GST",
-                "Excellent commercial communication and vendor management skills",
-                "High attention to detail regarding trade specifications and terms (FOB, CIF)"
-            ],
-            responsibilities: [
-                "Bridge communications between GCC buyers, Indian suppliers, and licensed brokers",
-                "Coordinate proforma invoices, specifications, and packing logs",
-                "Ensure shipment milestone updates are logged in near real time",
-                "Perform strict supplier verification checks against buyer standards"
-            ],
-            featured: false,
-            posted: "2026-05-15"
-        },
-        {
-            id: 4,
             title: "DevOps Infrastructure Engineer",
             department: "Engineering",
             location: "Hybrid (Chennai)",
@@ -230,13 +206,12 @@ const CareerPage = () => {
         }
     ];
 
-    const departments = ['All', 'Engineering', 'Design', 'Operations'];
+    const departments = ['All', 'Engineering', 'Design'];
 
     const getDepartmentIcon = (department) => {
         switch (department) {
             case 'Engineering': return <Code className="w-5 h-5 text-white" />;
             case 'Design': return <Palette className="w-5 h-5 text-white" />;
-            case 'Operations': return <Building2 className="w-5 h-5 text-white" />;
             default: return <Briefcase className="w-5 h-5 text-white" />;
         }
     };
@@ -264,7 +239,7 @@ const CareerPage = () => {
                       Work With Us
                     </h1>
                     <p className="text-neutral-400 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed font-light mb-12">
-                      Join our mission to bridge high-availability enterprise software with global trade sourcing networks. We seek outstanding minds ready to solve practical problems at scale.
+                      Join our mission to build high-availability enterprise software and next-generation digital architectures. We seek outstanding minds ready to solve practical problems at scale.
                     </p>
                     <a
                         href="#roles"
@@ -385,7 +360,7 @@ const CareerPage = () => {
                         <div>
                             <p className="text-neutral-500 tracking-widest uppercase text-xs mb-3 font-mono">Opportunities</p>
                             <h2 className="text-3xl md:text-5xl font-bold text-white font-outfit">Open Roles</h2>
-                            <p className="text-neutral-400 text-sm mt-2">Join our transnational divisions and build the future.</p>
+                            <p className="text-neutral-400 text-sm mt-2">Join our technical teams and build the future.</p>
                         </div>
                         <button
                             onClick={handleGeneralApplication}

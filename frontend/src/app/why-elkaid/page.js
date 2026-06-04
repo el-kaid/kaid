@@ -3,17 +3,17 @@ import Navbar from "../../components/Navbar";
 import LeadCtaSection from "../../components/LeadCtaSection";
 
 export const metadata = {
-  title: "Why EL KAID | B1 Software and B2B Sourcing Partner",
+  title: "Why EL KAID | B1 Software and Tech Partner",
   description:
-    "Discover why enterprises choose EL KAID for smart B1 billing software, modern business website engineering, and secure India-to-GCC trade sourcing coordination.",
+    "Discover why enterprises choose EL KAID for smart B1 billing software, modern business website engineering, and high-performance digital solutions.",
   alternates: { canonical: "/why-elkaid" },
 };
 
 export default function WhyElkaidPage() {
   const stats = [
     { value: "Offline-First", label: "B1 Core Architecture" },
-    { value: "India to GCC", label: "Trade Coordination Corridor" },
-    { value: "100%", label: "GST & Custom B2B Compliance" },
+    { value: "Hardened Apps", label: "Windows Native builds" },
+    { value: "100%", label: "GST & Tax Reconciliation" },
     { value: "High-Availability", label: "Infrastructure & Uptime" },
   ];
 
@@ -32,21 +32,6 @@ export default function WhyElkaidPage() {
     },
   ];
 
-  const tradePillars = [
-    {
-      title: "transnational Sourcing Desk",
-      desc: "Supplier identification in India mapped precisely to GCC buyer specifications. Volume-focused B2B coordination with strict minimum order quantity (MOQ) parameters.",
-    },
-    {
-      title: "Documentation Coordination",
-      desc: "Review and alignment of commercial invoices, packing lists, product specifications, and shipping files across trading parties to prevent clearance bottlenecks.",
-    },
-    {
-      title: "Partner Logistics Channels",
-      desc: "Seamless communication bridge and status coordination via authorized customs brokers, licensed freight forwarders, and third-party quality inspection networks.",
-    },
-  ];
-
   return (
     <main className="min-h-screen bg-black text-white pt-36 font-inter">
       <Navbar />
@@ -61,7 +46,7 @@ export default function WhyElkaidPage() {
             Why EL KAID
           </h1>
           <p className="text-neutral-400 text-lg md:text-2xl leading-relaxed font-light">
-            EL KAID bridges modern technological innovation with global trade workflows. We operate as a unified corporate group, coordinating high-availability software platforms alongside trusted transnational sourcing networks from India to the GCC corridor.
+            EL KAID bridges modern technological innovation with high-performance digital architectures. We design and build enterprise billing setups, customizable ERP channels, and custom business websites that scale cleanly.
           </p>
         </header>
       </section>
@@ -79,71 +64,34 @@ export default function WhyElkaidPage() {
       </section>
 
       {/* === THE CORE DIVISION PILLARS === */}
-      <section className="max-w-6xl mx-auto px-6 md:px-12 mb-28">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <section className="max-w-4xl mx-auto px-6 md:px-12 mb-28">
+        <div className="glass-card p-8 md:p-12 rounded-[2rem] border border-white/10 hover:border-white/20 transition-all duration-300">
+          <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest block mb-4">/ PILLAR 01</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-outfit">Digital Systems & B1 Platform</h2>
+          <p className="text-neutral-400 text-sm leading-relaxed mb-8">
+            We design and deploy proprietary billing solutions, high-conversion brand sites, and hardened operational frameworks tailored for maximum data sovereignty and absolute uptime.
+          </p>
           
-          {/* Column 1: B1 Software & Digital Systems */}
-          <div className="glass-card p-8 md:p-12 rounded-[2rem] border border-white/10 hover:border-white/20 transition-all duration-300">
-            <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest block mb-4">/ PILLAR 01</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-outfit">Digital Systems & B1 Platform</h2>
-            <p className="text-neutral-400 text-sm leading-relaxed mb-8">
-              We design and deploy proprietary billing solutions, high-conversion brand sites, and hardened operational frameworks tailored for maximum data sovereignty and absolute uptime.
-            </p>
-            
-            <div className="space-y-8">
-              {softwarePillars.map((item, idx) => (
-                <div key={idx} className="border-l border-white/20 pl-5">
-                  <h4 className="text-white font-bold text-base font-outfit mb-2">{item.title}</h4>
-                  <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-10 pt-8 border-t border-white/10 flex justify-between items-center text-xs">
-              <span className="text-neutral-500 font-mono">b1.elkaid.com</span>
-              <a
-                href="https://b1.elkaid.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-2 bg-white text-black font-bold uppercase tracking-widest rounded-full hover:bg-neutral-200 transition-colors"
-              >
-                Launch Software Desk
-              </a>
-            </div>
+          <div className="space-y-8">
+            {softwarePillars.map((item, idx) => (
+              <div key={idx} className="border-l border-white/20 pl-5">
+                <h4 className="text-white font-bold text-base font-outfit mb-2">{item.title}</h4>
+                <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
           </div>
 
-          {/* Column 2: ELKAID Trade & B2B Sourcing */}
-          <div className="glass-card-gold p-8 md:p-12 rounded-[2rem] border border-gold/15 hover:border-gold/30 transition-all duration-300 relative overflow-hidden">
-            <div className="absolute -right-32 -bottom-32 w-64 h-64 rounded-full bg-gold/5 blur-3xl pointer-events-none"></div>
-            
-            <span className="text-[10px] font-mono text-gold/60 uppercase tracking-widest block mb-4">/ PILLAR 02</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gold mb-6 font-outfit">ELKAID B2B Trade Sourcing</h2>
-            <p className="text-neutral-400 text-sm leading-relaxed mb-8">
-              We operate a structured, partner-supported coordination network connecting Indian export commodities with commercial buyers across GCC markets.
-            </p>
-
-            <div className="space-y-8">
-              {tradePillars.map((item, idx) => (
-                <div key={idx} className="border-l border-gold/30 pl-5">
-                  <h4 className="text-gold font-bold text-base font-outfit mb-2 uppercase">{item.title}</h4>
-                  <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-10 pt-8 border-t border-gold/15 flex justify-between items-center text-xs">
-              <span className="text-gold/60 font-mono">trade.elkaid.com</span>
-              <a
-                href="https://trade.elkaid.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-2 bg-transparent border border-gold text-gold font-bold uppercase tracking-widest rounded-full hover:bg-gold hover:text-black transition-colors"
-              >
-                Access Sourcing Desk
-              </a>
-            </div>
+          <div className="mt-10 pt-8 border-t border-white/10 flex justify-between items-center text-xs">
+            <span className="text-neutral-500 font-mono">b1.elkaid.com</span>
+            <a
+              href="https://b1.elkaid.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-2 bg-white text-black font-bold uppercase tracking-widest rounded-full hover:bg-neutral-200 transition-colors"
+            >
+              Launch B1 Platform
+            </a>
           </div>
-
         </div>
       </section>
 
@@ -151,7 +99,7 @@ export default function WhyElkaidPage() {
       <section className="max-w-6xl mx-auto px-6 md:px-12 mb-28 border-t border-white/10 pt-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div className="col-span-1">
-            <p className="text-gold tracking-widest uppercase text-xs font-semibold mb-3">Enterprise Standard</p>
+            <p className="text-neutral-500 tracking-widest uppercase text-xs font-semibold mb-3">Enterprise Standard</p>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white font-outfit leading-tight">
               Practical Outcomes & Uptime
             </h2>
@@ -160,13 +108,13 @@ export default function WhyElkaidPage() {
             <div className="space-y-3">
               <h4 className="text-lg font-bold text-white font-outfit">Proof-Oriented Alignment</h4>
               <p className="text-neutral-400 text-sm leading-relaxed">
-                We tie software modules and commercial trade corridors directly to verifiable business KPIs: reduced cycle intervals, complete documentation trails, and real-time dashboard auditability.
+                We tie software modules and custom database pipelines directly to verifiable business KPIs: reduced ledger audit intervals, complete secure data trails, and real-time dashboard analytics.
               </p>
             </div>
             <div className="space-y-3">
-              <h4 className="text-lg font-bold text-white font-outfit">Local Realities, Global Flow</h4>
+              <h4 className="text-lg font-bold text-white font-outfit">Local Realities, Digital Flow</h4>
               <p className="text-neutral-400 text-sm leading-relaxed">
-                Our operations coordinate transnational parameters (India GST, GCC clearances, regional logistics routes) so that B2B commerce transitions seamlessly without regulatory bottlenecks.
+                Our operations coordinate technical parameters (GST updates, Windows offline-first databases, high-availability networks) so that billing transactions process seamlessly without lag or security leaks.
               </p>
             </div>
           </div>

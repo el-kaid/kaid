@@ -23,23 +23,21 @@ const gaId =
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "EL KAID | B1 Software, B2B Trade & Sourcing Coordination",
+    default: "EL KAID | B1 Software & Technological Innovation",
     template: "%s | EL KAID",
   },
   description:
-    "EL KAID delivers next-generation ERP systems, smart B1 billing software, custom business websites, and India-to-GCC B2B sourcing coordination services.",
+    "EL KAID delivers next-generation ERP systems, smart B1 billing software, custom business websites, and high-performance digital architectures.",
   applicationName: "EL KAID",
   keywords: [
     "B1 Software",
     "billing software",
     "bookkeeping software",
-    "B2B trade coordination",
-    "supplier sourcing India",
-    "trade coordination GCC",
     "enterprise ERP software",
     "disaster recovery",
     "data center solutions",
-    "business website development"
+    "business website development",
+    "technological innovation"
   ],
   alternates: {
     canonical: "/",
@@ -49,9 +47,9 @@ export const metadata = {
     locale: "en_US",
     url: "/",
     siteName: "EL KAID",
-    title: "EL KAID | B1 Software, B2B Sourcing and Digital Systems",
+    title: "EL KAID | B1 Software & Technological Innovation",
     description:
-      "Proprietary B1 billing ecosystems and India-to-GCC B2B sourcing coordination services designed for transnational enterprises.",
+      "Proprietary B1 billing ecosystems and high-availability enterprise digital architectures.",
     images: [
       {
         url: "/assets/hero-real.png",
@@ -63,9 +61,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "EL KAID | B1 Software, B2B Sourcing and Digital Systems",
+    title: "EL KAID | B1 Software & Technological Innovation",
     description:
-      "Proprietary B1 billing ecosystems and India-to-GCC B2B sourcing coordination services designed for transnational enterprises.",
+      "Proprietary B1 billing ecosystems and high-availability enterprise digital architectures.",
     images: ["/assets/hero-real.png"],
   },
 };
