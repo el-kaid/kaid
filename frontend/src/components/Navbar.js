@@ -51,7 +51,6 @@ const Navbar = () => {
     const navItems = [
         { path: '/', label: 'Home' },
         { path: 'https://b1.elkaid.com', label: 'B1 Software', isExternal: true },
-        { path: 'https://trade.elkaid.com', label: 'B2B Trade', isExternal: true },
         { path: '/our-work', label: 'Innovation' },
         { path: '/why-elkaid', label: 'Why EL KAID' },
         { path: '/blog', label: 'Blog' },
@@ -75,7 +74,7 @@ const Navbar = () => {
                     <Link href="/" className="text-lg font-bold tracking-[0.2em] hover:opacity-80 transition-opacity leading-none font-outfit">
                         EL KAID
                     </Link>
-
+ 
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center gap-6">
                         {navItems.map((item) => {
@@ -95,9 +94,7 @@ const Navbar = () => {
                                 >
                                     <span className={`relative z-10 transition-colors duration-300 ${
                                         item.isExternal
-                                            ? item.label === 'B2B Trade'
-                                                ? 'text-gold hover:text-gold-hover'
-                                                : 'text-neutral-300 hover:text-white'
+                                            ? 'text-neutral-300 hover:text-white'
                                             : isActive(item.path)
                                                 ? 'text-white'
                                                 : 'text-neutral-400 group-hover:text-white'
@@ -155,9 +152,7 @@ const Navbar = () => {
                                 >
                                     <span className={
                                         item.isExternal
-                                            ? item.label === 'B2B Trade'
-                                                ? 'text-gold font-semibold'
-                                                : 'text-neutral-300'
+                                            ? 'text-neutral-300'
                                             : isActive(item.path)
                                                 ? 'text-white font-medium'
                                                 : 'text-neutral-500'

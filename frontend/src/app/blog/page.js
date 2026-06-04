@@ -29,9 +29,9 @@ const posts = [
 ];
 
 export const metadata = {
-  title: "Blog: ERP, B2B Sourcing, Infrastructure & DR | EL KAID",
+  title: "Blog: ERP, Infrastructure & DR | EL KAID",
   description:
-    "Read EL KAID insights on B1 billing software engineering, B2B trade sourcing coordination, resilient data centers, and disaster recovery.",
+    "Read EL KAID insights on B1 billing software engineering, systems design, resilient data centers, and disaster recovery.",
   alternates: { canonical: "/blog" },
 };
 
@@ -49,7 +49,7 @@ export default function BlogPage() {
             Blog
           </h1>
           <p className="text-neutral-400 text-lg md:text-2xl leading-relaxed font-light">
-            Expert notes on B1 Software platforms, B2B trade coordination, high-availability architecture, and disaster recovery.
+            Expert notes on B1 Software platforms, systems design, high-availability architecture, and disaster recovery.
           </p>
         </header>
 

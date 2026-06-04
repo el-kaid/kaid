@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import ScrollDown from './ScrollDown';
 
@@ -94,7 +95,7 @@ const Hero = () => {
                         className="text-6xl md:text-8xl lg:text-[7rem] font-bold tracking-tighter mb-8 leading-[0.9] font-outfit text-white relative group"
                     >
                         {/* Apple-style clean text with dynamic glow transitions */}
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/70 hover:to-gold transition-all duration-700">
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/70 hover:to-neutral-400 transition-all duration-700">
                             EL KAID
                         </span>
                     </motion.h1>
@@ -113,14 +114,12 @@ const Hero = () => {
                         >
                             Explore B1 Software
                         </a>
-                        <a
-                            href="https://trade.elkaid.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-8 py-4 bg-transparent border border-gold/45 text-gold font-bold text-[10px] uppercase tracking-widest hover:border-gold hover:bg-gold hover:text-black transition-all text-center rounded-full text-glow-gold"
+                        <Link
+                            href="/why-elkaid"
+                            className="px-8 py-4 bg-transparent border border-white/20 text-white font-bold text-[10px] uppercase tracking-widest hover:border-white hover:bg-white hover:text-black transition-all text-center rounded-full"
                         >
-                            Access B2B Trade
-                        </a>
+                            Learn More
+                        </Link>
                     </motion.div>
                 </motion.div>
 

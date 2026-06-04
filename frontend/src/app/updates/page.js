@@ -37,13 +37,7 @@ const UpdatesPage = () => {
             responseTime: '< 1 hour'
         },
         {
-            icon: <Users className="w-6 h-6 text-white" />,
-            title: 'B2B Sourcing Query',
-            description: 'India-to-GCC export specifications, supplier validations, or active corridor tracking.',
-            responseTime: '< 30 minutes'
-        },
-        {
-            icon: <Building2 className="w-6 h-6 text-gold" />,
+            icon: <Building2 className="w-6 h-6 text-white" />,
             title: 'Enterprise Solutions',
             description: 'Custom configurations, multi-branch setups, or high-availability data infrastructure.',
             responseTime: 'Same day'
@@ -88,7 +82,7 @@ const UpdatesPage = () => {
                       Support Hub
                     </h1>
                     <p className="text-neutral-400 text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed font-light">
-                      Get in touch with our team for standard B1 platform configurations, custom enterprise accounting, or transnational B2B trade coordination queries.
+                      Get in touch with our team for standard B1 platform configurations, custom enterprise accounting, or hardware and system integration queries.
                     </p>
                 </div>
             </section>
@@ -114,18 +108,18 @@ const UpdatesPage = () => {
                         </div>
 
                         {/* Email Card */}
-                        <div className="glass-card-gold p-10 rounded-[2rem] flex flex-col justify-between min-h-[320px] relative overflow-hidden group">
-                            <div className="absolute -right-24 -bottom-24 w-48 h-48 rounded-full bg-gold/5 blur-3xl pointer-events-none"></div>
+                        <div className="glass-card p-10 rounded-[2rem] flex flex-col justify-between min-h-[320px] relative overflow-hidden group">
+                            <div className="absolute -right-24 -bottom-24 w-48 h-48 rounded-full bg-white/5 blur-3xl pointer-events-none"></div>
                             <div>
-                                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-6 text-gold bg-gold/5 border border-gold/15">
+                                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-6 text-white bg-white/5 border border-white/10">
                                     <Mail className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-2xl font-bold mb-2 tracking-wide uppercase font-outfit text-gold">Email Support</h3>
+                                <h3 className="text-2xl font-bold mb-2 tracking-wide uppercase font-outfit text-white">Email Support</h3>
                                 <p className="text-neutral-400 text-sm mb-6">Get detailed documentation help via email</p>
-                                <p className="text-xl font-bold text-white mb-2 font-mono underline decoration-gold/30 underline-offset-4">support@elkaid.com</p>
+                                <p className="text-xl font-bold text-white mb-2 font-mono underline decoration-white/30 underline-offset-4">support@elkaid.com</p>
                             </div>
                             <div>
-                                <p className="text-[10px] text-gold/50 uppercase tracking-widest font-mono">Response within 2 business hours</p>
+                                <p className="text-[10px] text-neutral-500 uppercase tracking-widest font-mono">Response within 2 business hours</p>
                             </div>
                         </div>
 
@@ -195,7 +189,6 @@ const UpdatesPage = () => {
                                             >
                                                 <option value="billing">B1 Accounting & Billing</option>
                                                 <option value="taxation">Taxation & Compliance</option>
-                                                <option value="sourcing">B2B Sourcing coordination</option>
                                                 <option value="technical">Technical Support</option>
                                                 <option value="other">Other Inquiry</option>
                                             </select>
@@ -281,10 +274,10 @@ const UpdatesPage = () => {
             {/* === PROMISE === */}
             <section className="py-24 px-6 md:px-12 bg-onyx border-t border-white/10">
                 <div className="max-w-4xl mx-auto text-center">
-                    <p className="text-gold tracking-widest uppercase text-xs font-semibold mb-3">Enterprise Guarantee</p>
+                    <p className="text-neutral-500 tracking-widest uppercase text-xs font-semibold mb-3">Enterprise Guarantee</p>
                     <h2 className="text-4xl md:text-5xl font-bold mb-6 font-outfit">Our Support Promise</h2>
                     <p className="text-neutral-400 text-sm sm:text-base max-w-2xl mx-auto mb-16 leading-relaxed">
-                        We avoid standard corporate templates and focus on delivering active engineering and operational resolutions that keep your company running.
+                        We avoid standard corporate templates and focus on delivering active engineering and operational resolutions that keep your platforms running.
                     </p>
 
                     <div className="grid md:grid-cols-3 gap-12">
@@ -303,7 +296,7 @@ const UpdatesPage = () => {
                             </div>
                             <h3 className="text-xl font-bold font-outfit">Focused Specialists</h3>
                             <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed">
-                                Direct interaction with technical engineers and logistics coordination staff who own the workflows.
+                                Direct interaction with technical engineers and database system architects who own the platforms.
                             </p>
                         </div>
                         <div className="text-center space-y-4">
@@ -312,7 +305,7 @@ const UpdatesPage = () => {
                             </div>
                             <h3 className="text-xl font-bold font-outfit">Reliable Continuity</h3>
                             <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed">
-                                Escalated 24/7 priority pathways for enterprise system integrations and global trade desk operations.
+                                Escalated 24/7 priority pathways for enterprise system integrations and production cluster rollouts.
                             </p>
                         </div>
                     </div>
